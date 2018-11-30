@@ -15,7 +15,7 @@
 				<td>글쓰기</td>
 			</tr>
 		</table>
-
+		<!-안녕--->
 		<form name="postFrm" method="post" action="postProc.jsp"
 			enctype="multipart/form-data">
 			<table>
