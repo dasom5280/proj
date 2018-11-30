@@ -10,7 +10,6 @@
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
 
-	int num1;
 	int totalPage = 0; //전체 페이지 수
 	int totalBlock = 0; //전체 블럭수 
 
