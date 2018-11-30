@@ -5,7 +5,7 @@
 <jsp:useBean id="bMgr" class="pack_JDBC.PostMgr" scope="page" />
 <%
 	request.setCharacterEncoding("UTF-8");
-
+//gfcchcgjgg
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
