@@ -12,7 +12,6 @@
 <title>로그인</title>
 <link rel="stylesheet" href="../css/style.css">
 
-<script src="../js/script.js"></script>
 
 </head>
 <body>
@@ -51,9 +50,9 @@
 						size="18"></td>
 				</tr>
 				<tr>
-					<td colspan="2" id="tdRange"><input type="button" value="로그인"
-						onclick="loginCheck()"> &nbsp;&nbsp;&nbsp; <input
-						type="button" value="회원가입" onclick="location.href='member.jsp'">
+					<td colspan="2" id="tdRange">
+					<input type="button" value="로그인" onclick="loginCheck()"> &nbsp;&nbsp;&nbsp; 
+					<input type="button" value="회원가입" onclick="location.href='member.jsp'">
 					</td>
 				</tr>
 			</table>
@@ -64,7 +63,6 @@
 		%>
 
 	</div>
-
-
+<script src="../js/script.js"></script>
 </body>
 </html>
