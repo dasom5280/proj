@@ -1,3 +1,4 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="pack_JDBC.*" %>    
@@ -13,8 +14,15 @@ String url = "login.jsp";
 String msg = "아이디와 비밀번호를 확인해주세요";
 
 if (result) {
-	session.setAttribute("idKey", id);
+	MemberBean bean = new MemberBean();
+	bean = mMgr.getMember(id, pass);
+	
+	if(bean != null){
+	session.setAttribute("loginBean", bean);
 	msg = id + " 님 안녕하세요~ ";
+	} else {
+		msg = "예외 발생";
+	}
 }
 %>
 

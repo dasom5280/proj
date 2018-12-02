@@ -146,8 +146,8 @@ public class PostMgr {
 			if (multi.getParameter("contentType").equalsIgnoreCase("TEXT")) {
 				content = UtilMgr.replace(content, "<", "&lt;");
 			}
-			sql = "insert tblPost(name,content,subject,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-			sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?, ?)";
+			sql = "insert into tblPost(name, content, subject, ref, pos, depth, regdate, pass, count, ip, filename, filesize) ";
+			sql += " values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, multi.getParameter("name"));
 			pstmt.setString(2, content);
