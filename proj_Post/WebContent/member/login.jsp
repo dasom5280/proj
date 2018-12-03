@@ -57,7 +57,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align : center; padding : 10px;">
-					<input type="button" value="관리자 로그인" onclick="location.href=''">
+					<input type="button" value="관리자 로그인" onclick="location.href='../admin/adminLogin.jsp'">
 					</td>
 				</tr>
 			</table>

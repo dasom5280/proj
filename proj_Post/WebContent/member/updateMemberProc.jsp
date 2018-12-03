@@ -13,7 +13,12 @@
 	session.setAttribute("loginBean", upBean);
 	String url = "updateMember.jsp";
 	response.sendRedirect(url);
+		
 %>
+<script>
+	alert("회원정보가 수정되었습니다.");
+	</script>
+	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,5 +27,6 @@
 </head>
 <body>
 	<div id="wrap"></div>
+	
 </body>
 </html>
