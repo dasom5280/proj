@@ -9,7 +9,7 @@
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
-
+	
 	int totalPage = 0; //전체 페이지 수
 	int totalBlock = 0; //전체 블럭수 
 
@@ -246,7 +246,6 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 			
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-
 	</div>
 </body>
 </html>

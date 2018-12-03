@@ -19,19 +19,34 @@ boolean result = mMgr.checkId(id);
 </head>
 <body>
 	<div id="wrap">
-		<p style="text-align: center; font-size: 20px; margin-top: 30px;">
+	<form name="idCheckFrm" method="post" action="idCheck.jsp" style="text-align: center; font-size: 20px; margin-top: 30px;">
 			<%=id%>
 			<%
 if (result) {
 	out.print(" 는 사용중인 ID입니다.");
+	%> 
+	<input type="hidden" name="check" value="0">
+	
+	<%
 } else {
 	out.print(" 는 사용가능합니다.");
+	%>
+	<input type="hidden" name="check" value="1">
+	<% 
 }
 %>
 			<br>
-			<br> <a href="#" onclick="self.close()">닫기</a>
-		</p>
+			<br> <a href="#" onclick="chkClose()">닫기</a>
+		</form>
 
 	</div>
+	
+	<script>
+	function chkClose(){
+		opener.regFrm.idChkValue.value = document.idCheckFrm.check.value;
+		self.close();
+	}
+	
+	</script>
 </body>
 </html>

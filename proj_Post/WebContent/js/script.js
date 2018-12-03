@@ -1,5 +1,3 @@
-
-
 function list() {
 	document.listFrm.action = "list.jsp";
 	document.listFrm.submit();
@@ -72,8 +70,11 @@ function inputCheck() {
 	} else if (frm.pass.value == "") {
 		alert("비밀번호를 입력해주세요");
 		frm.pass.focus();
-	} else if (frm.pass.value != frm.repass.value) {
-		alert("비밀번호가 일치하지 않습니다.");
+	} else if (frm.repass.value == "") {
+		alert("비밀번호를 확인해주세요");
+		frm.pass.focus();
+	}else if (frm.pass.value != frm.repass.value) {
+		alert("비밀번호가 일치하지 않습니다");
 		frm.repass.value = "";
 		frm.pass.focus();
 	} else if (frm.name.value == "") {
@@ -91,6 +92,9 @@ function inputCheck() {
 	} else if (frm.address.value == "") {
 		alert("주소를 입력해주세요");
 		frm.address.focus();
+	} else if (frm.idChkValue.value == "0") {
+		alert("아이디 중복확인을 해주세요.");
+		frm.idChkBtn.focus();
 	} else {
 		frm.method = "post";
 		frm.action = "memberProc.jsp";
