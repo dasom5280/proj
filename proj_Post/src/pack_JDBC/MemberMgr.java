@@ -9,6 +9,7 @@ import java.util.Vector;
 import pack_Bean.MemberBean;
 import pack_Bean.PostBean;
 import pack_Bean.ZipcodeBean;
+import pack_Bean.AccessRecordBean;
 import pack_DBCP.DBConnectionMgr;
 import pack_Util.UtilMgr;
 
@@ -252,6 +253,41 @@ public class MemberMgr {
 	}
 ////////////////////로그인 기록 정보 추가 끝 ////////////////////
 
+////////////////////로그인 기록 정보 반환 ////////////////////
+	public Vector<AccessRecordBean> getARecord(String id) {
+
+		Connection objConn = null;
+		PreparedStatement objPstmt = null;
+		ResultSet objRs = null;
+		String sql = null;
+		Vector<AccessRecordBean> vlist = new Vector<>();
+
+		try {
+
+			objConn = pool.getConnection();
+			sql = "select * from accessRecord where id=?";
+			objPstmt = objConn.prepareStatement(sql);
+			objPstmt.setString(1, id);
+
+			objRs = objPstmt.executeQuery();
+
+			while (objRs.next()) {
+				AccessRecordBean bean = new AccessRecordBean();
+				bean.setId(objRs.getString(1));
+				bean.setLoginTime(objRs.getDate(2));
+				bean.setIp(objRs.getString(3));
+				vlist.add(bean);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(objConn, objPstmt);
+		}
+		return vlist;
+	}
+////////////////////로그인 기록 정보 반환 끝 ////////////////////
+
 ////////////////////회원 정보 반환 시작 ////////////////////
 	public MemberBean getMember(String id, String pass) {
 		Connection con = null;
@@ -292,4 +328,7 @@ public class MemberMgr {
 	}
 
 ////////////////////회원 정보 반환 끝 ////////////////////
+
+
+
 }

@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
+String id = (String)session.getAttribute("id");
+
+if(id!=null){
+	response.sendRedirect("adminMain.jsp");
+}
 %>    
 <!DOCTYPE html>
 <html lang="KO">
@@ -12,28 +17,27 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" href="css/style.css">
 
 <script type="text/javascript">
- $("document").ready(function(){
-	 $("#btnLogin").click(function(){
-		 var adminId = $("#adminId").val();
-		 var adminPw = $("#adminPw").val();
-		 
-		 if(adminId == ""){
-			 alert("아이디를 입력하세요.");
-			 $("#adminId").focus();
-			 return;
-		 }
-		 
-		 if (adminPw == "") {
-			alert("비밀번호를 입력하세요.");
-			$("#adminPw").focus();
-			return;
-		}
-		 
-		 document.form.action="loginProc.jsp"
-		 document.form.submit();
-	 });
- });
- 
+
+function adminCheck(){
+	var adminId = document.adminFrm.adminId.value;
+	var adminPw = document.adminFrm.adminPw.value;
+	
+	 if(adminId == ""){
+		 alert("아이디를 입력하세요.");
+		 document.adminFrm.adminId.focus();
+		 return;
+	 }
+	 
+	 if (adminPw == "") {
+		alert("비밀번호를 입력하세요.");
+		document.adminFrm.adminPw.focus();
+		return;
+	} 
+	 
+	 document.adminFrm.action="loginProc.jsp"
+	 document.adminFrm.submit();
+}
+
 </script>
 
 </head>
@@ -41,12 +45,12 @@ request.setCharacterEncoding("UTF-8");
 	<div id="wrap">
 	
 	<h2>관리자 로그인</h2>
-	<form name="form" method="post">
+	<form name="adminFrm" method="post">
 	 <table>
 	   
 	   <tr>
 	     <td>아이디</td>
-	     <td><input name="adminId" id="id"></td>
+	     <td><input type="text" name="adminId" id="id"></td>
 	   </tr>
 	   
 	   <tr>
@@ -56,13 +60,13 @@ request.setCharacterEncoding("UTF-8");
 	   
 	   <tr>
 	     <td colspan="2" align="center">
-	       <input type="button" value="로그인" onclick="location.href='loginProc.jsp'">
-	       
-	     
+	       <input type="button" value="로그인" onclick="adminCheck()">
+	      
 	     </td>
 	   </tr>
 	   
 	 </table>
+	 <input type="hidden" name="ip" value="<%=request.getRemoteAddr() %>">
 	</form>
 
 	</div>

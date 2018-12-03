@@ -4,14 +4,14 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>마이페이지</title>
 <link rel="stylesheet" href="../css/myPageStyle.css">
 </head>
 <body>
 	<div id="wrap">
 		<header class="top">
 
-			<img id="headerLogo" src="images/headerLogo.gif" alt="로고"> <br>
+			<a href="../main.jsp" title="로고"><img id="headerLogo" src="images/headerLogo.gif" alt="로고"></a><br>
 			<br>
 			<h2>
 				<b>마이페이지</b>
