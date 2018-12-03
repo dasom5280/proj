@@ -16,6 +16,9 @@
 	int nowPage = 1; // 현재페이지
 	int nowBlock = 1; //현재블럭
 
+	
+	int nodddofhodfhfd = 5;
+
 	int start = 0; //디비의 select 시작번호
 	int end = 10; //시작번호로 부터 가져올 select 갯수
 
@@ -51,6 +54,7 @@
 						//현재블럭 계산
 	totalBlock = (int) Math.ceil((double)totalPage / pagePerBlock);
 						//전체블럭계산
+					
 %>
 
 <!DOCTYPE html>
@@ -93,7 +97,7 @@
 <body>
 	<div id="wrap">
 
-		<h1>JSPPost</h1>
+		<h1>JSPPost Change</h1>
 		<table class="listTbl">
 			<tr>
 				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">

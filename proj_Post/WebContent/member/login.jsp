@@ -12,7 +12,6 @@
 <title>로그인</title>
 <link rel="stylesheet" href="../css/style.css">
 
-
 </head>
 <body>
 	<div id="wrap">
@@ -27,8 +26,9 @@
 		</h1>
 		<p>제한된 기능을 사용 할 수 있습니다.</p>
 		<p>
-			<a href="logout.jsp">로그아웃</a>&nbsp;&nbsp;<a href="passCheck.jsp"
-				title="회원정보 수정">회원정보 수정</a>
+			<a href="logout.jsp" title="로그아웃">로그아웃</a>&nbsp;&nbsp;
+			<a href="passCheck.jsp" title="회원정보 수정">회원정보 수정</a>&nbsp;&nbsp;
+			<a href="../main.jsp" title="메인">메인페이지로</a>
 		</p>
 		<%
 			}
@@ -38,7 +38,7 @@
 		<form name="loginFrm" id="loginFrm">
 			<table>
 				<tr>
-					<td colspan="2" style="font-weight: bold;">로그인</td>
+					<td colspan="2" style="text-align: center; font-weight: bold;">로그인</td>
 				</tr>
 				<tr>
 					<td>아이디</td>
@@ -51,12 +51,17 @@
 				</tr>
 				<tr>
 					<td colspan="2" id="tdRange">
-					<input type="button" value="로그인" onclick="loginCheck()"> &nbsp;&nbsp;&nbsp; 
+					<input type="button" value="로그인" onclick="loginCheck()">&nbsp;&nbsp;&nbsp; 
 					<input type="button" value="회원가입" onclick="location.href='member.jsp'">
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2" style="text-align : center; padding : 10px;">
+					<input type="button" value="관리자 로그인" onclick="location.href=''">
+					</td>
+				</tr>
 			</table>
-
+					<input type="hidden" name="ip" value="<%=request.getRemoteAddr() %>" >
 		</form>
 		<%
 			}

@@ -32,7 +32,7 @@
 %>
 <script>
 	alert("탈퇴가 완료되었습니다.");
-	location.href = "login.jsp";
+	location.href = "../main.jsp";
 </script>
 <%
 	} else {
