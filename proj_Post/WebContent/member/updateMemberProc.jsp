@@ -11,14 +11,14 @@
 <%
 	mMgr.updateMember(upBean);
 	session.setAttribute("loginBean", upBean);
-	String url = "login.jsp";
+	String url = "updateMember.jsp";
 	response.sendRedirect(url);
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원정보 수정</title>
+<title>회원 정보 수정</title>
 </head>
 <body>
 	<div id="wrap"></div>

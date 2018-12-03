@@ -169,31 +169,6 @@ form table {
 }
 /*///// replay(답변글) 끝 /////*/
 
-@charset "UTF-8";
-
-/* 웹표준으로 CSS 코드 작성 */
-/* 나눔고딕체 적용, 
-    float, display:table, semantic 
-    레이아웃 적용할 필요없음 
-    본인이 판단하여 필요하다고 생각하는
-    기초적인 CSS 적용
-    */
-@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
-
-body {
-  	font-size : small;   
-  	font-family : "Nanum Gothic", Verdana, sans-serif;
-  	background : #efe5d0;	
-  	margin  :  20px;
-  	margin-top : 20px;
-}
-
-div#wrap {  	
-	width : 680px;
-	border : 1px solid gray;		
-	margin : 0 auto; 
-}	
-
 /*///// 로그인 form 시작 /////*/
 form#loginFrm table {
 	width : 300px;
@@ -256,17 +231,18 @@ form#regFrm td:last-child {
 
 
 div#wrapZip {  	
-	width : 450px;
-	border : 1px solid gray;		
+	width : 450px;	
 	margin : 0 auto; 
 }	
 
 form#zipFrm table  {	
 	border-collapse: collapse;
+	border : 1px solid gray;	
 }
 
 td.zipRes  {	
 	font-size : 18px;
+	border : 1px solid gray;
 	line-height : 1.5em;
 }
 td.zipRes a {	

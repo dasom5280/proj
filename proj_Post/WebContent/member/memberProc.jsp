@@ -10,7 +10,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>회원가입</title>
 <script>
 <%
 boolean result = mMgr.insertMember(bean);

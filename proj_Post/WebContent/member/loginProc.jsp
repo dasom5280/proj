@@ -8,6 +8,7 @@
 <%
 String id = request.getParameter("id");
 String pass = request.getParameter("pass");
+String ip = request.getParameter("ip");
 boolean result = mMgr.loginMember(id, pass);
 
 String url = "login.jsp";
@@ -18,8 +19,10 @@ if (result) {
 	bean = mMgr.getMember(id, pass);
 	
 	if(bean != null){
+	mMgr.insertARecord(id, ip);
 	session.setAttribute("loginBean", bean);
 	msg = id + " 님 안녕하세요~ ";
+	url = "../main.jsp";
 	} else {
 		msg = "예외 발생";
 	}
@@ -31,7 +34,7 @@ if (result) {
 <html lang="KO">
 <head>
 <meta charset="UTF-8"> 
-<title>JSP 테스트</title>
+<title>로그인</title>
 <script>
 	alert("<%=msg%>");
 	location.href="<%=url%>";

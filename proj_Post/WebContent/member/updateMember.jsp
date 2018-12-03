@@ -7,7 +7,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원정보 수정</title>
+<title>회원 정보 수정</title>
+<link rel="stylesheet" href="../css/myPageStyle.css">
+
 <%
 	request.setCharacterEncoding("utf-8");
 	String insPass = request.getParameter("pass");
@@ -38,87 +40,121 @@
 </head>
 <body>
 	<div id="wrap">
-		<h2>마이페이지</h2>
-		<h3>회원 정보 수정</h3>
+	
+		<header class="top">
+			<img id="headerLogo" src="images/headerLogo.gif" alt="로고"> <br>
+			<br>
+			<h2>
+				<b>마이페이지</b>
+			</h2>
+		</header>
 		
-		
+		<div id="main">
 		<form name="regFrm" method="post">
-	
-	<table>
-	
-	<tr>
-	<td colspan="3"><b>회원 정보</b></td>
-	</tr>
-	
-	<tr>
-	<td>아이디</td>
-	<td><input type="text" name="id" size="15" readonly="readonly" value="<%=id%>">
-	</td>
-	
-	<tr>
-	<td>패스워드</td>
-	<td><input type="password" name="pass" size="15" value=""></td>
-	</tr>
-	
-	<tr>
-	<td>패스워드 확인</td>
-	<td><input type="password" name="repass" size="15" value=""></td>
-	</tr>
-	
-	<tr>
-	<td>이름</td>
-	<td><input type="text" name="name" size ="15" value="<%=name%>"></td>
-	</tr>
-	
-	<tr>
-	<td>성별</td>
-	<td>남<input type="radio" name="gender" value="1" <% if(gender.equals("1")){ %> checked="checked" <% } %>> 
-	 여<input type="radio" name="gender" value="2" <% if(gender.equals("2")){ %> checked="checked"<% } %> >
-	</td>
-	</tr>
-	
-	<tr>
-	<td>생년월일</td>
-	<td><input type="text" name="birthday" size="6" value="<%= birthday%>"></td>
-	</tr>
-	
-	<tr>
-	<td>Email</td>
-	<td><input type="text" name="email" size="30" value="<%= email %>"></td>
-	</tr>
-	
-	<tr>
-	<td>우편번호</td>
-	<td><input type="text" name="zipcode" size="7" value="<%=zipcode %>" readonly>
-	<input type="button" value="우편번호찾기" onclick="zipCheck()"></td>
-	</tr>
-	
-	<tr>
-	<td>주소</td>
-	<td><input type="text" name="address" size="45" value ="<%=address %>"></td>
-	</tr>
-	
-	<tr>
-	<td>전화번호</td>
-	<td><input type="text" name="phone1" size="4" maxlength="3" value="<%= phone1 %>">
-	&nbsp;-&nbsp;<input type="text" name="phone2" size="5" maxlength="4" value="<%=phone2%>">
-	&nbsp;-&nbsp;<input type="text" name="phone3" size="5" maxlength="4" value="<%=phone3 %>"></td>
-	</tr>
-	<tr>
-	<td colspan="3">
-	<input type="button" value="정보수정" onclick="inputCheck()">
-	&nbsp;&nbsp;
-	<input type="reset" value="다시쓰기">
-	&nbsp;&nbsp;
-	<input type="button" value="돌아가기" onclick="location.href='login.jsp'"></td>
-	</tr>
-	<tr>
-	<td>
-	<input type="button" value="회원탈퇴" onclick="location.href='quitMember.jsp'"></td>
-	</tr>
-	</table>
-	</form>
-	<% } %>
+		<table>
+		
+		<tr>
+		<td colspan="3"><b>회원 정보</b></td>
+		</tr>
+		
+		<tr>
+		<td>아이디</td>
+		<td><input type="text" name="id" size="15" readonly="readonly" value="<%=id%>">
+		</td>
+		
+		<tr>
+		<td>패스워드</td>
+		<td><input type="password" name="pass" size="15" value=""></td>
+		</tr>
+		
+		<tr>
+		<td>패스워드 확인</td>
+		<td><input type="password" name="repass" size="15" value=""></td>
+		</tr>
+		
+		<tr>
+		<td>이름</td>
+		<td><input type="text" name="name" size ="15" value="<%=name%>"></td>
+		</tr>
+		
+		<tr>
+		<td>성별</td>
+		<td>남<input type="radio" name="gender" value="1" <% if(gender.equals("1")){ %> checked="checked" <% } %>> 
+		 여<input type="radio" name="gender" value="2" <% if(gender.equals("2")){ %> checked="checked"<% } %> >
+		</td>
+		</tr>
+		
+		<tr>
+		<td>생년월일</td>
+		<td><input type="text" name="birthday" size="6" value="<%= birthday%>"></td>
+		</tr>
+		
+		<tr>
+		<td>Email</td>
+		<td><input type="text" name="email" size="30" value="<%= email %>"></td>
+		</tr>
+		
+		<tr>
+		<td>우편번호</td>
+		<td><input type="text" name="zipcode" size="7" value="<%=zipcode %>" readonly>
+		<input type="button" value="우편번호찾기" onclick="zipCheck()"></td>
+		</tr>
+		
+		<tr>
+		<td>주소</td>
+		<td><input type="text" name="address" size="45" value ="<%=address %>"></td>
+		</tr>
+		
+		<tr>
+		<td>전화번호</td>
+		<td><input type="text" name="phone1" size="4" maxlength="3" value="<%= phone1 %>">
+		&nbsp;-&nbsp;<input type="text" name="phone2" size="5" maxlength="4" value="<%=phone2%>">
+		&nbsp;-&nbsp;<input type="text" name="phone3" size="5" maxlength="4" value="<%=phone3 %>"></td>
+		</tr>
+		<tr>
+		<td colspan="3">
+		<input type="button" value="정보수정" onclick="inputCheck()">
+		&nbsp;&nbsp;
+		<input type="reset" value="다시쓰기"></td>
+		</tr>
+		<tr>
+		<td>
+		<input type="button" value="회원탈퇴" onclick="location.href='quitMember.jsp'"></td>
+		</tr>
+		</table>
+		</form>
+		<% } %>
+		</div>
+
+		<div id="aside">
+			<table>
+				<tr class="selected">
+					<td>
+					<a href="../member/passCheck.jsp" title="회원정보수정">
+					회원정보수정</a></td>
+				</tr>
+				<tr>
+					<td>
+					<a href="#" title="로그인기록확인">
+					로그인기록확인</a></td>
+				</tr>
+				<tr>
+					<td>
+					<a href="#" title="장바구니">
+					장바구니</a></td>
+				</tr>
+				<tr>
+					<td>
+					<a href="#" title="구매내역">
+					구매내역</a></td>
+				</tr>
+			</table>
+		</div>
+
+		<footer>
+		&copy; 2018, 쇼핑몰이름
+		<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+		</footer>
 	</div>
 
 	<script>
@@ -165,6 +201,5 @@
 					"width=500, height=300, scrollbars=yes top=200 left=600");
 		}
 	</script>
-	</div>
 </body>
 </html>

@@ -8,10 +8,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>로그아웃</title>
 <script>
 	alert("로그아웃 되었습니다.");
-	location.href = "login.jsp";
+	location.href = "../main.jsp";
 </script>
 <style>
 div#wrap {

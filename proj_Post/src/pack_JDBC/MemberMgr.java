@@ -92,12 +92,18 @@ public class MemberMgr {
 
 ////////////////////회원가입 시작 ////////////////////
 	public boolean insertMember(MemberBean bean) {
+
 		Connection objConn = null;
 		PreparedStatement objPstmt = null;
 		String sql = null;
 		boolean flag = false;
 
+		if (bean.getId().equals("admin")) {
+			return flag;
+		}
+
 		try {
+
 			objConn = pool.getConnection();
 			sql = "insert into tblMember " + "(id, pass, name, gender, email, "
 					+ "birthday, zipcode, address, phoneNum, level) " + " values " + "(?, ?, ?, ?, ?, "
@@ -114,12 +120,8 @@ public class MemberMgr {
 
 			String phoneNum = bean.getPhone1() + "-" + bean.getPhone2() + "-" + bean.getPhone3();
 			objPstmt.setString(9, phoneNum);
+			objPstmt.setInt(10, 1);
 
-			if (bean.getId().trim().equals("admin") && bean.getPass().trim().equals("1234")) {
-				objPstmt.setInt(10, 2);
-			} else {
-				objPstmt.setInt(10, 1);
-			}
 			if (objPstmt.executeUpdate() == 1) {
 				flag = true;
 			}
@@ -192,7 +194,7 @@ public class MemberMgr {
 	}
 ////////////////////회원 삭제 끝 ////////////////////
 
-////////////////////로그인 시작 ////////////////////
+////////////////////일반 회원 로그인 시작 ////////////////////
 	public boolean loginMember(String id, String pass) {
 
 		Connection objConn = null;
@@ -201,6 +203,10 @@ public class MemberMgr {
 
 		String sql = null;
 		boolean flag = false;
+
+		if (id.equals("admin")) {
+			return flag;
+		}
 
 		try {
 			objConn = pool.getConnection();
@@ -219,7 +225,32 @@ public class MemberMgr {
 		return flag;
 
 	}
-////////////////////로그인 끝 ////////////////////
+////////////////////일반 회원 로그인 끝 ////////////////////
+
+////////////////////로그인 기록 정보 추가 ////////////////////
+	public void insertARecord(String id, String ip) {
+
+		Connection objConn = null;
+		PreparedStatement objPstmt = null;
+		String sql = null;
+
+		try {
+
+			objConn = pool.getConnection();
+			sql = "insert into accessRecord " + " (id, loginTime, ip) " + " values (?, now(), ?)";
+			objPstmt = objConn.prepareStatement(sql);
+			objPstmt.setString(1, id);
+			objPstmt.setString(2, ip);
+
+			objPstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(objConn, objPstmt);
+		}
+	}
+////////////////////로그인 기록 정보 추가 끝 ////////////////////
 
 ////////////////////회원 정보 반환 시작 ////////////////////
 	public MemberBean getMember(String id, String pass) {
