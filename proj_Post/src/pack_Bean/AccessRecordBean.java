@@ -1,11 +1,11 @@
 package pack_Bean;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AccessRecordBean {
 
 	private String id;
-	private Date loginTime;
+	private Timestamp loginTime;
 	private String ip;
 
 	public String getId() {
@@ -16,11 +16,11 @@ public class AccessRecordBean {
 		this.id = id;
 	}
 
-	public Date getLoginTime() {
+	public Timestamp getLoginTime() {
 		return loginTime;
 	}
 
-	public void setLoginTime(Date loginTime) {
+	public void setLoginTime(Timestamp loginTime) {
 		this.loginTime = loginTime;
 	}
 
