@@ -12,8 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>쇼핑몰</title>
-<link rel="stylesheet" type="text/css" href="css/mainStyle.css">
-
+<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
 
 </head>
 <body>
@@ -42,13 +41,13 @@
 						if (id != null) {
 			%>
 				<li><a href="#" title="Id">ID : <%= id %></a></li>
-				<li><a href="memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
-				<li><a href="member/logout.jsp" title="Login">Logout</a></li>
+				<li><a href="../memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
+				<li><a href="../member/logout.jsp" title="Login">Logout</a></li>
 			<% 
 				} 
 			}else {
 			%>
-				<li><a href="member/login.jsp" title="Login">Login</a></li>
+				<li><a href="../member/login.jsp" title="Login">Login</a></li>
 			<%
 				}
 			%>			
