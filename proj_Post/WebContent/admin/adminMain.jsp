@@ -107,7 +107,7 @@ function imageview(id, w, h)
                         <h3>게시판관리</h3>
                         <ul><li ><a href="" class="gnb_2da  ">게시판관리</a></li>
                         <li><a href="" class="gnb_2da  ">게시판그룹관리</a></li>
-                        <li><a href="" class="gnb_2da  gnb_grp_div">1:1문의설정</a></li>
+                        <li><a href="ad_Board/faq.jsp" class="gnb_2da  gnb_grp_div">FAQ</a></li>
                         <li><a href="" class="gnb_2da  gnb_grp_div">공지게시판</a></li>
                         <li><a href="" class="gnb_2da gnb_grp_style gnb_grp_div">내용관리</a></li></ul>
                    </div>
