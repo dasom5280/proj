@@ -32,7 +32,7 @@
 				<li><a href="#" title="Sale">Sale</a></li>
 				&nbsp;<li>|</li>&nbsp;
 				<li><a href="#" title="Notice">Notice</a></li>
-				<li><a href="#" title="Q&A">Q&A</a></li>
+				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
 				<li><a href="#" title="Review">Review</a></li>
 				&nbsp;<li>|</li>&nbsp;
 			<%

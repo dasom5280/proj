@@ -4,7 +4,7 @@
 <%@page import="pack_Bean.PostBean"%>
 <jsp:useBean id="bMgr" class="pack_JDBC.PostMgr" />
 <%
-	request.setCharacterEncoding("UTF-8"); 	
+	request.setCharacterEncoding("UTF-8"); 
 	// => post 또는 get방식으로 데이터 수신이 있음 
 	int num = Integer.parseInt(request.getParameter("num"));
 	
