@@ -11,34 +11,33 @@
 <link rel="stylesheet" href="../css/myPageStyle.css">
 
 <%
-	request.setCharacterEncoding("utf-8");
-	String insPass = request.getParameter("pass");
-	MemberBean bean = (MemberBean) session.getAttribute("loginBean");
+	request.setCharacterEncoding("UTF-8");
 
+	String insPass = request.getParameter("pass");
+
+	MemberBean bean = (MemberBean) session.getAttribute("loginBean");
+	if(bean != null){
+		
 	String oriPass = bean.getPass();
 	
-	if(!insPass.equals(oriPass)){
+	if(insPass.trim().equals(oriPass.trim())){
+		
+		String id = bean.getId();
+		String name = bean.getName();
+		String gender = bean.getGender();
+		String email = bean.getEmail();
+		String birthday = bean.getBirthday();
+		String zipcode = bean.getZipcode();
+		String address = bean.getAddress();
+		String phone1 = bean.getPhone1();
+		String phone2 = bean.getPhone2();
+		String phone3 = bean.getPhone3();
 %>
-<script>
-	alert("비밀번호가 일치하지 않습니다");
-	location.href = "passCheck.jsp";
-</script>
-<% } else {
-	
-	String id = bean.getId();
-	String name = bean.getName();
-	String gender = bean.getGender();
-	String email = bean.getEmail();
-	String birthday = bean.getBirthday();
-	String zipcode = bean.getZipcode();
-	String address = bean.getAddress();
-	String phone1 = bean.getPhone1();
-	String phone2 = bean.getPhone2();
-	String phone3 = bean.getPhone3();
-	
-	%>
+
+
 </head>
 <body>
+
 	<div id="wrap">
 	
 		<header class="top">
@@ -50,7 +49,8 @@
 		</header>
 		
 		<div id="main">
-		<form name="regFrm" method="post">
+		
+		<form name="regFrm" method="post" action="updateMemberProc.jsp">
 		<table>
 		
 		<tr>
@@ -123,7 +123,7 @@
 		</tr>
 		</table>
 		</form>
-		<% } %>
+
 		</div>
 
 		<div id="aside">
@@ -155,10 +155,21 @@
 		&copy; 2018, 쇼핑몰이름
 		<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
+		
 	</div>
-
+		<% 
+		} else {
+		%>
+		<script>
+		alert("비밀번호가 일치하지 않습니다");
+		location.href = "passCheck.jsp";
+		</script>
+		<% }
+		} else {
+			response.sendRedirect("../main.jsp");
+		}
+		%>
 	<script>
-	
 	function inputCheck() {
 		frm = document.regFrm;
 		if (frm.id.value == "") {

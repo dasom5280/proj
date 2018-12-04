@@ -16,11 +16,14 @@ String msg = "아이디와 비밀번호를 확인해주세요";
 
 if (result) {
 	MemberBean bean = new MemberBean();
+	
 	bean = mMgr.getMember(id, pass);
 	
 	if(bean != null){
 	mMgr.insertARecord(id, ip);
+	
 	session.setAttribute("loginBean", bean);
+	
 	msg = id + " 님 안녕하세요~ ";
 	url = "../main.jsp";
 	} else {

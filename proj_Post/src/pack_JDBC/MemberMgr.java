@@ -170,17 +170,27 @@ public class MemberMgr {
 ////////////////////회원 수정 끝 ////////////////////
 
 ////////////////////회원 삭제 시작 ////////////////////
-	public boolean deleteMember(String id, String pass) {
+	public boolean deleteMember(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "delete from tblMember where id=? and pass=?";
+			sql= "delete from accessRecord where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, pass);
+			pstmt.executeUpdate();
+			
+			//id가 foreign key 설정된 모든 자료를 지워야 함
+			sql = "delete from tblBasket where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+			sql = "delete from tblMember where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
@@ -328,7 +338,5 @@ public class MemberMgr {
 	}
 
 ////////////////////회원 정보 반환 끝 ////////////////////
-
-
 
 }
