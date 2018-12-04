@@ -22,7 +22,7 @@
 <body>
 	<div id="wrap">
 		<header class="top">
-			<a href="../main.jsp" title="로고"><img id="headerLogo"
+			<a href="../main/main.jsp" title="로고"><img id="headerLogo"
 				src="images/headerLogo.gif" alt="로고"></a><br> <br>
 			<h2>
 				<b>마이페이지</b>

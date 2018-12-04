@@ -166,7 +166,7 @@
 		</script>
 		<% }
 		} else {
-			response.sendRedirect("../main.jsp");
+			response.sendRedirect("../main/main.jsp");
 		}
 		%>
 	<script>
