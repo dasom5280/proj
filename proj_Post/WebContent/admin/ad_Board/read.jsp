@@ -106,7 +106,7 @@
 				<td align="center" colspan="2">
 					<hr>
 						[ 
-						<a href="javascript:list()" title="">리스트</a> | 
+						<a href="list.jsp" title="">리스트</a> | 
 					   <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | 
 					   <a href="reply.jsp?nowPage=<%=nowPage%>">답 변</a> | 
 					   <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a>  |
