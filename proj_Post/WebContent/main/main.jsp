@@ -20,8 +20,7 @@
 
 
 		<header class="top">
-			<img id="headerLogo" src="images/headerLogo.gif" alt="로고"> <img
-				id="headerSlogan" src="images/headerSlogan.gif" alt="슬로건">
+			<img id="headerLogo" src="../images/headerLogo.png" alt="로고">
 		</header>
 
 		<nav>

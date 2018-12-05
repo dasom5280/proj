@@ -44,6 +44,9 @@ $(document).ready(function(){
 </head>
 <body>
 	<div id="wrap">
+	
+	<h1>공지사항</h1>
+	
 		<div id="tabProduct" class="ec-base-tab">
 			<ul class="tabs">
 				<li class="tab-link current" data-tab="tab-1">회원문의</li>
@@ -248,5 +251,9 @@ $(document).ready(function(){
 		</div>
 
 	</div>
+	
+	<footer>
+			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+		</footer>
 </body>
 </html>

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="pack_Bean.BoardBean"%>
+
 <%@page import="java.util.Vector"%>
-<jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page" />
+<jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" />
 <%@page import="pack_Bean.MemberBean"%>
+<%@page import="pack_Bean.BoardBean"%>
 <jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-MemberBean bean = (MemberBean) session.getAttribute("loginBean");
+	MemberBean bean = (MemberBean) session.getAttribute("id");
 
 
 	int totalRecord = 0; //전체레코드수
@@ -61,7 +62,7 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP 테스트</title>
+<title>list</title>
 
 <link rel="stylesheet" href="../../css/ad_Board.css">
 <script src=../../js/script.js></script>
@@ -96,7 +97,21 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 </head>
 <body>
 	<div id="wrap">
-<a href="javascript:history.back()">뒤로가기</a><br> <br>
+	<%
+				if (bean != null) {
+					String id = bean.getId();
+						if (id.equals("admin")) {
+			%>
+				<a href="../adminMain.jsp" title="adminMain">관리자페이지</a>
+			<% 
+				} 
+			}else {
+			%>
+			<a href="../../main/main.jsp" title="main">MAIN</a>
+			<%
+				}
+			%>	
+
 		<h1>공지사항</h1>
 		<table class="listTbl">
 			<tr>
@@ -215,14 +230,16 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 					<%
 				if (bean != null) {
 					String id = bean.getId();
-						if (!id.equals("admin")) {
+						if (id.equals("admin")) {
 			%>
-			
+			<a href="post.jsp" title="글쓰기">[글쓰기]</a>
 			<% 
 				} 
+						%>
+						<%
 			}else {
 			%>
-				<a href="post.jsp" title="글쓰기">[글쓰기]</a>
+				
 			<%
 				}
 			%>			

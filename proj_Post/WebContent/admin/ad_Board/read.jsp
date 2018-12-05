@@ -7,7 +7,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean memberbean = (MemberBean) session.getAttribute("loginBean");
+	MemberBean memberbean = (MemberBean) session.getAttribute("id");
 	// => post 또는 get방식으로 데이터 수신이 있음 
 	int num = Integer.parseInt(request.getParameter("num"));
 
@@ -96,8 +96,9 @@
 			</tr>
 
 			<%
-				String id = memberbean.getId();
-				if (id.equals("admin")) {
+				if (bean != null) {
+					String id = memberbean.getId();
+					if (id.equals("admin")) {
 			%>
 			<tr>
 				<td align="center" colspan="2">
@@ -109,15 +110,16 @@
 				</td>
 			</tr>
 			<%
+				}
 				} else {
 			%>
-			<hr> [ <a href="list.jsp" title="">리스트</a>]
+			<hr>
+			[
+			<a href="list.jsp" title="">리스트</a>]
 			<%
 				}
 			%>
 
-
-			
 		</table>
 
 		<form name="downFrm" action="download.jsp" method="post">
