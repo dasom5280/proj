@@ -96,7 +96,7 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 </head>
 <body>
 	<div id="wrap">
-
+<a href="../adminMain.jsp" title="홈">관리자페이지로</a><br> <br>
 		<h1>공지사항</h1>
 		<table class="listTbl">
 			<tr>
@@ -215,7 +215,7 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 					<%
 				if (bean != null) {
 					String id = bean.getId();
-						if (id != null) {
+						if (id.equals("admin")) {
 			%>
 			<% 
 				} 
@@ -226,7 +226,6 @@ MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 				}
 			%>			
 				 
-				<a href="javascript:list()" title="처음으로">[처음으로]</a>
 				</td>
 			</tr>
 		</table>
