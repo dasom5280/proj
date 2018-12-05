@@ -15,7 +15,7 @@
  String pass=(String)session.getAttribute("pass");
  
  if(id != null){
-	 Vector<MemberBean> vlist = bean.getMember(id, pass);
+	 Vector<MemberBean> vlist = bean.getMember(bean.getId(), bean.getPass());
 %>
 
 <html lang="ko">
