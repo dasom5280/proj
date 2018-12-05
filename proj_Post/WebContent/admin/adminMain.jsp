@@ -135,7 +135,7 @@
                         <ul><li><a href="" class="">쇼핑몰관리</a></li>
                         <li><a href="" class="">주문내역</a></li>
                         <li><a href="" class="">상품관리</a></li>
-                        <li><a href="" class="">상품문의</a></li>
+                        <li><a href="ad_Product/qnAlist.jsp" class="">상품문의</a></li>
                         </ul>
                     </div>
                 </div>

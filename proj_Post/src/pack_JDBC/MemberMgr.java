@@ -189,6 +189,11 @@ public class MemberMgr {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
+			
+			sql = "delete from tblQnA where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
 
 			sql = "delete from tblMember where id=?";
 			pstmt = con.prepareStatement(sql);
