@@ -7,7 +7,7 @@
 <jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean memberbean = (MemberBean) session.getAttribute("loginBean");
+MemberBean bean = (MemberBean) session.getAttribute("loginBean");
 
 
 	int totalRecord = 0; //전체레코드수
@@ -96,7 +96,7 @@
 </head>
 <body>
 	<div id="wrap">
-<a href="../adminMain.jsp" title="홈">관리자페이지로</a><br> <br>
+<a href="javascript:history.back()">뒤로가기</a><br> <br>
 		<h1>공지사항</h1>
 		<table class="listTbl">
 			<tr>
@@ -212,15 +212,17 @@
 				</td>
 				<td>
 				
-			<%
-				String id = memberbean.getId();
-				if (id.equals("admin")) {
+					<%
+				if (bean != null) {
+					String id = bean.getId();
+						if (!id.equals("admin")) {
 			%>
-			<hr><a href="post.jsp" title="글쓰기">[글쓰기]</a>
-			<%
-				} else {
+			
+			<% 
+				} 
+			}else {
 			%>
-			<hr> [ <a href="post.jsp" title="글쓰기">글쓰기</a>]
+				<a href="post.jsp" title="글쓰기">[글쓰기]</a>
 			<%
 				}
 			%>			

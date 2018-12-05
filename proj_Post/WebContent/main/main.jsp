@@ -30,10 +30,9 @@
 				<li><a href="#" title="Top">Top</a></li>
 				<li><a href="#" title="Bottom">Bottom</a></li>
 				<li><a href="#" title="Sale">Sale</a></li>
-				&nbsp;<li>|</li>&nbsp;
-				<li><a href="../admin/ad_Board/member_notice.jsp" title="Notice">Notice</a></li>
+				&nbsp;<li>||</li>&nbsp;
+				<li><a href="../admin/ad_Board/list.jsp" title="Notice">Notice</a></li>
 				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
-				<li><a href="#" title="Review">Review</a></li>
 				&nbsp;<li>||</li>&nbsp;
 			<%
 				if (bean != null) {
