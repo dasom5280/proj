@@ -10,6 +10,7 @@
 
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page"/>
 <%
+int number;
 	request.setCharacterEncoding("UTF-8");
 	String nowPage = request.getParameter("nowPage");
 	int num = Integer.parseInt(request.getParameter("num"));
