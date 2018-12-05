@@ -34,7 +34,7 @@
 				<li><a href="../admin/ad_Board/member_notice.jsp" title="Notice">Notice</a></li>
 				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
 				<li><a href="#" title="Review">Review</a></li>
-				&nbsp;<li>|</li>&nbsp;
+				&nbsp;<li>||</li>&nbsp;
 			<%
 				if (bean != null) {
 					String id = bean.getId();
