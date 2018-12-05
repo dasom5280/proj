@@ -47,7 +47,7 @@
 				} 
 			}else {
 			%>
-				<li><a href="../member/login.jsp" title="Login">Login</a></li>
+			<li><a href="../member/login.jsp" title="Login">Login</a></li>
 			<%
 				}
 			%>			
