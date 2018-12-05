@@ -10,7 +10,31 @@
 <title>FAQ</title>
 <link rel="stylesheet" href="../../css/ad_Board.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="../../js/ad_Board.js"></script>
+<script>
+$(document).ready(function(){
+	   
+	  $('ul.tabs li').click(function(){
+	    var tab_id = $(this).attr('data-tab');
+	 
+	    $('ul.tabs li').removeClass('current');
+	    $('.tab-content').removeClass('current');
+	 
+	    $(this).addClass('current');
+	    $("#"+tab_id).addClass('current');
+	  })
+	 
+	})
+
+	$(function(){
+		$("#accordian dt").click(function(){
+			$("#accordian dl dd").slideUp();
+			if(!$(this).next().is(":visible"))
+			{
+				$(this).next().slideDown();
+			}
+		})
+	})
+	</script>
 <style>
 	div #wrap{
 					margin : 0 auto;
