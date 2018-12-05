@@ -14,8 +14,8 @@
  String id=(String)session.getAttribute("id");
  String pass=(String)session.getAttribute("pass");
  
- if(id != null){
-	 Vector<MemberBean> vlist = bean.getMember(id,pass);
+
+	 Vector<MemberBean> vlist = mMgr.getMemberList();
 %>
 
 <html lang="ko">
@@ -68,24 +68,31 @@
 <%
  for(int i=0; i<vlist.size(); i++){
 	 MemberBean mbean = vlist.get(i);
-	 String id = mbean.getId();
+	 String mid = mbean.getId();
+	 String mname = mbean.getName();
+	 String mpass = mbean.getPass();
+	 String memail = mbean.getPass();
+	 String mbirthday = mbean.getBirthday();
+	 String mzipcode = mbean.getZipcode();
+	 String mphoneNum = mbean.getPhone1() + "-" + mbean.getPhone2() + "-" +mbean.getPhone3();
+
 %>
 
     <tr>
-     <td><%=name %></td>
-     <td><%=id %></td>
-     <td><%=pass %></td>
-     <td><%=email %></td>
-     <td><%=birthday %></td>
-     <td><%=zipcode %></td>
-     <td><%=phoneNum %></td>
+     <td><%=mname %></td>
+     <td><%=mid %></td>
+     <td><%=mpass %></td>
+     <td><%=memail %></td>
+     <td><%=mbirthday %></td>
+     <td><%=mzipcode %></td>
+     <td><%=mphoneNum %></td>
      <th colspan="7"></th>
     </tr>
 
    <%
         }
       }
-  }
+  
    %>
       </table>
     </div>

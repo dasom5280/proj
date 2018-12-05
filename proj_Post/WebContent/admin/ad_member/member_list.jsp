@@ -9,11 +9,11 @@
 <%
  request.setCharacterEncoding("utf-8");
 
- String id=(String)session.getAttribute("id");
- 
- if(id != null){
-	 
-	 Vector<MemberBean> vlist = mMgr.getMember(id, pass);
+String id=(String)session.getAttribute("id");
+String pass=(String)session.getAttribute("pass");
+
+
+Vector<MemberBean> vlist = mMgr.getMemberList();
  %>
  
 <html lang="ko">
@@ -56,19 +56,20 @@
 
      <%
      for(int i=0; i<vlist.size(); i++){
-         MemberBean mbean = vlist.get(i);
-         String id = mbean.getId();
+    	 MemberBean mbean = vlist.get(i);
+    	 String mid = mbean.getId();
+    	 String mname = mbean.getName();
+  
      %>
 
      <tr>
-      <td><%=name %></td>
-      <td><%=id %></td>
+      <td><%=mname %></td>
+      <td><%=mid %></td>
      </tr>
 
      <%
        }
      }
-  }
      %>
   </table>
       

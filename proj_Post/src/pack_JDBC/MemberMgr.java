@@ -4,10 +4,12 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Vector;
 
 import pack_Bean.MemberBean;
 import pack_Bean.PostBean;
+import pack_Bean.ProductBean;
 import pack_Bean.ZipcodeBean;
 import pack_Bean.AccessRecordBean;
 import pack_DBCP.DBConnectionMgr;
@@ -177,17 +179,17 @@ public class MemberMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql= "delete from accessRecord where id=?";
+			sql = "delete from accessRecord where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-			
-			//id가 foreign key 설정된 모든 자료를 지워야 함
+
+			// id가 foreign key 설정된 모든 자료를 지워야 함
 			sql = "delete from tblBasket where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-			
+
 			sql = "delete from tblMember where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -338,5 +340,51 @@ public class MemberMgr {
 	}
 
 ////////////////////회원 정보 반환 끝 ////////////////////
+
+////////////////////회원 목록 반환 ////////////////////
+	public Vector<MemberBean> getMemberList() {
+
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<MemberBean> vlist = new Vector<>();
+
+		try {
+
+			con = pool.getConnection();
+			sql = "select * from tblMember";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				MemberBean bean = new MemberBean();
+				bean.setId(rs.getString(1));
+				bean.setPass(rs.getString(2));
+				bean.setName(rs.getString(3));
+				bean.setGender(rs.getString(4));
+				bean.setEmail(rs.getString(5));
+				bean.setBirthday(rs.getString(6));
+				bean.setZipcode(rs.getString(7));
+				bean.setAddress(rs.getString(8));
+
+				String phoneNum = rs.getString(9);
+				bean.setPhone1(phoneNum.substring(0, 3));
+				bean.setPhone2(phoneNum.substring(4, 8));
+				bean.setPhone3(phoneNum.substring(9, 13));
+
+				bean.setLevel(rs.getInt(10));
+				vlist.add(bean);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, stmt, rs);
+		}
+		return vlist;
+	}
+
+////////////////////회원 목록 반환 끝 ////////////////////
 
 }
