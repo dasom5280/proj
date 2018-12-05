@@ -5,51 +5,63 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- <meta http-equiv="imagetoolbar" content="no">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<meta name="author" content="(주)에스아이알소프트">
-<meta name="keywords" content="영카트5,그누보드5,GPL,무료쇼핑몰솔루션">
-<meta name="description" content="영카트5는 자유롭게 사용할수 있는 GPL 라이센스 독립형 무료 쇼핑몰 솔루션 입니다.">
- -->
+<title>쇼핑몰</title>
+<link rel="stylesheet" href="style.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../../js/ad_member.js"></script>
 
-<title>관리자메인</title>
-<link rel="stylesheet" href="admin.css">
-
-
-<script>
-// 자바스크립트에서 사용하는 전역변수 선언
-varurl       = "";
-var bbs_url   = "https://demo.sir.kr/gnuboard5/bbs";
-var member = "1";
-var admin  = "";
-var mobile = "";
-var table  = "";
-var sca       = "";
-var editor    = "";
-var g5_cookie_domain = "";
-var g5_admin_url = "https://demo.sir.kr/gnuboard5/adm";
-</script>
-<script src="https://demo.sir.kr/gnuboard5/js/jquery-1.8.3.min.js"></script>
-<script src="https://demo.sir.kr/gnuboard5/js/jquery.menu.js?ver=171222"></script>
-<script src="https://demo.sir.kr/gnuboard5/js/common.js?ver=171222"></script>
-<script src="https://demo.sir.kr/gnuboard5/js/wrest.js?ver=171222"></script>
-<script src="https://demo.sir.kr/gnuboard5/js/placeholders.min.js"></script>
-<link rel="stylesheet" href="https://demo.sir.kr/gnuboard5/js/font-awesome/css/font-awesome.min.css">
 </head>
 
-
 <body>
+ <div id="wrap">
+ 
+ 
+  <header>
+  
+  <div align="right">
+   <a href="adminLogout.jsp"> 로그아웃 </a>
+  </div>
+  
+  <div align="center">
+   <h1 id="title"><a href="adminMain.jsp"> 쇼핑몰이름 </a></h1>
+  </div>
+  
+  </header>
 
-<div id="hd_login_msg"><a href="adminLogout.jsp">로그아웃</a></div>
-<script>
-var tempX = 0;
-var tempY = 0;
+ 
+ <div id="main" align="">
+  <button type="button" title="회원관리">회원관리</button>
+   <ul>
+    <li><a href="" title="회원관리">회원관리</a></li>
+    <li><a href="" title="회원정보">회원정보</a></li>
+    <li><a href="" title="회원리스트">회원리스트</a></li>
+    <li><a href="" title="회원접속정보">회원접속정보</a></li>
+   </ul>
+   
+   <button type="button" title="게시판관리">게시판관리</button>
+   <ul>
+    <li><a href="" title="게시판관리">게시판관리</a></li>
+    <li><a href="" title="공지게시판">공지게시판</a></li>
+    <li><a href="" title="FAQ">FAQ</a></li>
+    <li><a href="" title="내용관리">내용관리</a></li>
+    <li><a href="" title="게시판그룹관리">게시판그룹관리</a></li>
+   </ul>
+   
+   <button type="button" title="쇼핑몰관리">쇼핑몰관리</button>
+   <ul>
+    <li><a href="" title="상품관리">상품관리</a></li>
+    <li><a href="" title="상품문의">상품문의</a></li>
+    <li><a href="" title="주문내역">주문내역</a></li>
+   </ul>
+   
+ 
 
-function imageview(id, w, h)
-{
+				<div class="faqlist" id="accordian">
+					<dl>
 
-    menu(id);
+						<dt>쇼핑몰관리</dt>
 
+<<<<<<< HEAD
     var el_id = document.getElementById(id);
 
     //submenu = eval(name+".style");
@@ -315,6 +327,24 @@ function menu_rearrange(el)
 }
 
 </script>
+=======
+						<dd>
+							<a href="" title="상품문의">상품문의</a><br>
+							<a href="" title="주문내역">주문내역</a><br>
+							<a href="" title="주문내역">주문내역</a><br>
+						</dd>
+					</dl>
+				</div>
+   
+ </div>
+ 
+ 
+ 
+  <footer align="center">
+   &copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+  </footer>
+ </div>
+>>>>>>> branch 'master' of https://github.com/dasom5280/proj.git
 
 </body>
 
