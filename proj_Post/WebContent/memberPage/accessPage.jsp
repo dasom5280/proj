@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="pack_Bean.AccessRecordBean"%>
+<%@page import="java.util.Vector"%>
 <%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -6,9 +10,12 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	MemberBean bean = (MemberBean) session.getAttribute("loginBean");
-	
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+	MemberBean bean = (MemberBean) session.getAttribute("loginBean");
+	String id = bean.getId();
+	if (id != null) {
+		Vector<AccessRecordBean> vlist = mMgr.getARecord(id);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,7 +23,7 @@
 <meta charset="UTF-8">
 <title>로그인 기록 정보</title>
 
-<link rel="stylesheet" href="../css/myPageStyle.css">
+<link type="text/css" rel="stylesheet" href="../css/myPageStyle.css">
 
 </head>
 <body>
@@ -30,7 +37,43 @@
 		</header>
 
 		<div id="main">
-			<div id="passCheckMain"></div>
+			<div id="accessPageMain">
+				<table>
+					<tr>
+						<td colspan="2">로그인 정보</td>
+					</tr>
+					<%
+						if (vlist.isEmpty()) {
+					%>
+					<tr>
+						<td colspan="2">로그인 정보가 없습니다.</td>
+					</tr>
+					<%
+						} else {
+					%>
+					<tr>
+						<td>로그인 시간</td>
+						<td>아이피</td>
+					</tr>
+					<%
+						for (int i = 0; i < vlist.size(); i++) {
+									AccessRecordBean abean = vlist.get(i);
+									Timestamp aloginTime = abean.getLoginTime();
+									String aip = abean.getIp();
+					%>
+					<tr>
+						<td><%=df.format(aloginTime)%></td>
+						<td><%=aip%></td>
+					</tr>
+					<%
+						}
+
+							}
+
+						}
+					%>
+				</table>
+			</div>
 		</div>
 		<div id="aside">
 			<table>

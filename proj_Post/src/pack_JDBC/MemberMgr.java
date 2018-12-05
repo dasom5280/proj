@@ -284,7 +284,7 @@ public class MemberMgr {
 			while (objRs.next()) {
 				AccessRecordBean bean = new AccessRecordBean();
 				bean.setId(objRs.getString(1));
-				bean.setLoginTime(objRs.getDate(2));
+				bean.setLoginTime(objRs.getTimestamp(2));
 				bean.setIp(objRs.getString(3));
 				vlist.add(bean);
 			}

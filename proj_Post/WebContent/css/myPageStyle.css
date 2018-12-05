@@ -34,12 +34,12 @@ div#aside {
 	margin: 0 10px;
 }
 
-#aside table {
+div#aside table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-#aside table tr td {
+div#aside table tr td {
 	width: 100%;
 	padding: 10px;
 }
@@ -75,8 +75,26 @@ footer {
 	background-color: #675c47;
 }
 
-div#passCheckMain, div#quitMemberMain  {
+/* passCheck.jsp, quitMember.jsp*/
+div#passCheckMain, div#quitMemberMain {
 	margin: 10px;
 	margin-top: 100px;
 	text-align: center;
 }
+
+/* accessPage.jsp*/
+div#accessPageMain table {
+	width: 70%;
+	border-collapse: collapse;
+}
+
+div#accessPageMain td {
+	width: 50%;
+	border: 1px solid gray;
+	padding: 10px;
+}
+
+div#accessPageMain tr:first-child td{
+	text-align: center;
+}
+

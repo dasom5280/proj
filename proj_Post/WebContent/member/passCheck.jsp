@@ -41,7 +41,7 @@
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="로그인기록확인">
+					<a href="../memberPage/accessPage.jsp" title="로그인기록확인">
 					로그인기록확인</a></td>
 				</tr>
 				<tr>
