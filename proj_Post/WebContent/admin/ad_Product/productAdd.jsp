@@ -10,7 +10,7 @@
 	<div id="wrap">
 
 		<h1><a href="productMain.jsp">상품관리로</a></h1>
-		<h1>상품추가</h1>
+		<h1>상품추가추가</h1>
 		<form name="addFrm" method="post" action="productAddProc.jsp">
 		<table>
 		
