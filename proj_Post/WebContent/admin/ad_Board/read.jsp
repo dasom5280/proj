@@ -7,7 +7,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean memberbean = (MemberBean) session.getAttribute("id");
+	MemberBean memberbean = (MemberBean) session.getAttribute("adminBean");
 	// => post 또는 get방식으로 데이터 수신이 있음 
 	int num = Integer.parseInt(request.getParameter("num"));
 
@@ -94,13 +94,15 @@
 					</table>
 				</td>
 			</tr>
+			
 
 			<%
-				if (bean != null) {
-					String id = memberbean.getId();
-					if (id.equals("admin")) {
+				if (memberbean != null) {
+				
+					int level = memberbean.getLevel();
+						if (level==2) {
 			%>
-			<tr>
+				<tr>
 				<td align="center" colspan="2">
 					<hr> [ <a href="list.jsp" title="">리스트</a> | <a
 					href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
@@ -109,17 +111,27 @@
 					href="post.jsp">글쓰기</a> ] <br>
 				</td>
 			</tr>
-			<%
-				}
-				} else {
+			<% 
+				} 
 			%>
-			<hr>
-			[
-			<a href="list.jsp" title="">리스트</a>]
+			
+			<%
+			}else {
+			%>
+			<tr>
+			<td align="center" colspan="2">
+		
+			[<a href="list.jsp" title="">리스트</a>]
+			</td>
+			</tr>
 			<%
 				}
 			%>
 
+			
+
+			
+			
 		</table>
 
 		<form name="downFrm" action="download.jsp" method="post">

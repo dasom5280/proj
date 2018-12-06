@@ -8,8 +8,8 @@
 <jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean bean = (MemberBean) session.getAttribute("id");
-
+	MemberBean bean = (MemberBean) session.getAttribute("adminBean");
+	
 
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
@@ -99,12 +99,16 @@
 	<div id="wrap">
 	<%
 				if (bean != null) {
-					String id = bean.getId();
-						if (id.equals("admin")) {
+					
+					int level = bean.getLevel();
+						if (level==2) {
 			%>
 				<a href="../adminMain.jsp" title="adminMain">관리자페이지</a>
 			<% 
 				} 
+			%>
+			
+			<%
 			}else {
 			%>
 			<a href="../../main/main.jsp" title="main">MAIN</a>
