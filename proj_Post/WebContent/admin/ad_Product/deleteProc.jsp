@@ -16,7 +16,7 @@
 		qMgr.deleteQnA(num, "1");
 	}
 
-	response.sendRedirect("qnAlist.jsp");
+	response.sendRedirect("qnAdeletedList.jsp");
 %>
 <!DOCTYPE html>
 <html lang="ko">

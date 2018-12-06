@@ -93,12 +93,6 @@ border: 1px solid gray;
 		<form name="qnaFrm" method="post">
 				<input type="hidden" name="num" value="<%=num%>">
 				<input type="hidden" name="nowPage" value="<%=nowPage %>">
-				<input type="hidden" name="subject" value="<%=subject %>">
-				<input type="hidden" name="content" value="<%=content %>">
-				<input type="hidden" name="ref" value="<%=ref %>">
-				<input type="hidden" name="pos" value="<%=pos %>">
-				<input type="hidden" name="depth" value="<%=depth %>">
-				<input type="hidden" name="productName" value="<%=productName %>">
 		</form>
 
 		<form name="listFrm" method="post">

@@ -1,20 +1,27 @@
+<%@page import="pack_Bean.Ad_QnABean"%>
+<%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" scope="page"/>
 <%
 	request.setCharacterEncoding("utf-8");
 
-	String idKey = (String) session.getAttribute("id");
-	if(idKey==null){
+	MemberBean aBean = (MemberBean) session.getAttribute("adminBean");
+	
+	if(aBean==null){
 		response.sendRedirect("../adminLogin.jsp");
 	} else {
 	
 	int num = Integer.parseInt(request.getParameter("num"));
+	Ad_QnABean qBean = qMgr.getQnA(num);
 	String nowPage = request.getParameter("nowPage");
-	String subject = request.getParameter("subject");
-	String content = request.getParameter("content");
-	String ref = request.getParameter("ref");
-	String pos = request.getParameter("pos");
-	String depth = request.getParameter("depth");
+	String id = qBean.getId();
+	String subject = qBean.getSubject();
+	String content = qBean.getContent();
+	int ref = qBean.getRef();
+	int pos = qBean.getPos();
+	int depth = qBean.getDepth();
+	String productName = qBean.getProductName();
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,8 +39,13 @@
 				</tr>
 
 				<tr>
-					<td>아이디</td>
-					<td>관리자</td>
+					<td>고객아이디</td>
+					<td><%=id %></td>
+				</tr>
+				
+				<tr>
+					<td>상품이름</td>
+					<td><%=productName %></td>
 				</tr>
 
 				<tr>
@@ -58,7 +70,8 @@
 
 			</table>
 			<input type="hidden" name="num" value=<%=num %>>
-			<input type="hidden" name="id" value=<%=idKey %>>
+			<input type="hidden" name="productName" value="<%=productName%>">
+			<input type="hidden" name="id" value=<%=aBean.getId() %>>
 			<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
 			<input type="hidden" name="nowPage" value="<%=nowPage%>">
 			<input

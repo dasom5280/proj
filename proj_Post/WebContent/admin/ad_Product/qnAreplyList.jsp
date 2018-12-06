@@ -98,9 +98,10 @@ padding: 10px;
 							<th>제목</th>
 							<th>아이디</th>
 							<th>아이피</th>
+							<th>상품이름</th>
 							<th>날 짜</th>
 							<th>답변완료</th>
-							<th>삭제처리(관리자는 바로 삭제)</th>
+							<th>삭제처리</th>
 						</tr>
 						<tr>
 							<td colspan="5"><hr></td>
@@ -112,6 +113,7 @@ padding: 10px;
 									int num = bean.getNum();
 									String id = bean.getId();
 									String ip = bean.getIp();
+									String productName = bean.getProductName();
 									String subject = bean.getSubject();
 									String regdate = bean.getRegdate();
 									String answer = bean.getAnswer();
@@ -151,17 +153,17 @@ padding: 10px;
 								 <%=subject%>
 								 </a>
 							</td>
-							<td><% if(id.equals("admin")){out.println("관리자");} else {out.println(id);}%></td>
+							<td><% if(id.equals("admin")){out.println("관리자");} else {out.print(id);}%></td>
 							<td><%=ip%></td>
+							<td><%=productName%></td>
 							<td><%=regdate%></td>
-							<td><% if (answer.equals("2")||answer.equals("3")){out.println("완료"); }%></td>
+							<td><% if (answer.equals("2")||answer.equals("3")){out.print("완료"); }%></td>
 							
 							<!--  삭제처리 체크박스 -->
-							<td>
-							<input type="button" value="삭제"
-							onclick="location.href=<%
-							if(answer.equals("2")){out.print("'deleteProc.jsp?nums=" + num+"'"); }
-							if(answer.equals("3")){out.print("'directDeleteProc.jsp?nums=" + num+"'"); }%>">
+							<td><form name="delFrm">
+							<input type="checkbox" name="del" value="<%=num %>">
+							<input type="hidden" name="nums" value="">
+							</form></td>
 						</tr>
 						<% }   //for%>
 					</table> 
@@ -280,6 +282,46 @@ padding: 10px;
 		}
 		document.searchFrm.submit();
 	}
+	
+	function deleteProcess(){
+		var chk = document.getElementsByName("del"); // 체크박스객체를 담는다
+		var len = chk.length;    //체크박스의 전체 개수
+		var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+		var checkCnt = 0;        //체크된 체크박스의 개수
+		var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+		var rowNum = '';             //체크된 체크박스의 모든 value 값을 담는다
+		var cnt = 0;                 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){
+		checkCnt++;        //체크된 체크박스의 개수
+		checkLast = i;     //체크된 체크박스의 인덱스
+		}
+		} 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){  //체크가 되어있는 값 구분
+		checkRow = chk[i].value;
+		            	
+		if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+		rowNum += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+		if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+		rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{
+		rowNum += checkRow+"a";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+		}
+							
+		}
+		cnt++;
+		checkRow = '';    //checkRow초기화.
+		}
+		
+	}
+		location.href="deleteProc.jsp?nums=" + rowNum;
+	
+}
+
 </script>
 </body>
 </html>

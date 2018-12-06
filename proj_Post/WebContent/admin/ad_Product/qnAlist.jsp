@@ -165,7 +165,7 @@ padding: 10px;
 							<td><form name="delFrm">
 							<input type="checkbox" name="del" value="<%=num %>">
 							<input type="hidden" name="nums" value="">
-							</form>
+							</form></td>
 						</tr>
 						<% }   //for%>
 					</table> 

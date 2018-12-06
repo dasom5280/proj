@@ -98,6 +98,7 @@ padding: 10px;
 							<th>제목</th>
 							<th>아이디</th>
 							<th>아이피</th>
+							<th>상품이름</th>
 							<th>날 짜</th>
 							<th>답변완료</th>
 							<th>Del값</th>
@@ -114,6 +115,7 @@ padding: 10px;
 									int num = bean.getNum();
 									String id = bean.getId();
 									String ip = bean.getIp();
+									String productName = bean.getProductName();
 									String subject = bean.getSubject();
 									String regdate = bean.getRegdate();
 									String answer = bean.getAnswer();
@@ -155,6 +157,7 @@ padding: 10px;
 							</td>
 							<td><%=id%></td>
 							<td><%=ip%></td>
+							<td><%=productName%></td>
 							<td><%=regdate%></td>
 							<td><% if (answer.equals("1")){out.println("대기"); }  if (answer.equals("2")||answer.equals("3")){out.println("완료"); }%></td>
 							<td><%=qdel %></td>
