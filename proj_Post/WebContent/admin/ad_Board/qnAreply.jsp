@@ -12,9 +12,13 @@
 		response.sendRedirect("../adminLogin.jsp");
 	} else {
 	
+	int level = aBean.getLevel();
 	int num = Integer.parseInt(request.getParameter("num"));
+	
 	Ad_QnABean qBean = qMgr.getQnA(num);
+	
 	String nowPage = request.getParameter("nowPage");
+	
 	String id = qBean.getId();
 	String subject = qBean.getSubject();
 	String content = qBean.getContent();
@@ -39,23 +43,27 @@
 				</tr>
 
 				<tr>
-					<td>고객아이디</td>
+					<td>고객 아이디</td>
 					<td><%=id %></td>
 				</tr>
 				
 				<tr>
-					<td>상품이름</td>
+					<td>상품 이름</td>
 					<td><%=productName %></td>
 				</tr>
 
 				<tr>
 					<td>제 목</td>
-					<td><input type="text" name="subject" size="45" value="답변 : <%=subject%>" maxlength="50"></td>
+					<td><input type="text" name="subject" size="48" value="답변 : <%=subject%>" maxlength="50"></td>
 				</tr>
 
 				<tr>
-					<td>내 용</td>
-					<td><textarea name="content" rows="12" cols="50"></textarea></td>
+					<td>원글 내용</td>
+					<td><textarea rows="8" cols="50" readonly="readonly"><%=content %></textarea></td>
+				</tr>
+				<tr>
+					<td>답글 내용</td>
+					<td><textarea autofocus="autofocus"  name="content" rows="12" cols="50"></textarea></td>
 				</tr>
 
 				<tr>
@@ -63,9 +71,9 @@
 				</tr>
 
 				<tr>
-					<td colspan="2"><input type="submit" value="답변등록">
-					<input	type="reset" value="다시쓰기">
-					<input type="button" value="원글보기" onclick="history.back()"></td>
+					<td colspan="2">
+					<input type="submit" value="답변등록">
+					<input	type="reset" value="다시쓰기"></td>
 				</tr>
 
 			</table>

@@ -1,3 +1,4 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="pack_Bean.Ad_QnABean"%>
 <%@page import="java.util.Vector"%>
@@ -5,24 +6,36 @@
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" scope="page" />
 
-<%
-	request.setCharacterEncoding("utf-8");
 
-	String nums = request.getParameter("recNums");
-
-	StringTokenizer st = new StringTokenizer(nums, "a");
-	while (st.hasMoreTokens()) {
-		int num = Integer.parseInt(st.nextToken());
-		qMgr.recoverQnA(num);
-	}
-
-	response.sendRedirect("qnAdeletedList.jsp");
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title></title>
+<%
+	request.setCharacterEncoding("utf-8");
+
+	MemberBean sbean = (MemberBean) session.getAttribute("adminBean");
+	if(sbean == null){
+		response.sendRedirect("../adminLogin.jsp");
+	} else{
+	String nums = request.getParameter("nums");
+
+	StringTokenizer st = new StringTokenizer(nums, "a");
+	while (st.hasMoreTokens()) {
+		int num = Integer.parseInt(st.nextToken());
+		qMgr.deleteQnA(num, sbean.getLevel());
+	}
+
+	%>
+	<script type="text/javascript">
+	alert("삭제 완료");
+	</script>
+	
+	<%
+	response.sendRedirect("qnAlist.jsp");
+	}
+	%>
 </head>
 <body>
 	<div id="wrap"></div>

@@ -1,3 +1,4 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.Ad_QnABean"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +7,11 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
+	MemberBean abean = (MemberBean)session.getAttribute("adminBean");
+	if(abean == null){
+		response.sendRedirect("../adminLogin.jsp");
+	} else {
+		
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
@@ -21,7 +27,8 @@
 
 	int listSize = 0; //현재 읽어온 게시물의 수
 
-	String keyWord = "", keyField = "";
+	String keyWord = "";
+	String keyField = "";
 	Vector<Ad_QnABean> vlist = null;
 	
 	if (request.getParameter("keyWord") != null) {
@@ -46,7 +53,8 @@
 	// start 가 40이라는 의미
 	end = start + numPerPage;  // end 는 50
 
-	totalRecord = qMgr.getRepTotalCount(keyField, keyWord);
+	totalRecord = qMgr.getTotalCount(keyField, keyWord);
+	
 	totalPage = (int) Math.ceil((double)totalRecord / numPerPage);
 						//전체페이지수
 	nowBlock = (int) Math.ceil((double)nowPage / pagePerBlock);
@@ -67,13 +75,12 @@ padding: 10px;
 }
 </style>
 <link rel="stylesheet" href="../css/style.css">
-<script src=js/script.js></script>
 
 </head>
 <body>
 	<div id="wrap">
 
-		<h1>상품문의관리-답변완료목록</h1>
+		<h1>상품문의관리</h1>
 		<table class="listTbl">
 			<tr>
 				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
@@ -85,7 +92,7 @@ padding: 10px;
 			<tr>
 				<td colspan="2">
 					<%
-				  vlist = qMgr.getReplyList(keyField, keyWord, start, end);
+				  vlist = qMgr.getQnAList(keyField, keyWord, start, end);
 					
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
@@ -117,7 +124,6 @@ padding: 10px;
 									String subject = bean.getSubject();
 									String regdate = bean.getRegdate();
 									String answer = bean.getAnswer();
-									String qdel = bean.getDel();
 									
 									int depth = bean.getDepth();
 						%>
@@ -153,11 +159,11 @@ padding: 10px;
 								 <%=subject%>
 								 </a>
 							</td>
-							<td><% if(id.equals("admin")){out.println("관리자");} else {out.print(id);}%></td>
+							<td><% if(id.equals(abean.getId())){out.print("관리자");} else{out.print(id);}%></td>
 							<td><%=ip%></td>
 							<td><%=productName%></td>
 							<td><%=regdate%></td>
-							<td><% if (answer.equals("2")||answer.equals("3")){out.print("완료"); }%></td>
+							<td><% if(answer.equals("1")){out.print("대기"); } if (answer.equals("2")||answer.equals("3")){out.print("완료"); }%></td>
 							
 							<!--  삭제처리 체크박스 -->
 							<td><form name="delFrm">
@@ -205,10 +211,10 @@ padding: 10px;
 				<td>
 				
 				<!-- 각종 이동 버튼 -->
-				<input type="button" value="목록처음으로" onclick="list()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="삭제처리목록" onclick="location.href='qnAdeletedList.jsp'">&nbsp;&nbsp;
-				<input type="button" value="삭제처리하기" onclick="deleteProcess()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="상품문의메인" onclick="location.href='qnAlist.jsp'">
+				<!-- 관리자/사용자 이동 버튼 출력 다르게 구현 필요 -->
+				<input type="button" value="목록처음으로" onclick="flist()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="답변완료목록" onclick="location.href='qnAreplyList.jsp'">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="삭제하기" onclick="deleteProcess()">
 				
 				</td>
 			</tr>
@@ -222,13 +228,15 @@ padding: 10px;
 						keyField = ""; -->
 					<select name="keyField" size="1">	
 									
-							<option value="-">검색항목선택</option> 						
+							<option value="productName" 
+							<% if(keyField.equals("productName")){%>selected="selected"<%}%> >상품이름</option>						
 							<option value="id" 
-							<% if(keyField.equals("id")){%>selected<%}%>>아이디</option>
+							<% if(keyField.equals("id")){%>selected="selected"<%}%>>아이디</option>
 							<option value="subject" 
-							<% if(keyField.equals("subject")){%>selected<%}%>>제 목</option>
+							<% if(keyField.equals("subject")){%>selected="selected"<%}%>>제 목</option>
 							<option value="content" 
-							<% if(keyField.equals("content")){%>selected<%}%>>내 용</option>
+							<% if(keyField.equals("content")){%>selected="selected"<%}%>>내 용</option>
+	
 					</select> 
 					<input type="text" size="16" name="keyWord" value="<%=keyWord%>"> 
 					<input type="button" value="찾기" onClick="javascript:check()"> 
@@ -248,14 +256,54 @@ padding: 10px;
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
 	</div>
-	
+
 	<!-- 자바스크립트 구문 -->
 	<script type="text/javascript">
-	function list() {
+	
+	function flist() {
 		document.listFrm.action = "qnAlist.jsp";
 		document.listFrm.submit();
 	}
 	
+	function deleteProcess(){
+			var chk = document.getElementsByName("del"); // 체크박스객체를 담는다
+			var len = chk.length;    //체크박스의 전체 개수
+			var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+			var checkCnt = 0;        //체크된 체크박스의 개수
+			var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+			var rowNum = '';             //체크된 체크박스의 모든 value 값을 담는다
+			var cnt = 0;                 
+
+			for(var i=0; i<len; i++){
+			if(chk[i].checked == true){
+			checkCnt++;        //체크된 체크박스의 개수
+			checkLast = i;     //체크된 체크박스의 인덱스
+			}
+			} 
+
+			for(var i=0; i<len; i++){
+			if(chk[i].checked == true){  //체크가 되어있는 값 구분
+			checkRow = chk[i].value;
+			            	
+			if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+			rowNum += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+			}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+			if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+			rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+			}else{
+			rowNum += checkRow+"a";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+			}
+								
+			}
+			cnt++;
+			checkRow = '';    //checkRow초기화.
+			}
+			
+		}
+			location.href="qnAdeleteProc.jsp?nums=" + rowNum;
+		
+	}
+
 	function pageing(page) {
 		document.readFrm.nowPage.value = page;
 		document.readFrm.submit();
@@ -282,46 +330,10 @@ padding: 10px;
 		}
 		document.searchFrm.submit();
 	}
-	
-	function deleteProcess(){
-		var chk = document.getElementsByName("del"); // 체크박스객체를 담는다
-		var len = chk.length;    //체크박스의 전체 개수
-		var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
-		var checkCnt = 0;        //체크된 체크박스의 개수
-		var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
-		var rowNum = '';             //체크된 체크박스의 모든 value 값을 담는다
-		var cnt = 0;                 
-
-		for(var i=0; i<len; i++){
-		if(chk[i].checked == true){
-		checkCnt++;        //체크된 체크박스의 개수
-		checkLast = i;     //체크된 체크박스의 인덱스
-		}
-		} 
-
-		for(var i=0; i<len; i++){
-		if(chk[i].checked == true){  //체크가 되어있는 값 구분
-		checkRow = chk[i].value;
-		            	
-		if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
-		rowNum += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-		}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
-		if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
-		rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-		}else{
-		rowNum += checkRow+"a";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
-		}
-							
-		}
-		cnt++;
-		checkRow = '';    //checkRow초기화.
-		}
-		
-	}
-		location.href="deleteProc.jsp?nums=" + rowNum;
-	
-}
-
 </script>
+
+	<%
+	}
+	%>
 </body>
 </html>

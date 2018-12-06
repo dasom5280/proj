@@ -49,8 +49,9 @@
    
    <button type="button" title="쇼핑몰관리">쇼핑몰관리</button>
    <ul>
-    <li><a href="" title="상품관리">상품관리</a></li>
-    <li><a href="" title="상품문의">상품문의</a></li>
+  
+    <li><a href="ad_Product/productList.jsp" class="">상품관리</a></li>
+    <li><a href="ad_Board/qnAlist.jsp" class="">상품문의</a></li>
     <li><a href="" title="주문내역">주문내역</a></li>
    </ul>
    
@@ -134,8 +135,8 @@
                         <h3>쇼핑몰관리</h3>
                         <ul><li><a href="" class="">쇼핑몰관리</a></li>
                         <li><a href="" class="">주문내역</a></li>
-                        <li><a href="" class="">상품관리</a></li>
-                        <li><a href="ad_Product/qnAlist.jsp" class="">상품문의</a></li>
+                        <li><a href="ad_Product/productList.jsp" class="">상품관리</a></li>
+                        <li><a href="ad_Board/qnAlist.jsp" class="">상품문의</a></li>
                         </ul>
                     </div>
                 </div>
