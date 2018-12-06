@@ -3,6 +3,7 @@ package pack_Bean;
 public class Ad_QnABean {
 		
 		private int num;
+		private String productName;
 		private String id;        
 		private String subject;      
 		private String content;     
@@ -20,6 +21,12 @@ public class Ad_QnABean {
 		}
 		public void setNum(int num) {
 			this.num = num;
+		}
+		public String getProductName() {
+			return productName;
+		}
+		public void setProductName(String productName) {
+			this.productName = productName;
 		}
 		public String getId() {
 			return id;

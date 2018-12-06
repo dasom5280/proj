@@ -1,3 +1,4 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.Ad_QnABean"%>
 <%@page import="pack_Bean.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,12 +21,16 @@
 	String ref = String.valueOf(bean.getRef());
 	String pos = String.valueOf(bean.getPos());
 	String depth = String.valueOf(bean.getDepth());
-	
-	String idKey = (String) session.getAttribute("id");
-	
-	if(idKey==null){
+	String productName = bean.getProductName();
+
+	MemberBean adminbean = (MemberBean)session.getAttribute("adminBean");
+
+	if(adminbean==null){
 		response.sendRedirect("../adminLogin.jsp");
 	} else {
+		String adminid = adminbean.getId();
+		int level = adminbean.getLevel();
+		
 	
 %>
 <!DOCTYPE html>
@@ -53,6 +58,10 @@ border: 1px solid gray;
 			<tr>
 				<td colspan="4">글읽기</td>
 			</tr>
+				<tr>
+			<td>상품이름</td>
+			<td colspan="3"><%=productName%></td>
+			</tr>
 			<tr>
 				<td>아이디</td>
 				<td><% if(id.equals("admin")){out.println("관리자");} else {out.println(id);}%></td>
@@ -74,6 +83,8 @@ border: 1px solid gray;
 			</tr>
 			<tr>
 				<td colspan="4"><a href="javascript:list()" title="">상품문의 메인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+
+				<!-- 관리자는 답변 뜨고 사용자는 수정, 삭제 뜨도록 -->
 				<a href="javascript:replyProcess()">답 변</a>
 				</td>
 			</tr>
@@ -87,6 +98,7 @@ border: 1px solid gray;
 				<input type="hidden" name="ref" value="<%=ref %>">
 				<input type="hidden" name="pos" value="<%=pos %>">
 				<input type="hidden" name="depth" value="<%=depth %>">
+				<input type="hidden" name="productName" value="<%=productName %>">
 		</form>
 
 		<form name="listFrm" method="post">

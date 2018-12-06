@@ -98,6 +98,7 @@ padding: 10px;
 							<th>제목</th>
 							<th>아이디</th>
 							<th>아이피</th>
+							<th>상품이름</th>
 							<th>날 짜</th>
 							<th>답변완료</th>
 							<th>Del값</th>
@@ -113,6 +114,7 @@ padding: 10px;
 									int num = bean.getNum();
 									String id = bean.getId();
 									String ip = bean.getIp();
+									String productName = bean.getProductName();
 									String subject = bean.getSubject();
 									String regdate = bean.getRegdate();
 									String answer = bean.getAnswer();
@@ -154,6 +156,7 @@ padding: 10px;
 							</td>
 							<td><% if(id.equals("admin")){out.println("관리자");} if(!id.equals("admin")){out.println(id);}%></td>
 							<td><%=ip%></td>
+							<td><%=productName%></td>
 							<td><%=regdate%></td>
 							<td><% if(answer.equals("1")){out.println("대기"); } if (answer.equals("2")||answer.equals("3")){out.println("완료"); }%></td>
 							<td><%=qdel %></td>
@@ -204,6 +207,7 @@ padding: 10px;
 				<td>
 				
 				<!-- 각종 이동 버튼 -->
+				<!-- 관리자/사용자 이동 버튼 출력 다르게 구현 필요 -->
 				<input type="button" value="목록처음으로" onclick="list()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="답변완료목록" onclick="location.href='qnAreplyList.jsp'">&nbsp;&nbsp;
 				<input type="button" value="삭제처리목록" onclick="location.href='qnAdeletedList.jsp'">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
@@ -221,7 +225,9 @@ padding: 10px;
 						keyField = ""; -->
 					<select name="keyField" size="1">	
 									
-							<option value="-">검색항목선택</option> 						
+							<option value="-">검색항목선택</option>
+							<option value="productName" 
+							<% if(keyField.equals("productName")){%>selected<%}%>>상품이름</option>						
 							<option value="id" 
 							<% if(keyField.equals("id")){%>selected<%}%>>아이디</option>
 							<option value="subject" 
