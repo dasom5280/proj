@@ -22,7 +22,7 @@ int number;
 		
 		if (inPass.equals(dbPass)) {
 			bMgr.deleteBoard(num);
-			String url = "list.jsp?nowPage=" + nowPage;
+			String url = "noticeList.jsp?nowPage=" + nowPage;
 			response.sendRedirect(url);
 		} else {
 %>

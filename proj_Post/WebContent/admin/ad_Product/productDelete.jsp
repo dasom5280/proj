@@ -7,13 +7,8 @@
 
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
 	
-	boolean chk = pMgr.deleteProduct(productNum);
-	
-	if(chk){
-		
-		
-	}
-	
+	pMgr.deleteProduct(productNum);
+
  %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,7 +16,7 @@
 <meta charset="UTF-8">
 <title>Product Delete</title>
 <script type="text/javascript">
-	location.href = "productMain.jsp";
+	location.href = "productList.jsp";
 </script>
 </head>
 <body>

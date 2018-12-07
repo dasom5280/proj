@@ -1,12 +1,19 @@
+
+//admin Board start////
+
 function list() {
 	document.listFrm.action = "list.jsp";
 	document.listFrm.submit();
 }
 
+
+
 function post(){
 	document.postFrm.action = "post.jsp";
 	documnet.postFrm.submit();
 }
+
+//admin Board end////
 
 // //////////로그인 처리 시작 ////////////
 function loginCheck() {

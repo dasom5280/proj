@@ -28,7 +28,6 @@
 	if(adminbean==null){
 		response.sendRedirect("../adminLogin.jsp");
 	} else {
-		String adminid = adminbean.getId();
 		int level = adminbean.getLevel();
 		
 	
@@ -64,7 +63,7 @@ border: 1px solid gray;
 			</tr>
 			<tr>
 				<td>아이디</td>
-				<td><% if(id.equals("admin")){out.println("관리자");} else {out.println(id);}%></td>
+				<td><% if(level==2){out.println("관리자");} else {out.println(id);}%></td>
 				<td>등록날짜</td>
 				<td><%=regdate%></td>
 			</tr>
@@ -77,7 +76,7 @@ border: 1px solid gray;
 				<td>제 목</td>
 				<td colspan="3"><%=subject%></td>
 			</tr>
-
+			
 			<tr>
 				<td colspan="4"><pre><%=content%></pre></td>
 			</tr>
@@ -93,12 +92,6 @@ border: 1px solid gray;
 		<form name="qnaFrm" method="post">
 				<input type="hidden" name="num" value="<%=num%>">
 				<input type="hidden" name="nowPage" value="<%=nowPage %>">
-				<input type="hidden" name="subject" value="<%=subject %>">
-				<input type="hidden" name="content" value="<%=content %>">
-				<input type="hidden" name="ref" value="<%=ref %>">
-				<input type="hidden" name="pos" value="<%=pos %>">
-				<input type="hidden" name="depth" value="<%=depth %>">
-				<input type="hidden" name="productName" value="<%=productName %>">
 		</form>
 
 		<form name="listFrm" method="post">

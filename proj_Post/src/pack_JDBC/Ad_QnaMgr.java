@@ -1,26 +1,14 @@
 package pack_JDBC;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import pack_Bean.Ad_QnABean;
-import pack_Bean.PostBean;
 import pack_DBCP.DBConnectionMgr;
-import pack_Util.UtilMgr;
 
 public class Ad_QnaMgr {
 
@@ -44,16 +32,13 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from tblQnA where del= 0 order by ref desc, pos limit ?, ?";
+				sql = "select * from tblQnA order by ref desc, pos limit ?, ?";
 
-				//////////// 페이징연습용 쿼리 시작 ////////////
-				// sql = "select * from tblPost order by num desc limit 40, 50";
-				//////////// 페이징연습용 쿼리 끝 ////////////
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else {
-				sql = "select * from  tblQnA where " + keyField + " like ? and del=0 ";
+				sql = "select * from  tblQnA where " + keyField + " like ? ";
 				sql += " order by ref desc, pos limit ? , ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
@@ -74,7 +59,6 @@ public class Ad_QnaMgr {
 				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setAnswer(rs.getString("answer"));
-				bean.setDel(rs.getString("del"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -95,11 +79,11 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblQnA where del=0 ";
+				sql = "select count(*) from tblQnA";
 				pstmt = con.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblQnA where " + keyField + " like ? and del=0 ";
+				sql = "select count(*) from  tblQnA where " + keyField + " like ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
 
@@ -132,8 +116,8 @@ public class Ad_QnaMgr {
 			if (rs.next())
 				ref = rs.getInt(1) + 1;
 
-			sql = "insert into tblQnA(productName, id, content, subject, ref, pos, depth, regdate, pass, ip, answer, del) ";
-			sql += " values(?, ?, ?, ?, ?, 0, 0, now(), ?, ?, 1, 0)";
+			sql = "insert into tblQnA(productName, id, content, subject, ref, pos, depth, regdate, pass, ip, answer) ";
+			sql += " values(?, ?, ?, ?, ?, 0, 0, now(), ?, ?, 1)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, req.getParameter("productName"));
 			pstmt.setString(2, req.getParameter("id"));
@@ -160,7 +144,7 @@ public class Ad_QnaMgr {
 
 		try {
 			con = pool.getConnection();
-			sql = "select * from tblQnA where num=? and del=0";
+			sql = "select * from tblQnA where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -186,8 +170,8 @@ public class Ad_QnaMgr {
 		return bean;
 	}
 
-	// 게시물 삭제 - 답변과 삭제처리된 게시물만 다이렉트 삭제 가능//
-	public boolean directDeleteQnA(int num) {
+	// 게시물 삭제//
+	public boolean deleteQnA(int num, int level) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -205,17 +189,19 @@ public class Ad_QnaMgr {
 			int ref = rs.getInt(1);
 			int depth = rs.getInt(2);
 
-			if (depth == 0) {
+			if (depth == 0 && level == 2) {
+				// 원본글이 삭제된경우 답변 글도 한꺼번에 삭제
 				sql = "delete from tblQnA where ref=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, ref);
 				pstmt.executeUpdate();
 			} else {
+				// 그 글만 삭제 <- 답변만 삭제할 때나 일반회원이 사용
 				sql = "delete from tblQnA where num=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, ref);
+				pstmt.setInt(1, num);
 				pstmt.executeUpdate();
-
+				// 사용자가 원본글을 지우면 첫 번째 답변에 달린 ㄴ이 사라지도록. 답변이 여러 개 달려 있는 경우 답변 글의 위치를 1씩 당긴다
 				sql = "update tblQnA set depth=depth-1, pos=pos-1 where ref=? and pos>0";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, ref);
@@ -228,141 +214,6 @@ public class Ad_QnaMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return flag;
-	}
-
-	// 일반회원 게시물 삭제처리//
-	public boolean deleteQnA(int num, String del) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		ResultSet rs = null;
-		boolean flag = false;
-		try {
-			con = pool.getConnection();
-			if (!del.equals("1")) {
-				return flag;
-			}
-			sql = "update tblQnA set del=1 where num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			if (pstmt.executeUpdate() == 1) {
-				flag = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return flag;
-	}
-
-	// 삭제처리된 게시물 복원
-	public boolean recoverQnA(int num) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		ResultSet rs = null;
-		boolean flag = false;
-		try {
-			con = pool.getConnection();
-
-			sql = "update tblQnA set del=0 where num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			if (pstmt.executeUpdate() == 1) {
-				flag = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return flag;
-	}
-
-	// 삭제처리된 질문 목록 반환
-	public Vector<Ad_QnABean> getDeletedQnAList(String keyField, String keyWord, int start, int end) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<Ad_QnABean> vlist = new Vector<>();
-		try {
-			con = pool.getConnection();
-			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from tblQnA where del= 1 order by ref desc, pos limit ?, ?";
-
-				//////////// 페이징연습용 쿼리 시작 ////////////
-				// sql = "select * from tblPost order by num desc limit 40, 50";
-				//////////// 페이징연습용 쿼리 끝 ////////////
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, start);
-				pstmt.setInt(2, end);
-			} else {
-				sql = "select * from  tblQnA where " + keyField + " like ? and del=1 ";
-				sql += " order by ref desc, pos limit ? , ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + keyWord + "%");
-				pstmt.setInt(2, start);
-				pstmt.setInt(3, end);
-			}
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Ad_QnABean bean = new Ad_QnABean();
-				bean.setNum(rs.getInt("num"));
-				bean.setProductName(rs.getString("productName"));
-				bean.setId(rs.getString("id"));
-				bean.setIp(rs.getString("ip"));
-				bean.setSubject(rs.getString("subject"));
-				bean.setPos(rs.getInt("pos"));
-				bean.setRef(rs.getInt("ref"));
-				bean.setDepth(rs.getInt("depth"));
-				bean.setRegdate(rs.getString("regdate"));
-				bean.setAnswer(rs.getString("answer"));
-				bean.setDel(rs.getString("del"));
-				vlist.add(bean);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return vlist;
-	}
-
-	public int getDelTotalCount(String keyField, String keyWord) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		int totalCount = 0;
-		try {
-			con = pool.getConnection();
-			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblQnA where del=1";
-				pstmt = con.prepareStatement(sql);
-			} else {
-				if (keyField.equals("answer")) {
-					sql = "select count(*) from  tblQnA where answer=? and del=1 ";
-					sql += " order by ref desc, pos limit ? , ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, keyWord);
-				} else {
-					sql = "select count(*) from  tblQnA where " + keyField + " like ? and del=1";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
-				}
-			}
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				totalCount = rs.getInt(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return totalCount;
 	}
 
 	// 게시물 수정
@@ -400,8 +251,8 @@ public class Ad_QnaMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into tblQnA (productName, id, content, subject, ref, pos, depth, regdate, pass, ip, answer, del) ";
-			sql += " values(?, ?, ?, ?, ?, ?, ?, now(), ?, ?, 3, 0)";
+			sql = "insert into tblQnA (productName, id, content, subject, ref, pos, depth, regdate, pass, ip, answer) ";
+			sql += " values(?, ?, ?, ?, ?, ?, ?, now(), ?, ?, 3)";
 			int depth = bean.getDepth() + 1;
 			int pos = bean.getPos() + 1;
 			pstmt = con.prepareStatement(sql);
@@ -457,7 +308,7 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from tblQnA where answer>1 and del=0 order by ref desc, pos limit ?, ?";
+				sql = "select * from tblQnA where answer>1 order by ref desc, pos limit ?, ?";
 
 				//////////// 페이징연습용 쿼리 시작 ////////////
 				// sql = "select * from tblPost order by num desc limit 40, 50";
@@ -466,7 +317,7 @@ public class Ad_QnaMgr {
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else {
-				sql = "select * from  tblQnA where " + keyField + " like ? and answer>1 and del=0 ";
+				sql = "select * from  tblQnA where " + keyField + " like ? and answer>1 ";
 				sql += " order by ref desc, pos limit ? , ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
@@ -486,7 +337,6 @@ public class Ad_QnaMgr {
 				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setAnswer(rs.getString("answer"));
-				bean.setDel(rs.getString("del"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -506,19 +356,14 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblQnA where answer>1 and del=0 ";
+				sql = "select count(*) from tblQnA where answer>1 ";
 				pstmt = con.prepareStatement(sql);
 			} else {
-				if (keyField.equals("answer")) {
-					sql = "select count(*) from  tblQnA where answer=? and answer>1 ";
-					sql += " order by ref desc, pos limit ? , ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, keyWord);
-				} else {
-					sql = "select count(*) from  tblQnA where " + keyField + " like ? and answer>1";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
-				}
+
+				sql = "select count(*) from  tblQnA where " + keyField + " like ? and answer>1";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%");
+
 			}
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -541,7 +386,7 @@ public class Ad_QnaMgr {
 		Vector<Ad_QnABean> vlist = new Vector<>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from tblQnA where productName=? and del= 0 order by ref desc, pos limit ?, ?";
+			sql = "select * from tblQnA where productName=? order by ref desc, pos limit ?, ?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, productName);
@@ -562,7 +407,6 @@ public class Ad_QnaMgr {
 				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setAnswer(rs.getString("answer"));
-				bean.setDel(rs.getString("del"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {

@@ -13,7 +13,7 @@
 	String url = "productAdd.jsp";
 	if (chk) {
 		msg = "성공";
-		url = "productMain.jsp";
+		url = "productList.jsp";
 	}
 %>
 <!DOCTYPE html>

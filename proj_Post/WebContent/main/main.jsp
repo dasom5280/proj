@@ -30,7 +30,7 @@
 				<li><a href="#" title="Bottom">Bottom</a></li>
 				<li><a href="#" title="Sale">Sale</a></li>
 				&nbsp;<li>||</li>&nbsp;
-				<li><a href="../admin/ad_Board/list.jsp" title="Notice">Notice</a></li>
+				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
 				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
 				&nbsp;<li>||</li>&nbsp;
 			<%

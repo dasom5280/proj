@@ -5,5 +5,5 @@
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page" />
 <%
 	  bMgr.insertBoard(request);
-	  response.sendRedirect("list.jsp");
+	  response.sendRedirect("noticeList.jsp");
 %>

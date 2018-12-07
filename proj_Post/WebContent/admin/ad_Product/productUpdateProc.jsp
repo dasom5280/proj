@@ -22,7 +22,7 @@
 <script type="text/javascript">
 
 	alert("<%=msg%>");
-	location.href = "productMain.jsp";
+	location.href = "productList.jsp";
 </script>
 </head>
 <body>

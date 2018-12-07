@@ -97,24 +97,10 @@
 </head>
 <body>
 	<div id="wrap">
-	<%
-				if (bean != null) {
-					
-					int level = bean.getLevel();
-						if (level==2) {
-			%>
-				<a href="../adminMain.jsp" title="adminMain">관리자페이지</a>
-			<% 
-				} 
-			%>
-			
-			<%
-			}else {
-			%>
+
 			<a href="../../main/main.jsp" title="main">MAIN</a>
-			<%
-				}
-			%>	
+			
+			
 
 		<h1>공지사항</h1>
 		<table class="listTbl">
@@ -230,23 +216,6 @@
 					<%}%> <!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td>
-				
-					<%
-				if (bean != null) {
-					String id = bean.getId();
-						if (id.equals("admin")) {
-			%>
-			<a href="post.jsp" title="글쓰기">[글쓰기]</a>
-			<% 
-				} 
-						%>
-						<%
-			}else {
-			%>
-				
-			<%
-				}
-			%>			
 				 
 				</td>
 			</tr>
