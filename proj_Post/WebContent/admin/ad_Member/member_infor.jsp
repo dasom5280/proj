@@ -21,7 +21,7 @@
 <html lang="ko">
 <head>
 <meta charset="">
-<title>회원정보</title>
+<title>Member Information</title>
 <style> 
   div#wrap {width : 640px; margin : 0 auto;}
 </style>

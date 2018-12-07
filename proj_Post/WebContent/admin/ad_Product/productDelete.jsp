@@ -19,7 +19,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Product Delete</title>
 <script type="text/javascript">
 	location.href = "productMain.jsp";
 </script>

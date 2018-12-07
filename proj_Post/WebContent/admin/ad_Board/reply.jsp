@@ -12,7 +12,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP Reply</title>
+<title>Board  Reply</title>
 <link rel="stylesheet" href="../../css/ad_Board.css">
 </head>
 <body>

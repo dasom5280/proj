@@ -16,7 +16,7 @@ String content = bean.getContent();
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP Board</title>
+<title>Board Update</title>
 <link rel="stylesheet" href="../../css/ad_Board.css">
 <script>
 function check() {

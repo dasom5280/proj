@@ -4,7 +4,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSPBoard</title>
+<title>Board post</title>
 <link rel="stylesheet" href="../../css/ad_Board.css">
 </head>
 <body>

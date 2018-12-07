@@ -4,7 +4,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>로그아웃</title>
+<title>Admin Logout</title>
 <%
 session.invalidate();
 %>

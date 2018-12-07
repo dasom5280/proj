@@ -8,7 +8,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Product Main</title>
 <style type="text/css">
 table {
 	border-collapse: collapse;

@@ -5,7 +5,7 @@
 <jsp:useBean id="bMgr" class="pack_JDBC.PostMgr" scope="page" />
 <%
 	request.setCharacterEncoding("UTF-8");
-//gfcchcg
+
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
@@ -16,8 +16,6 @@
 	int nowPage = 1; // 현재페이지
 	int nowBlock = 1; //현재블럭
 
-	
-	int nodddofhodfhfd = 5;
 
 	int start = 0; //디비의 select 시작번호
 	int end = 10; //시작번호로 부터 가져올 select 갯수
@@ -61,7 +59,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>Board list</title>
 
 <link rel="stylesheet" href="css/style.css">
 <script src=js/script.js></script>

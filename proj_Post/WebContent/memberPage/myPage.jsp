@@ -9,7 +9,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>My page</title>
 <link rel="stylesheet" href="../css/myPageStyle.css">
 </head>
 <body>

@@ -9,7 +9,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>Login</title>
 <link rel="stylesheet" href="../css/style.css">
 
 </head>

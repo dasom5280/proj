@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ</title>
+<title>FAQ Board</title>
 <link rel="stylesheet" href="../../css/ad_Board.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>

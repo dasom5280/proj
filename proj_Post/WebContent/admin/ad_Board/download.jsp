@@ -10,7 +10,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP 테스트</title>
+<title>Board download</title>
 <style>
 	div#wrap {  width : 640px;  margin : 0 auto; }	
 </style>

@@ -11,7 +11,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>쇼핑몰</title>
+<title>Main</title>
 <link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
 
 </head>

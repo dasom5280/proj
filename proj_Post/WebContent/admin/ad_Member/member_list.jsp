@@ -19,7 +19,7 @@ Vector<MemberBean> vlist = mMgr.getMemberList();
 <html lang="ko">
 <head>
 <meta charset="">
-<title>회원리스트</title>
+<title>Member List</title>
 
 <link type="text/css" rel="stylesheet" href="">
 

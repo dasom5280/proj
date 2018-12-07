@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Product Add</title>
 </head>
 <body>
 	<div id="wrap">

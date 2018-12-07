@@ -43,7 +43,7 @@ public class BoardMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<BoardBean> vlist = new Vector<BoardBean>();
+		Vector<BoardBean> mlist = new Vector<BoardBean>();
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
@@ -74,14 +74,14 @@ public class BoardMgr {
 				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setCount(rs.getInt("count"));
-				vlist.add(bean);
+				mlist.add(bean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return vlist;
+		return mlist;
 	}
 	
 	//총 게시물수

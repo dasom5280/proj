@@ -5,7 +5,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP Delete</title>
+<title>Board Delete</title>
 <link rel="stylesheet" href="../../css/ad_Board.css">
 
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page"/>

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>쇼핑몰</title>
+<title>Admin Main</title>
 <link rel="stylesheet" href="style.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="../../js/ad_member.js"></script>
@@ -61,19 +61,6 @@
 
 						<dt>쇼핑몰관리</dt>
 
-<<<<<<< HEAD
-    var el_id = document.getElementById(id);
-
-    //submenu = eval(name+".style");
-    submenu = el_id.style;
-    submenu.left = tempX - ( w + 11 );
-    submenu.top  = tempY - ( h / 2 );
-
-    selectBoxVisible();
-
-    if (el_id.style.display != 'none')
-        selectBoxHidden(id);
-}
 </script>
 
 <header id="hd">
@@ -344,7 +331,6 @@ function menu_rearrange(el)
    &copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
   </footer>
  </div>
->>>>>>> branch 'master' of https://github.com/dasom5280/proj.git
 
 </body>
 
