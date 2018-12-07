@@ -5,7 +5,7 @@
 <jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" scope="page"/>
 <%
 	request.setCharacterEncoding("utf-8");
-
+	
 	MemberBean aBean = (MemberBean) session.getAttribute("adminBean");
 	
 	if(aBean==null){
@@ -36,7 +36,7 @@
 </head>
 <body>
 	<div class="wrap" id="replyWrap">
-		<form name="post" method="post" action="qnAreplyProc.jsp">
+		<form name="replyFrm" method="post" action="qnAreplyProc.jsp">
 			<table>
 				<tr>
 					<td colspan="2">답변하기</td>
@@ -59,11 +59,11 @@
 
 				<tr>
 					<td>원글 내용</td>
-					<td><textarea rows="8" cols="50" readonly="readonly"><%=content %></textarea></td>
+					<td><textarea rows="8" cols="50" name="origcontent" readonly="readonly"><%=content %></textarea></td>
 				</tr>
 				<tr>
 					<td>답글 내용</td>
-					<td><textarea autofocus="autofocus"  name="content" rows="12" cols="50"></textarea></td>
+					<td><textarea autofocus="autofocus"  name="repcontent" rows="12" cols="50"></textarea></td>
 				</tr>
 
 				<tr>
@@ -72,26 +72,42 @@
 
 				<tr>
 					<td colspan="2">
-					<input type="submit" value="답변등록">
-					<input	type="reset" value="다시쓰기"></td>
+					
+					<input type="hidden" name="num" value="<%=num %>">
+					<input type="hidden" name="productName" value="<%=productName%>">
+					<input type="hidden" name="id" value="<%=aBean.getId() %>">
+					<input type="hidden" name="content" value="">
+					<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
+					<input type="hidden" name="nowPage" value="<%=nowPage%>">
+					<input type="hidden" name="ref" value="<%=ref%>">
+					<input type="hidden" name="pos" value="<%=pos%>">
+					<input type="hidden" name="depth" value="<%=depth%>">
+			
+					<input type="button" value="답변등록" onclick="replyProcess()">
+					<input	type="reset" value="다시쓰기">
+					<input	type="button" value="돌아가기" onclick="history.back()">
+					</td>
 				</tr>
 
 			</table>
-			<input type="hidden" name="num" value=<%=num %>>
-			<input type="hidden" name="productName" value="<%=productName%>">
-			<input type="hidden" name="id" value=<%=aBean.getId() %>>
-			<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
-			<input type="hidden" name="nowPage" value="<%=nowPage%>">
-			<input
-				type="hidden" name="ref" value="<%=ref%>">
-				<input
-				type="hidden" name="pos" value="<%=pos%>">
-				<input
-				type="hidden" name="depth" value="<%=depth%>">
 		</form>
+		
+		
 		
 		<%}
 	%>
 	</div>
+	
+	<script type="text/javascript">
+	function replyProcess(){
+		var ori = document.replyFrm.origcontent.value;
+		var rep = document.replyFrm.repcontent.value;
+		var con = "원글 : " + ori + "\n\n답글 : " +rep;
+		
+		document.replyFrm.content.value = con;
+		document.replyFrm.submit();
+	}
+	
+	</script>
 </body>
 </html>

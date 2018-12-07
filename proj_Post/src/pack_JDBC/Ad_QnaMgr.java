@@ -180,16 +180,16 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 
-			sql = "select ref, depth from tblQnA where num=?";
+			sql = "select ref, pos from tblQnA where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-
+			
 			rs.next();
 			int ref = rs.getInt(1);
-			int depth = rs.getInt(2);
+			int pos = rs.getInt(2);
 
-			if (depth == 0 && level == 2) {
+			if (pos == 0 && level == 2) {
 				// 원본글이 삭제된경우 답변 글도 한꺼번에 삭제
 				sql = "delete from tblQnA where ref=?";
 				pstmt = con.prepareStatement(sql);
@@ -202,7 +202,7 @@ public class Ad_QnaMgr {
 				pstmt.setInt(1, num);
 				pstmt.executeUpdate();
 				// 사용자가 원본글을 지우면 첫 번째 답변에 달린 ㄴ이 사라지도록. 답변이 여러 개 달려 있는 경우 답변 글의 위치를 1씩 당긴다
-				sql = "update tblQnA set depth=depth-1, pos=pos-1 where ref=? and pos>0";
+				sql = "update tblQnA set depth=depth-1 where ref=? and pos>0";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, ref);
 				pstmt.executeUpdate();
