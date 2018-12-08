@@ -9,7 +9,7 @@
 	bMgr.replyUpBoard(reBean.getRef(), reBean.getPos());
 	bMgr.replyBoard(reBean);
 	String nowPage = request.getParameter("nowPage");
-	response.sendRedirect("list.jsp?nowPage="+nowPage);
+	response.sendRedirect("noticeList.jsp?nowPage="+nowPage);
 %>
     
 <!DOCTYPE html>

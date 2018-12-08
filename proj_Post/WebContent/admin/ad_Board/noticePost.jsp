@@ -1,5 +1,14 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+	MemberBean abean = (MemberBean) session.getAttribute("adminBean");
+
+	if(abean==null){
+		response.sendRedirect("noticeList");
+	}
+%>
 <!DOCTYPE html>
 <html lang="KO">
 <head>
@@ -16,47 +25,48 @@
 			</tr>
 		</table>
 
-		<form name="postFrm" method="post" action="noticePostProc.jsp"
-			enctype="multipart/form-data">
+		<form name="postFrm" method="post" action="noticePostProc.jsp">
 			<table>
 				<tr>
 					<td>
 						<table>
 							<tr>
 								<td>성 명</td>
-								<td><input type="text" name="name" size="10" maxlength="8">
+								<td><input type="text" name="name" size="10" maxlength="8" readonly="readonly" value="관리자">
 								</td>
 							</tr>
 							<tr>
 								<td>제 목</td>
 								<td><input type="text" name="subject" size="50"
-									maxlength="30"></td>
+									maxlength="30" value=""></td>
 							</tr>
 							<tr>
 								<td>내 용</td>
-								<td><textarea name="content" rows="10" cols="50"></textarea></td>
+								<td><textarea name="content" rows="10" cols="50" ></textarea></td>
 							</tr>
 							<tr>
 								<td>비밀 번호</td>
 								<td><input type="password" name="pass" size="15"
-									maxlength="15"></td>
+									maxlength="15" value=""></td>
 							<tr>
 								<td colspan="2"><hr /></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="등록"> <input
-									type="reset" value="다시쓰기"> <input type="button"
-									value="리스트" onClick="javascript:location.href='noticeList.jsp'">
+								
+								<td colspan="2">
+								
+								<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
+								<input type="submit" value="등록">
+								<input type="reset" value="다시쓰기">
+								<input type="button" value="리스트" onClick="javascript:location.href='noticeList.jsp'">
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 			</table>
-			<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
 		</form>
 	</div>
 
-	</div>
 </body>
 </html>

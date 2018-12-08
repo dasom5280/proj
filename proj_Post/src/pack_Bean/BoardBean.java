@@ -12,9 +12,7 @@ public class BoardBean {
 	private String regdate;     
 	private String pass;          
 	private String  ip;
-	private int count;        
-	private String filename; 
-	private int filesize;
+	private int count;     
 	
 	public int getNum() {
 		return num;
@@ -82,17 +80,5 @@ public class BoardBean {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-	public int getFilesize() {
-		return filesize;
-	}
-	public void setFilesize(int filesize) {
-		this.filesize = filesize;
-	}  
 	
 }

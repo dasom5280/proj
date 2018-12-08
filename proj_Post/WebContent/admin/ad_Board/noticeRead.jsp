@@ -24,13 +24,10 @@
 	String subject = bean.getSubject();
 	String regdate = bean.getRegdate();
 	String content = bean.getContent();
-	String filename = bean.getFilename();
-	int filesize = bean.getFilesize();
 	String ip = bean.getIp();
 	int count = bean.getCount();
 
-	session.setAttribute("bean", bean);
-	// bean으로 반환된 데이터를 세션으로 설정함(ID 및 로그인과 무관함)
+	// bean으로 반환된 데이터를 세션으로 설정함(ID 및 로그인과 무관함) -> 설정하지 않는 것이 좋을거 같아요
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -40,14 +37,10 @@
 <link rel="stylesheet" href="../../css/ad_Board.css">
 <script>
 	function list() {
-		document.listFrm.action = "list.jsp";
+		document.listFrm.action = "noticeList.jsp";
 		document.listFrm.submit();
 	}
 
-	function down(filename) {
-		document.downFrm.filename.value = filename;
-		document.downFrm.submit();
-	}
 </script>
 </head>
 <body>
@@ -70,20 +63,6 @@
 							<td colspan="3" class="rangeLeft"><%=subject%></td>
 						</tr>
 						<tr>
-							<td class="itemSet">첨부파일</td>
-							<td colspan="3" class="rangeLeft">
-								<%
-									if (filename != null && !filename.equals("")) {
-								%> <a href="javascript:down('<%=filename%>')"><%=filename%></a>
-								&nbsp;&nbsp;<span style="color: blue">(<%=filesize%>KBytes)
-							</span> <%
- 	} else {
- %> 등록된 파일이 없습니다. <%
- 	}
- %>
-							</td>
-						</tr>
-						<tr>
 							<td colspan="4" class="rangeLeft rangeTop"><pre><%=content%></pre>
 							</td>
 						</tr>
@@ -104,11 +83,11 @@
 			%>
 				<tr>
 				<td align="center" colspan="2">
-					<hr> [ <a href="list.jsp" title="">리스트</a> | <a
-					href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
-					href="reply.jsp?nowPage=<%=nowPage%>">답 변</a> | <a
-					href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> | <a
-					href="post.jsp">글쓰기</a> ] <br>
+					<hr> [ <a href="noticeList.jsp" title="">리스트</a> | <a
+					href="noticeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | 
+					<a href="noticeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a> | 
+					<a href="noticeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> | 
+					<a href="noticePost.jsp">글쓰기</a> ] <br>
 				</td>
 			</tr>
 			<% 
@@ -121,7 +100,7 @@
 			<tr>
 			<td align="center" colspan="2">
 		
-			[<a href="list.jsp" title="">리스트</a>]
+			[<a href="noticeList.jsp" title="">리스트</a>]
 			</td>
 			</tr>
 			<%

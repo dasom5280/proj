@@ -10,17 +10,17 @@
 
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page"/>
 <%
-int number;
 	request.setCharacterEncoding("UTF-8");
 	String nowPage = request.getParameter("nowPage");
 	int num = Integer.parseInt(request.getParameter("num"));
+	
 	if (request.getParameter("pass") != null) {
-		//비번을 입력을 해서 세션에 있는 pass 비교요청
-		String inPass = request.getParameter("pass");
-		BoardBean bean = (BoardBean) session.getAttribute("bean");
-		String dbPass = bean.getPass();
 		
-		if (inPass.equals(dbPass)) {
+		String inPass = request.getParameter("pass");
+		BoardBean bean = bMgr.getBoard(num);
+		String oriPass = bean.getPass();
+	
+		if (inPass.equals(oriPass)) {
 			bMgr.deleteBoard(num);
 			String url = "noticeList.jsp?nowPage=" + nowPage;
 			response.sendRedirect(url);
@@ -30,58 +30,49 @@ int number;
 		alert("입력하신 비밀번호가 아닙니다.");
 		history.back();
 	</script>
-<% 	}
+<%
+		}
+		
+	} else {
+%>
 
-	} else { %>
-<script>
-function check() {
-	if (document.delFrm.pass.value == "") {
-		alert("패스워드를 입력하세요.");
-		document.delFrm.pass.focus();
-		return false;
-	}
-	document.delFrm.submit();
-}
-</script>
-
-
-<% } %>
-
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="wrap" style="width:300px; border: 1px solid black; margin : 0 auto;">
-		
-		<h1>비밀번호확인</h1>
-		<form name="delFrm" method="post">
-			<table>
+	<div id="wrap">
+		<h3 style="text-align:center;">사용자의 비밀번호를 입력해주세요.</h3>
+		<form name="delFrm" method="post" action="noticeDelete.jsp">
+			<table class="deleteTable">
 				<tr>
-					<td>
-						<table>
-							<tr>
-								<td style="text-align : center;">
-									<input type="password" name="pass" size="17" maxlength="15">
-								</td>
-							</tr>
-							<tr>
-								<td><hr></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="button" value="삭제완료" onclick="check()"> 
-									<input type="reset" value="다시쓰기">
-									<input type="button" value="뒤로" onclick="history.go(-1)">
-								</td>
-							</tr>
-						</table>
-					</td>
+					<td><input type="password" name="pass" size="17"
+						maxlength="15"></td>
+				</tr>
+
+				<tr>
+					<td><span></span></td>
+				</tr>
+
+				<tr>
+					<td><input type="button" value="삭제완료" onclick="check()">
+						<input type="reset" value="다시쓰기"> <input type="button"
+						value="뒤로" onclick="history.go(-1)"></td>
 				</tr>
 			</table>
-			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
-			<input type="hidden" name="num" value="<%=num%>">
+			<input type="hidden" name="nowPage" value="<%=nowPage %>">
+			<input type="hidden" name="num" value="<%=num %>">
 		</form>
 		
-		
-
+		<%} %>
 	</div>
+	<script>
+		function check() {
+			if (document.delFrm.pass.value == "") {
+				alert("패스워드를 입력하세요.");
+				document.delFrm.pass.focus();
+				return false;
+			}
+			document.delFrm.submit();
+		}
+	</script>
 </body>
 </html>

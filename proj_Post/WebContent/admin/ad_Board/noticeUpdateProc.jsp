@@ -5,7 +5,6 @@
 
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page" />
 <jsp:useBean id="upBean" class="pack_Bean.BoardBean" scope="page" />
-<jsp:useBean id="bean" class="pack_Bean.BoardBean" scope="session" />
 <jsp:setProperty property="*" name="upBean" /> 
 
 
@@ -21,11 +20,11 @@ String nowPage = request.getParameter("nowPage");
 String num = request.getParameter("num");
 
 String upPass = upBean.getPass();
-String inPass = bean.getPass();
+String inPass = request.getParameter("oripass");
 
 if (upPass.equals(inPass)) {
 	bMgr.updateBoard(upBean);
-	String url = "read.jsp?nowPage=" + nowPage + 
+	String url = "noticeRead.jsp?nowPage=" + nowPage + 
 						"&num=" + num;
 	response.sendRedirect(url);
 } else {

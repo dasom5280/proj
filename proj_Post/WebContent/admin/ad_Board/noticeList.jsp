@@ -5,10 +5,9 @@
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" />
 <%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.BoardBean"%>
-<jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean bean = (MemberBean) session.getAttribute("adminBean");
+	MemberBean abean = (MemberBean) session.getAttribute("adminBean");
 	
 
 	int totalRecord = 0; //전체레코드수
@@ -98,9 +97,9 @@
 <body>
 	<div id="wrap">
 	<%
-				if (bean != null) {
+				if (abean != null) {
 					
-					int level = bean.getLevel();
+					int level = abean.getLevel();
 						if (level==2) {
 			%>
 				<a href="../adminMain.jsp" title="adminMain">관리자페이지</a>
@@ -175,7 +174,7 @@
 											out.println("&nbsp;&nbsp;");
 									}
 								%>	
-									<img src="../../images/replyImg.png" alt="replyImg">
+									ㄴ
 								<%								
 								}
 								%>
@@ -232,19 +231,14 @@
 				<td>
 				
 					<%
-				if (bean != null) {
-					int level=bean.getLevel();
+				if (abean != null) {
+					int level=abean.getLevel();
 						if (level==2) {
 			%>
 			<a href="noticePost.jsp" title="글쓰기">[글쓰기]</a>
 			<% 
 				} 
-						%>
-						<%
 			}else {
-			%>
-				
-			<%
 				}
 			%>			
 				 
@@ -280,7 +274,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="num">   
+			<input type="hidden" name="num" value="">   
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 			
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">

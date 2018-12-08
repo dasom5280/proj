@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.Vector;
 
 import pack_Bean.MemberBean;
-import pack_Bean.PostBean;
 import pack_Bean.ProductBean;
 import pack_Bean.ZipcodeBean;
 import pack_Bean.AccessRecordBean;

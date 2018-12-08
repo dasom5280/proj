@@ -1,16 +1,20 @@
 <%@page import="pack_Bean.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
+    
+<jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page"/>
 <%
 request.setCharacterEncoding("UTF-8");
 int num = Integer.parseInt(request.getParameter("num"));
 
 String  nowPage = request.getParameter("nowPage");
 
-BoardBean bean = (BoardBean)session.getAttribute("bean");
+BoardBean bean = bMgr.getBoard(num);
+
 String subject = bean.getSubject();
 String name = bean.getName();
 String content = bean.getContent();
+String oripass = bean.getPass();
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -27,7 +31,7 @@ function check() {
 		return false;
 	} else {
 		frm.method="post";
-		frm.action = "updateProc.jsp";
+		frm.action = "noticeUpdateProc.jsp";
 		frm.submit();
 	}
 	
@@ -68,6 +72,7 @@ function check() {
 				</tr>
 				<tr>
 					<td colspan="2" class="rangeCenter">
+						<input type="hidden" name="oripass" value="<%= oripass %>">
 						<input type="button" value="수정완료" onclick="check()"> 
 						<input type="reset" value="다시쓰기"> 
 						<input type="button" value="취소하고 돌아가기" onclick="history.back()">
