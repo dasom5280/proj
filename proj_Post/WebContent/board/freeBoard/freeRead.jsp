@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@page import="pack_Bean.BoardBean"%>
-<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" />
 <%@page import="pack_Bean.freeBoardBean"%>
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" />
+<%@page import="pack_Bean.MemberBean"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
+
+	MemberBean memberbean = (MemberBean) session.getAttribute("loginBean");
 	// => post 또는 get방식으로 데이터 수신이 있음 
 	int num = Integer.parseInt(request.getParameter("num"));
 
@@ -23,29 +25,21 @@
 	String subject = bean.getSubject();
 	String regdate = bean.getRegdate();
 	String content = bean.getContent();
-	String filename = bean.getFilename();
-	int filesize = bean.getFilesize();
 	String ip = bean.getIp();
 	int count = bean.getCount();
 
-	session.setAttribute("bean", bean);
-	// bean으로 반환된 데이터를 세션으로 설정함(ID 및 로그인과 무관함)
+	// bean으로 반환된 데이터를 세션으로 설정함(ID 및 로그인과 무관함) -> 설정하지 않는 것이 좋을거 같아요
 %>
 <!DOCTYPE html>
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>Board read</title>
-<link rel="stylesheet" href="../../css/ad_Board.css">
+<title>freeBoard read</title>
+<link rel="stylesheet" href="../css/ad_freeBoard.css">
 <script>
 	function list() {
 		document.listFrm.action = "freeList.jsp";
 		document.listFrm.submit();
-	}
-
-	function down(filename) {
-		document.downFrm.filename.value = filename;
-		document.downFrm.submit();
 	}
 </script>
 </head>
@@ -68,7 +62,6 @@
 							<td class="itemSet">제 목</td>
 							<td colspan="3" class="rangeLeft"><%=subject%></td>
 						</tr>
-						
 						<tr>
 							<td colspan="4" class="rangeLeft rangeTop"><pre><%=content%></pre>
 							</td>
@@ -80,18 +73,42 @@
 					</table>
 				</td>
 			</tr>
-			
-				<tr>
+
+			<%
+				int level = memberbean.getLevel();
+				if (level == 2) {
+			%>
+			<tr>
 				<td align="center" colspan="2">
-					<hr> [ <a href="list.jsp" title="">리스트</a> | <a
+					<hr> [ <a href="freeList.jsp" title="">리스트</a> | <a
 					href="freeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
-					href="freeReply.jsp?nowPage=<%=nowPage%>">답 변</a> | <a
+					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a> | <a
 					href="freeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> | <a
 					href="freePost.jsp">글쓰기</a> ] <br>
 				</td>
-			</tr>
-				
+				<%
+					} else {
+				%>
 			
+			<tr>
+				<td align="center" colspan="2">
+					<hr> [ <a href="freeList.jsp" title="">리스트</a> | <a
+					href="freeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
+					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a>| <a
+					href="freePost.jsp">글쓰기</a> ] <br>
+				</td>
+
+				<%
+					}
+				%>
+
+			</tr>
+
+
+
+
+
+
 		</table>
 
 

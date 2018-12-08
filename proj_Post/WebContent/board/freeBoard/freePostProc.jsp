@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("UTF-8"); %> 
-<jsp:useBean id="fMgr" class="pack_JDBC.freeBoardMgr" scope="page"/>
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" scope="page" />
 <%
-	fMgr.insertfreeBoard(request);
+	request.setCharacterEncoding("UTF-8");
+
+	bMgr.insertfreeBoard(request);
+	
 	response.sendRedirect("freeList.jsp");
-	%>
+	
+%>

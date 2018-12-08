@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="bMgr" class="pack_JDBC.PostMgr" scope="page" />
-<jsp:useBean id="reBean" class="pack_Bean.PostBean" scope="page"/>
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" scope="page" />
+<jsp:useBean id="reBean" class="pack_Bean.freeBoardBean" scope="page"/>
 <jsp:setProperty property="*" name="reBean"/>
 <%
-	bMgr.replyUpPost(reBean.getRef(), reBean.getPos());
-	bMgr.replyPost(reBean);
+	bMgr.replyUpfreeBoard(reBean.getRef(), reBean.getPos());
+	bMgr.replyfreeBoard(reBean);
 	String nowPage = request.getParameter("nowPage");
-	response.sendRedirect("list.jsp?nowPage="+nowPage);
+	response.sendRedirect("freeList.jsp?nowPage="+nowPage);
 %>
     
 <!DOCTYPE html>

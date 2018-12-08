@@ -2,15 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <%@page import="java.util.Vector"%>
-<jsp:useBean id="fMgr" class="pack_JDBC.freeBoardMgr" />
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" />
 <%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.freeBoardBean"%>
-<jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean bean = (MemberBean) session.getAttribute("adminBean");
+	MemberBean abean = (MemberBean) session.getAttribute("loginBean");
 	
-
+	
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
@@ -49,7 +48,7 @@
 	// start 가 40이라는 의미
 	end = start + numPerPage;  // end 는 50
 
-	totalRecord = fMgr.getTotalCount(keyField, keyWord);
+	totalRecord = bMgr.getTotalCount(keyField, keyWord);
 	totalPage = (int) Math.ceil((double)totalRecord / numPerPage);
 						//전체페이지수
 	nowBlock = (int) Math.ceil((double)nowPage / pagePerBlock);
@@ -65,7 +64,7 @@
 <title>list</title>
 
 <link rel="stylesheet" href="../../css/ad_Board.css">
-<script src=../../js/script.js></script>
+<script src=../js/script.js></script>
 <script>
 	function pageing(page) {
 		document.readFrm.nowPage.value = page;
@@ -81,7 +80,7 @@
 
 	function read(num) {
 		document.readFrm.num.value = num;
-		document.readFrm.action = "freeLead.jsp";
+		document.readFrm.action = "freeRead.jsp";
 		document.readFrm.submit();
 	}
 
@@ -97,11 +96,11 @@
 </head>
 <body>
 	<div id="wrap">
-	
-			<a href="../../main/main.jsp" title="main">MAIN</a>
-				
 
-		<h1>공지사항</h1>
+				<a href="../../main/main.jsp" title="main">MAIN</a>
+			
+
+		<h1>자유게시판</h1>
 		<table class="listTbl">
 			<tr>
 				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
@@ -113,7 +112,7 @@
 			<tr>
 				<td colspan="2">
 					<%
-				  vlist = fMgr.getfreeBoardList(keyField, keyWord, start, end);
+				  vlist = bMgr.getfreeBoardList(keyField, keyWord, start, end);
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
 					out.println("등록된 게시물이 없습니다.");
@@ -134,7 +133,7 @@
 							 for (int i = 0;i<numPerPage; i++) {
 									if (i == listSize) break;
 									freeBoardBean freeBoardBean = vlist.get(i);
-									int num = freeBoardBean.getNum();
+									int num =freeBoardBean.getNum();
 									String name = freeBoardBean.getName();
 									String subject = freeBoardBean.getSubject();
 									String regdate = freeBoardBean.getRegdate();
@@ -216,8 +215,14 @@
 				</td>
 				<td>
 				
+				
+				<%if(abean != null){
+					%>
+			
 			<a href="freePost.jsp" title="글쓰기">[글쓰기]</a>
-					
+			<%}else{
+				}%>
+						
 				 
 				</td>
 			</tr>
@@ -251,7 +256,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="num">   
+			<input type="hidden" name="num" value="">   
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 			
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">

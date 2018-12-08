@@ -105,8 +105,7 @@
                 <div>
                     <div>
                         <h3>게시판관리</h3>
-                        <ul><li ><a href="" class="gnb_2da  ">게시판관리</a></li>
-                        <li><a href="" class="gnb_2da  ">게시판그룹관리</a></li>
+                        <ul><li ><a href="../board/freeBoard/freeList.jsp" class="gnb_2da  ">자유게시판관리</a></li>
                         <li><a href="ad_Board/noticeFAQ.jsp" class="gnb_2da  gnb_grp_div">FAQ</a></li>
                         <li><a href="ad_Board/noticeList.jsp" class="gnb_2da  gnb_grp_div">공지게시판</a></li>
                         <li><a href="" class="gnb_2da gnb_grp_style gnb_grp_div">내용관리</a></li></ul>

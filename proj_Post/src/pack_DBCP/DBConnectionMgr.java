@@ -41,6 +41,7 @@ import java.util.Vector;
 public class DBConnectionMgr {
 
     private Vector connections = new Vector(10);
+   
 	
 	// 수정내용2 : 드라이브명
 	// 수정내용3 : 접속URI, 접속Port, 접속DB

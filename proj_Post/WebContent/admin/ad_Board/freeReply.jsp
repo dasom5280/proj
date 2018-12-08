@@ -1,29 +1,41 @@
+<%@page import="pack_Bean.freeBoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<jsp:useBean id="bean" class="pack_Bean.PostBean" scope="session" />
-<%
-	String nowPage = request.getParameter("nowPage");
-	String subject = bean.getSubject();
-	String content = bean.getContent();
-%>
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" scope="page"/>
+
 
 <!DOCTYPE html>
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>JSP Reply</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Board  Reply</title>
+<link rel="stylesheet" href="../css/ad_Board.css">
+<%
+	String nowPage = request.getParameter("nowPage");
+	int num = Integer.parseInt(request.getParameter("num"));
+	
+	freeBoardBean bean = bMgr.getfreeBoard(num);
+	if(bean == null){
+		%>
+		<script>
+		history.back();
+		</script>
+	<%
+	}
+	String subject = bean.getSubject();
+	String content = bean.getContent();
+%>
 </head>
 <body>
 	<div id="wrap">
 
 		<h1>답변하기</h1>
-		<form id="replyFrm" name="post" method="post" action="replyProc.jsp">
+		<form id="replyFrm" name="post" method="post" action="freeReplyProc.jsp">
 			<table id="replyInnerTbl">
 				<tr>
 					<td>성 명</td>
-					<td><input type="text" name="name" size="30" maxlength="20">
+					<td><input type="text" name="name" size="30" maxlength="20" readonly="readonly" value="관리자">
 					</td>
 				</tr>
 				<tr>

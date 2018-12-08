@@ -5,7 +5,9 @@
 
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page" />
 <jsp:useBean id="upBean" class="pack_Bean.BoardBean" scope="page" />
-<jsp:setProperty property="*" name="upBean" /> 
+<jsp:setProperty property="*" name="upBean" /> <!-- 업데이트한 내용들을 *알아서 받아와
+                                                                            name : upBean에 id=upBean 으로 
+                                                                                  BoardBean에 업데이트 -->
 
 
 <!DOCTYPE html>

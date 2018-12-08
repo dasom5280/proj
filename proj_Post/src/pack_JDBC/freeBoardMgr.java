@@ -24,9 +24,6 @@ import pack_Util.UtilMgr;
 public class freeBoardMgr {
 
 	private DBConnectionMgr pool;
-	private static final String  SAVEFOLDER = "D:/javaEx/pradi/08_JSP/ch14_BBS/WebContent/fileupload";
-	private static final String ENCTYPE = "UTF-8";
-	private static int MAXSIZE = 20*1024*1024;
 
 	public freeBoardMgr() {
 		try {
@@ -43,20 +40,18 @@ public class freeBoardMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
+		
 		Vector<freeBoardBean> mlist = new Vector<freeBoardBean>();
+		
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from tblfreeBoard order by ref desc, pos limit ?, ?";
-				
-				//////////// 페이징연습용 쿼리 시작 ////////////
-				//sql = "select * from tblfreeBoard order by num desc limit 40, 50";
-				//////////// 페이징연습용 쿼리 끝 ////////////
+				sql = "select * from tblFreeBoard order by ref desc, pos limit ?, ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else {
-				sql = "select * from  tblfreeBoard where " + keyField + " like ? ";
+				sql = "select * from  tblFreeBoard where " + keyField + " like ? ";
 				sql += "order by ref desc, pos limit ? , ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
@@ -94,10 +89,10 @@ public class freeBoardMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblfreeBoard";
+				sql = "select count(*) from tblFreeBoard";
 				pstmt = con.prepareStatement(sql);
 			} else {
-				sql = "select count(*) from  tblfreeBoard where " + keyField + " like ? ";
+				sql = "select count(*) from  tblFreeBoard where " + keyField + " like ? ";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
 			}
@@ -119,43 +114,28 @@ public class freeBoardMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		MultipartRequest multi = null;
-		int filesize = 0;
-		String filename = null;
+		
 		try {
 			con = pool.getConnection();
-			sql = "select max(num)  from tblfreeBoard";
+			sql = "select max(num)  from tblFreeBoard";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			int ref = 1;
 			if (rs.next())
 				ref = rs.getInt(1) + 1;
-			File file = new File(SAVEFOLDER);
-			if (!file.exists())
-				file.mkdirs();
-			multi = new MultipartRequest(req, SAVEFOLDER,MAXSIZE, ENCTYPE,
-					new DefaultFileRenamePolicy());
-
-			if (multi.getFilesystemName("filename") != null) {
-				filename = multi.getFilesystemName("filename");
-				filesize = (int) multi.getFile("filename").length();
-			}
-			String content = multi.getParameter("content");
-			if (multi.getParameter("contentType").equalsIgnoreCase("TEXT")) {
-				content = UtilMgr.replace(content, "<", "&lt;");
-			}
-			sql = "insert tblfreeBoard(name,content,subject,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-			sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?, ?)";
+			
+			String content = req.getParameter("content");
+			
+			sql = "insert into tblFreeBoard (name, content, subject, ref, pos, depth, regdate, pass, count, ip) ";
+			sql += " values (?, ?, ?, ?, 0, 0, now(), ?, 0, ? ) ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, multi.getParameter("name"));
+			pstmt.setString(1, req.getParameter("name"));
 			pstmt.setString(2, content);
-			pstmt.setString(3, multi.getParameter("subject"));
+			pstmt.setString(3, req.getParameter("subject"));
 			pstmt.setInt(4, ref);
-			pstmt.setString(5, multi.getParameter("pass"));
-			pstmt.setString(6, multi.getParameter("ip"));
-			pstmt.setString(7, filename);
-			pstmt.setInt(8, filesize);
-			pstmt.executeUpdate();
+			pstmt.setString(5, req.getParameter("pass"));
+			pstmt.setString(6, req.getParameter("ip"));
+			pstmt.executeUpdate();   //DB에 넣어줌
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -172,7 +152,7 @@ public class freeBoardMgr {
 		freeBoardBean bean = new freeBoardBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from tblfreeBoard where num=?";
+			sql = "select * from tblFreeBoard where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -187,8 +167,6 @@ public class freeBoardMgr {
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setPass(rs.getString("pass"));
 				bean.setCount(rs.getInt("count"));
-				bean.setFilename(rs.getString("filename"));
-				bean.setFilesize(rs.getInt("filesize"));
 				bean.setIp(rs.getString("ip"));
 			}
 		} catch (Exception e) {
@@ -206,7 +184,7 @@ public class freeBoardMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update tblfreeBoard set count=count+1 where num=?";
+			sql = "update tblFreeBoard set count=count+1 where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
@@ -225,19 +203,8 @@ public class freeBoardMgr {
 		ResultSet rs = null;
 		try {
 			con = pool.getConnection();
-			sql = "select filename from tblfreeBoard where num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-			if (rs.next() && rs.getString(1) != null) {
-				if (!rs.getString(1).equals("")) {
-					File file = new File(SAVEFOLDER + "/" + rs.getString(1));
-					if (file.exists())
-						UtilMgr.delete(SAVEFOLDER + "/" + rs.getString(1));
-				}
-			}
 
-			sql = "delete from tblfreeBoard where num=?";
+			sql = "delete from tblFreeBoard where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
@@ -255,7 +222,7 @@ public class freeBoardMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update tblfreeBoard set name=?,subject=?,content=? where num=?";
+			sql = "update tblFreeBoard set name=?,subject=?,content=? where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getSubject());
@@ -277,7 +244,7 @@ public class freeBoardMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert tblfreeBoard (name,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+			sql = "insert tblFreeBoard (name,content,subject,ref,pos,depth,regdate,pass,count,ip)";
 			sql += "values(?,?,?,?,?,?,now(),?,0,?)";
 			int depth = bean.getDepth() + 1;
 			int pos = bean.getPos() + 1;
@@ -306,7 +273,7 @@ public class freeBoardMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update tblfreeBoard set pos = pos + 1 where ref=? and pos > ?";
+			sql = "update tblFreeBoard set pos = pos + 1 where ref=? and pos > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, ref);
 			pstmt.setInt(2, pos);
@@ -319,7 +286,6 @@ public class freeBoardMgr {
 	}
 
 	
-	
 	//페이징 및 블럭 테스트를 위한 게시물 저장 메소드 
 	public void post1000(){
 		Connection con = null;
@@ -327,8 +293,8 @@ public class freeBoardMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert tblfreeBoard(name,content,subject,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-			sql+="values('aaa', 'bbb', 'ccc', 0, 0, 0, now(), '1234',0, '127.0.0.1', null, 0);";
+			sql = "insert tblFreeBoard(name,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+			sql+="values('aaa', 'bbb', 'ccc', 0, 0, 0, now(), '1234',0, '127.0.0.1');";
 			pstmt = con.prepareStatement(sql);
 			for (int i = 0; i < 1000; i++) {
 				pstmt.executeUpdate();

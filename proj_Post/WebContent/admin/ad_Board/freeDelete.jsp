@@ -9,8 +9,11 @@
 <link rel="stylesheet" href="../css/ad_freeBoard.css">
 
 <jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" scope="page"/>
+<%@page import="pack_Bean.MemberBean"%>
 <%
 	request.setCharacterEncoding("UTF-8");
+	MemberBean memberbean = (MemberBean) request.getAttribute("adminBean");
+
 	String nowPage = request.getParameter("nowPage");
 	int num = Integer.parseInt(request.getParameter("num"));
 	
@@ -51,12 +54,8 @@
 				<tr>
 					<td><span></span></td>
 				</tr>
-
-				<tr>
-					<td><input type="button" value="삭제완료" onclick="check()">
-						<input type="reset" value="다시쓰기"> <input type="button"
-						value="뒤로" onclick="history.go(-1)"></td>
-				</tr>
+	
+				
 			</table>
 			<input type="hidden" name="nowPage" value="<%=nowPage %>">
 			<input type="hidden" name="num" value="<%=num %>">

@@ -135,7 +135,7 @@ public class BoardMgr {
 			pstmt.setInt(4, ref);
 			pstmt.setString(5, req.getParameter("pass"));
 			pstmt.setString(6, req.getParameter("ip"));
-			pstmt.executeUpdate();
+			pstmt.executeUpdate();   //DB에 넣어줌
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -32,6 +32,7 @@
 				&nbsp;<li>||</li>&nbsp;
 				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
 				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
+				<li><a href="../board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
 				<li><a href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
 				&nbsp;<li>||</li>&nbsp;
 			<%

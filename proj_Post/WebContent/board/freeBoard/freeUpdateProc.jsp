@@ -1,12 +1,13 @@
-<%@page import="pack_Bean.BoardBean"%>
+<%@page import="pack_Bean.freeBoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 
-<jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" scope="page" />
-<jsp:useBean id="upBean" class="pack_Bean.BoardBean" scope="page" />
-<jsp:useBean id="bean" class="pack_Bean.BoardBean" scope="session" />
-<jsp:setProperty property="*" name="upBean" /> 
+<jsp:useBean id="bMgr" class="pack_JDBC.freeBoardMgr" scope="page" />
+<jsp:useBean id="upBean" class="pack_Bean.freeBoardBean" scope="page" />
+<jsp:setProperty property="*" name="upBean" /> <!-- 업데이트한 내용들을 *알아서 받아와
+                                                                            name : upBean에 id=upBean 으로 
+                                                                                  freeBoardBean에 업데이트 -->
 
 
 <!DOCTYPE html>
@@ -21,11 +22,11 @@ String nowPage = request.getParameter("nowPage");
 String num = request.getParameter("num");
 
 String upPass = upBean.getPass();
-String inPass = bean.getPass();
+String inPass = request.getParameter("oripass");
 
 if (upPass.equals(inPass)) {
-	bMgr.updateBoard(upBean);
-	String url = "read.jsp?nowPage=" + nowPage + 
+	bMgr.updatefreeBoard(upBean);
+	String url = "freeRead.jsp?nowPage=" + nowPage + 
 						"&num=" + num;
 	response.sendRedirect(url);
 } else {

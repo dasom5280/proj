@@ -9,7 +9,7 @@
 	request.setCharacterEncoding("UTF-8");
 	MemberBean abean = (MemberBean) session.getAttribute("adminBean");
 	
-
+	
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
@@ -174,7 +174,7 @@
 											out.println("&nbsp;&nbsp;");
 									}
 								%>	
-									ㄴ
+									<img src="../../images/replyImg.png" alt="replyImg">
 								<%								
 								}
 								%>
