@@ -3,7 +3,7 @@
 <%@page import="pack_Bean.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" />
+<jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" scope="page"/>
 
 <%
 	request.setCharacterEncoding("utf-8");
@@ -59,7 +59,7 @@ border: 1px solid gray;
 			</tr>
 			<tr>
 				<td>아이디</td>
-				<td><% if(id.equals(adminId)){out.println("관리자");} else {out.println(id);}%></td>
+				<td><% if(id.equals(adminId)){out.print("관리자");} else {out.print(id);}%></td>
 				<td>등록날짜</td>
 				<td><%=regdate%></td>
 			</tr>
@@ -82,12 +82,18 @@ border: 1px solid gray;
 				<!-- 관리자는 답변 뜨고 로그인한 사용자는 수정, 삭제 뜨도록 -->
 				<%if(lobean != null) {%>
 				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="qnAUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수정</a>
-				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="qnADelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭제</a>
+				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:deleteProcess()">삭제</a>
 				<%} %>
 				</td>
 			</tr>
 		</table>
-
+		
+		<form name="delFrm" method="post">
+		<input type="hidden" name="num" value="<%=num %>">
+		<input type="hidden" name="nowPage" value="<%=nowPage %>">
+		<input type="hidden" name="inPass" value="">
+		</form>
+		
 		<form name="listFrm" method="post">
 			<input type="hidden" name="num" value="<%=num%>">
 			<input type="hidden" name="nowPage" value="<%=nowPage%>">
@@ -102,10 +108,17 @@ border: 1px solid gray;
 		</form>
 	
 	</div>
-	<script>
+	<script type="text/javascript">
 		function flist() {
 			document.listFrm.action = "qnAlist.jsp";
 			document.listFrm.submit();
+		}
+		
+		function deleteProcess(){
+			url = "qnApassCheck.jsp?num=" + <%=num%> +"&nowPage="+<%=nowPage%>;
+			window.open(url, "DelProcess",
+					"width=500, height=300, scrollbars=yes top=200 left=600");
+		
 		}
 
 	

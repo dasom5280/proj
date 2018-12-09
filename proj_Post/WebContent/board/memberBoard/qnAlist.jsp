@@ -139,7 +139,7 @@ padding: 10px;
 											out.println("&nbsp;&nbsp;");
 									}
 								%>	
-									ㄴ
+									<img src="../../images/replyImg.png" alt="답변">ㄴ
 								<%								
 								}
 								%>

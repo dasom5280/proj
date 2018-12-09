@@ -1,16 +1,28 @@
+<%@page import="pack_Bean.Ad_QnABean"%>
+<%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>  
+    pageEncoding="UTF-8"%>
+<jsp:useBean id="qMgr" class="pack_JDBC.Ad_QnaMgr" scope="page"/> 
 <%
 request.setCharacterEncoding("UTF-8");
+
+MemberBean lobean = (MemberBean) session.getAttribute("loginBean");
+if(lobean == null){
+	response.sendRedirect("../../member/login.jsp");
+}
+
 int num = Integer.parseInt(request.getParameter("num"));
 
 String  nowPage = request.getParameter("nowPage");
 
-BoardBean bean = (BoardBean)session.getAttribute("bean");
+Ad_QnABean bean = qMgr.getQnA(num);
+
 String subject = bean.getSubject();
-String name = bean.getName();
+String id = bean.getId();
+String productName = bean.getProductName();
 String content = bean.getContent();
+String oripass = bean.getPass();
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -27,7 +39,7 @@ function check() {
 		return false;
 	} else {
 		frm.method="post";
-		frm.action = "updateProc.jsp";
+		frm.action = "qnAUpdateProc.jsp";
 		frm.submit();
 	}
 	
@@ -41,14 +53,18 @@ function check() {
 		<form name="updateFrm" id="updateFrm">
 			<table id="updateInnerTbl">
 				<tr>
-					<td class="itemSet">성명</td>
+					<td class="itemSet">아이디</td>
 					<td>
-						<input type="text" name="name" value="<%=name%>">
+						<input type="text" name="id" readonly="readonly" value="<%=id%>">
 					</td>
 				</tr>
 				<tr>
 					<td class="itemSet">제목</td>
 					<td><input size="50" type="text" name="subject" value="<%=subject%>"></td>
+				</tr>
+				<tr>
+					<td>상품이름</td>
+					<td><input type="text" name="productName" size="48" maxlength="30" value="<%=productName%>"></td>
 				</tr>
 				<tr>
 					<td class="itemSet">내용</td>
@@ -74,6 +90,8 @@ function check() {
 					</td>
 				</tr>
 			</table>
+			<input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
+			<input type="hidden" name="oripass" value="<%=oripass%>">
 			<input type="hidden" name="nowPage" value="<%=nowPage%>">
 			<input type="hidden" name="num" value="<%=num%>">
 		</form>
