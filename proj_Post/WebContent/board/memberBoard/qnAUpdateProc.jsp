@@ -21,7 +21,11 @@ String num = request.getParameter("num");
 
 String upPass = upBean.getPass();
 String oriPass = request.getParameter("oripass");
-
+%>
+<script type="text/javascript">
+alert("<%out.print(upBean.getProductName());%>");
+</script>
+<%
 if (upPass.equals(oriPass)) {
 	qMgr.updateQnA(upBean);
 	String url = "qnAread.jsp?nowPage=" + nowPage + 

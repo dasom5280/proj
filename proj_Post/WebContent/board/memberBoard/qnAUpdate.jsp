@@ -1,3 +1,6 @@
+<%@page import="pack_Bean.ProductBean"%>
+<%@page import="java.util.Vector"%>
+<%@page import="pack_JDBC.ProductMgr"%>
 <%@page import="pack_Bean.Ad_QnABean"%>
 <%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.BoardBean"%>
@@ -64,7 +67,9 @@ function check() {
 				</tr>
 				<tr>
 					<td>상품이름</td>
-					<td><input type="text" name="productName" size="48" maxlength="30" value="<%=productName%>"></td>
+								<td>
+								<input type="text" readonly="readonly" name="productName" value="<%=productName %>">
+								</td>
 				</tr>
 				<tr>
 					<td class="itemSet">내용</td>
