@@ -362,6 +362,8 @@ public class MemberMgr {
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
+				if(rs.getString(1).equals("admin"))
+				continue;
 				MemberBean bean = new MemberBean();
 				bean.setId(rs.getString(1));
 				bean.setPass(rs.getString(2));

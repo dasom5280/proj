@@ -5,17 +5,14 @@
         <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <jsp:useBean id="mMgr" class="pack_JDBC.MemberMgr" scope="page"/>
-<jsp:useBean id="bean" class="pack_Bean.MemberBean" scope="page"/>
 
 <%
- request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("utf-8");
 
 
- String id=(String)session.getAttribute("id");
- String pass=(String)session.getAttribute("pass");
- 
+ String adminId = "admin";
 
-	 Vector<MemberBean> vlist = mMgr.getMemberList();
+ Vector<MemberBean> vlist = mMgr.getMemberList();
 %>
 
 <html lang="ko">
@@ -23,7 +20,14 @@
 <meta charset="">
 <title>Member Information</title>
 <style> 
-  div#wrap {width : 640px; margin : 0 auto;}
+
+  table {
+  border-collapse: collapse;
+  }
+  td {
+  border: 1px solid gray;
+  padding: 10px;
+  }
 </style>
 
 <link type="text/css" rel="stylesheet" href="">
@@ -40,7 +44,7 @@
   <div id="main">
    <table>
     <tr>
-     <td colspan="2">회원정보</td>
+     <td colspan="8">회원정보</td>
     </tr>
     
    <%
@@ -63,6 +67,7 @@
   <td>생일</td>
   <td>주소</td>
   <td>핸드폰 번호</td>
+  <td>탈퇴처리</td>
  </tr>
 
 <%
@@ -86,7 +91,12 @@
      <td><%=mbirthday %></td>
      <td><%=mzipcode %></td>
      <td><%=mphoneNum %></td>
-     <th colspan="7"></th>
+     <td>
+     <% if(!mid.equals(adminId)){ %>
+     <input type="button" value="탈퇴" onclick="deleteProcess('<%=mid%>', '<%=mname%>')">
+     <%} %>
+     </td>
+     <th colspan="8"></th>
     </tr>
 
    <%
@@ -95,8 +105,20 @@
   
    %>
       </table>
+      <form name="delFrm" method="post">
+      <input type="hidden" name="id" value="">
+      </form>
     </div>
    
    </div>
+   
+   <script type="text/javascript">
+	function deleteProcess(mid, mname){
+		url = "member_check.jsp?mid=" + mid + "&mname=" +mname;
+		window.open(url, "DelProcess",
+				"width=500, height=300, scrollbars=yes top=200 left=600");
+	
+	}
+   </script>
 </body>
 </html>
