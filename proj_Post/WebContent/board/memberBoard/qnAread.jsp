@@ -80,7 +80,7 @@ border: 1px solid gray;
 				<td colspan="4"><a href="javascript:flist()" title="">상품문의 메인</a>
 
 				<!-- 관리자는 답변 뜨고 로그인한 사용자는 수정, 삭제 뜨도록 -->
-				<%if(lobean != null) {%>
+				<%if(lobean != null && id.equals(lobean.getId())) {%>
 				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="qnAUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수정</a>
 				&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:deleteProcess()">삭제</a>
 				<%} %>
