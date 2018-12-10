@@ -8,7 +8,8 @@ public class ProductBean {
 	private String explanation;
 	private String price;
 	private String inventory;
-
+	private String imgPath;
+	
 	public int getProductNum() {
 		return productNum;
 	}
@@ -55,6 +56,14 @@ public class ProductBean {
 
 	public void setInventory(String inventory) {
 		this.inventory = inventory;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 }

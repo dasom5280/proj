@@ -37,14 +37,18 @@ public class ProductMgr {
 		try {
 			objConn = pool.getConnection();
 			request.setCharacterEncoding("utf-8");
-			sql = "insert into tblProduct " + " (productName, productType, explanation, price, inventory) " + " values "
-					+ " (?, ?, ?, ?, ?)";
+			sql = "insert into tblProduct " + " (productName, productType, explanation, price, inventory, imgPath) " + " values "
+					+ " (?, ?, ?, ?, ?, ?)";
 			objPstmt = objConn.prepareStatement(sql);
+			request.setCharacterEncoding("utf-8");
 			objPstmt.setString(1, request.getParameter("productName"));
 			objPstmt.setString(2, request.getParameter("productType"));
 			objPstmt.setString(3, request.getParameter("explanation"));
 			objPstmt.setString(4, request.getParameter("price"));
 			objPstmt.setString(5, request.getParameter("inventory"));
+			
+			String imgpath = request.getParameter("productType") + "_" +request.getParameter("productName");
+			objPstmt.setString(6, imgpath);
 
 			if (objPstmt.executeUpdate() == 1) {
 				flag = true;
@@ -69,7 +73,7 @@ public class ProductMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "update tblProduct set productName=?, productType=?, explanation=?, price=?, inventory=? "
+			sql = "update tblProduct set productName=?, productType=?, explanation=?, price=?, inventory=?, imgPath=? "
 					+ " where productNum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getProductName());
@@ -77,7 +81,11 @@ public class ProductMgr {
 			pstmt.setString(3, bean.getExplanation());
 			pstmt.setString(4, bean.getPrice());
 			pstmt.setString(5, bean.getInventory());
-			pstmt.setInt(6, bean.getProductNum());
+			
+			String imgpath = bean.getProductType() + "_" + bean.getProductName();
+			pstmt.setString(6, imgpath);
+			
+			pstmt.setInt(7, bean.getProductNum());
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
@@ -139,6 +147,7 @@ public class ProductMgr {
 				bean.setExplanation(objRs.getString("explanation"));
 				bean.setPrice(objRs.getString("price"));
 				bean.setInventory(objRs.getString("inventory"));
+				bean.setImgPath(objRs.getString("imgPath"));
 				vlist.add(bean);
 			}
 
@@ -184,6 +193,7 @@ public class ProductMgr {
 					bean.setExplanation(rs.getString("explanation"));
 					bean.setPrice(rs.getString("price"));
 					bean.setInventory(rs.getString("inventory"));
+					bean.setImgPath(rs.getString("imgPath"));
 					vlist.add(bean);
 				}
 			} catch (Exception e) {
@@ -245,6 +255,7 @@ public class ProductMgr {
 				bean.setExplanation(rs.getString("explanation"));
 				bean.setPrice(rs.getString("price"));
 				bean.setInventory(rs.getString("inventory"));
+				bean.setImgPath(rs.getString("imgPath"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
