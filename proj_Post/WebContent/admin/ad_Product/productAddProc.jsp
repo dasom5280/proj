@@ -4,11 +4,9 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <jsp:useBean id="pMgr" class="pack_JDBC.ProductMgr" scope="page" />
-<jsp:useBean id="bean" class="pack_Bean.ProductBean" scope="page" />
-<jsp:setProperty name="bean" property="*" />
 
 <%
-	boolean chk = pMgr.insertProduct(bean);
+	boolean chk = pMgr.insertProduct(request);
 	String msg = "실패";
 	String url = "productAdd.jsp";
 	if (chk) {

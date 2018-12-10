@@ -76,7 +76,7 @@ if(lobean == null){
 								<input type="hidden" name="id" value="<%=lobean.getId()%>">
 								<input type="submit" value="등록"> <input
 									type="reset" value="다시쓰기"> <input type="button"
-									value="상품문의 메인" onClick="javascript:location.href='qnAList.jsp'">
+									value="상품문의 메인" onClick="javascript:location.href='qnAlist.jsp'">
 								</td>
 							</tr>
 						</table>

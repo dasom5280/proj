@@ -224,12 +224,13 @@ public class Ad_QnaMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "update tblQnA set id=?,subject=?,content=? where num=?";
+			sql = "update tblQnA set id=?, subject=?, content=?, productName=? where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getSubject());
 			pstmt.setString(3, bean.getContent());
-			pstmt.setInt(4, bean.getNum());
+			pstmt.setString(4, bean.getProductName());
+			pstmt.setInt(5, bean.getNum());
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;

@@ -95,10 +95,10 @@
 			%>
 			<table id="listInnerTbl">
 			<tr>
-				<th>상품번호</th>
-				<th>상품이름</th>
-				<th>상품종류</th>
-				<th style="width: 15%;">설명</th>
+				<th style="width: 15%;">상품번호</th>
+				<th style="width: 15%;">이름</th>
+				<th>종류</th>
+				<th style="width: 25%;">설명</th>
 				<th>가격</th>
 				<th>재고</th>
 				<th>수정</th>

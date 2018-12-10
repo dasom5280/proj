@@ -14,22 +14,16 @@
 <meta charset="UTF-8">
 <title>JSP 게시글 수정</title>
 
-
 <%
 String nowPage = request.getParameter("nowPage");
 String num = request.getParameter("num");
 
 String upPass = upBean.getPass();
 String oriPass = request.getParameter("oripass");
-%>
-<script type="text/javascript">
-alert("<%out.print(upBean.getProductName());%>");
-</script>
-<%
+
 if (upPass.equals(oriPass)) {
 	qMgr.updateQnA(upBean);
-	String url = "qnAread.jsp?nowPage=" + nowPage + 
-						"&num=" + num;
+	String url = "qnAread.jsp?nowPage=" + nowPage + "&num=" + num;
 	response.sendRedirect(url);
 } else {
 %> 

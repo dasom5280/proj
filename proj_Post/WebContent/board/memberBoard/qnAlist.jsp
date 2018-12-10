@@ -9,7 +9,9 @@
 	request.setCharacterEncoding("UTF-8");
 
 	MemberBean ubean = (MemberBean)session.getAttribute("loginBean");
-
+	
+	String adminId = "admin";
+	
 	int totalRecord = 0; //전체레코드수
 	int numPerPage = 10; // 페이지당 레코드 수 
 	int pagePerBlock = 10; //블럭당 페이지수 
@@ -152,7 +154,7 @@ padding: 10px;
 								 <%=subject%>
 								 </a>
 							</td>
-							<td><%=id%></td>
+							<td><% if(id.equals(adminId)){out.print("관리자");} else {out.print(id);}%></td>
 							<td><%=ip%></td>
 							<td><%=productName%></td>
 							<td><%=regdate%></td>

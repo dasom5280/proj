@@ -67,9 +67,22 @@ function check() {
 				</tr>
 				<tr>
 					<td>상품이름</td>
-								<td>
-								<input type="text" readonly="readonly" name="productName" value="<%=productName %>">
-								</td>
+					<td>
+						<%
+						ProductMgr pMgr = new ProductMgr();
+						Vector<ProductBean> vlist = pMgr.getProductList();
+						if(vlist!=null) {%>
+						
+						<select name="productName">
+						<% for(int i=0; i<vlist.size(); i++){
+						ProductBean pbean = vlist.get(i);
+						String proName = pbean.getProductName();
+						%>
+						<option value="<%=proName%>" <% if(productName.equals(proName)){ %> selected="selected" <%}%>><%=proName %></option>
+						<%} 
+						}%>
+						</select>			
+					</td>
 				</tr>
 				<tr>
 					<td class="itemSet">내용</td>

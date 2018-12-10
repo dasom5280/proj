@@ -24,7 +24,11 @@
 		<tr>
 		<td>상품종류</td>
 		<td>
-		<input type="text" name="productType" value="" size="10">
+		<select name="productType">
+		<option value="outer">outer</option>
+		<option value="top">top</option>
+		<option value="bottom">bottom</option>
+		</select>
 		</td>
 		</tr>
 		

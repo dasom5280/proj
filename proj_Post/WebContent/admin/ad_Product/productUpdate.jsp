@@ -42,7 +42,12 @@
 
 				<tr>
 					<td>상품종류</td>
-					<td><input type="text" name="productType" value="<%= productType %>" size="10">
+					<td>
+					<select name="productType">
+						<option value="outer" <%if(productType.equals("outer")){ %> selected="selected"<%} %>>outer</option>
+						<option value="top" <% if(productType.equals("top")){ %> selected="selected"<%} %>>top</option>
+						<option value="bottom" <% if(productType.equals("bottom")){ %> selected="selected"<%} %>>bottom</option>
+						</select>
 					</td>
 				</tr>
 

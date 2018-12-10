@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+
 import pack_Bean.AccessRecordBean;
 import pack_Bean.Ad_QnABean;
 import pack_Bean.MemberBean;
@@ -25,24 +27,24 @@ public class ProductMgr {
 	}
 
 ////////////////////상품추가 시작 ////////////////////
-	public boolean insertProduct(ProductBean bean) {
+	public boolean insertProduct(HttpServletRequest request) {
 
 		Connection objConn = null;
 		PreparedStatement objPstmt = null;
 		String sql = null;
 		boolean flag = false;
-
+		
 		try {
-
 			objConn = pool.getConnection();
+			request.setCharacterEncoding("utf-8");
 			sql = "insert into tblProduct " + " (productName, productType, explanation, price, inventory) " + " values "
 					+ " (?, ?, ?, ?, ?)";
 			objPstmt = objConn.prepareStatement(sql);
-			objPstmt.setString(1, bean.getProductName());
-			objPstmt.setString(2, bean.getProductType());
-			objPstmt.setString(3, bean.getExplanation());
-			objPstmt.setString(4, bean.getPrice());
-			objPstmt.setString(5, bean.getInventory());
+			objPstmt.setString(1, request.getParameter("productName"));
+			objPstmt.setString(2, request.getParameter("productType"));
+			objPstmt.setString(3, request.getParameter("explanation"));
+			objPstmt.setString(4, request.getParameter("price"));
+			objPstmt.setString(5, request.getParameter("inventory"));
 
 			if (objPstmt.executeUpdate() == 1) {
 				flag = true;
