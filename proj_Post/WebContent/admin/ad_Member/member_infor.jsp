@@ -93,7 +93,7 @@ request.setCharacterEncoding("utf-8");
      <td><%=mphoneNum %></td>
      <td>
      <% if(!mid.equals(adminId)){ %>
-     <input type="button" value="탈퇴" onclick="deleteProcess('<%=mid%>', '<%=mname%>')">
+     <input type="button" value="탈퇴" onclick="javascript:deleteProcess('<%=mid%>', '<%=mname%>')">
      <%} %>
      </td>
      <th colspan="8"></th>
@@ -114,7 +114,7 @@ request.setCharacterEncoding("utf-8");
    
    <script type="text/javascript">
 	function deleteProcess(mid, mname){
-		url = "member_check.jsp?mid="+mid+"&mname="+mname;
+		url = "member_check.jsp?mid="+mid;
 		window.open(url, "DelProcess",
 				"width=500, height=300, scrollbars=yes top=200 left=600");
 	

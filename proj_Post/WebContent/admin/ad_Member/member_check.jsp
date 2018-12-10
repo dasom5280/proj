@@ -6,7 +6,6 @@
 request.setCharacterEncoding("utf-8");
 
 String id = request.getParameter("mid");
-String name = request.getParameter("mname");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,7 +19,7 @@ String name = request.getParameter("mname");
 	<table>
 				<tr>
 					<td>
-					ID :<%=id%>, 성명 : <%=name %>를(을) 탈퇴처리하시겠습니까?
+					ID :<%=id%>를(을) 탈퇴처리하시겠습니까?
 					</td>
 				</tr>
 				<tr>
