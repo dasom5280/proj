@@ -25,10 +25,10 @@
 
 		<nav>
 			<ul>
-				<li><a href="#" title="Outer">Outer</a></li>
-				<li><a href="#" title="Top">Top</a></li>
-				<li><a href="#" title="Bottom">Bottom</a></li>
-				<li><a href="#" title="Sale">Sale</a></li>
+				<li><a href="../product/productList.jsp?productType=outer" title="Outer">Outer</a></li>
+				<li><a href="../product/productList.jsp?productType=top" title="Top">Top</a></li>
+				<li><a href="../product/productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
+				<li><a href="../product/productList.jsp?productType=sale" title="Sale">Sale</a></li>
 				&nbsp;<li>||</li>&nbsp;
 				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
 				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
