@@ -114,10 +114,14 @@ request.setCharacterEncoding("utf-8");
    
    <script type="text/javascript">
 	function deleteProcess(mid, mname){
-		url = "member_check.jsp?mid="+mid;
-		window.open(url, "DelProcess",
-				"width=500, height=300, scrollbars=yes top=200 left=600");
-	
+		
+		chk = confirm("ID : " + mid + ", NAME : " + mname + "을 탈퇴시키겠습니까?");
+		if (chk){
+			document.delFrm.id.value = mid;
+			document.delFrm.action="member_delete.jsp";
+			document.delFrm.submit();
+		} 
+
 	}
    </script>
 </body>
