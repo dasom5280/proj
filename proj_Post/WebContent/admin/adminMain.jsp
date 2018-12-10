@@ -91,7 +91,7 @@
                 <div>
                     <div>
                         <h3>회원관리</h3>
-                        <ul><li><a href="" class="gnb_2da  ">회원관리</a></li>
+                        <ul><li><a href="ad_Member/member_infor.jsp" class="gnb_2da  ">회원관리</a></li>
                         <li><a href="" class="gnb_2da  ">회원정보</a></li>
                         <li><a href="" class="gnb_2da  ">회원리스트</a></li>
                         <li><a href="" class="gnb_2da gnb_grp_style gnb_grp_div">회원접속정보</a></li>

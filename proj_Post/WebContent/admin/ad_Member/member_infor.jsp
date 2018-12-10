@@ -114,7 +114,7 @@ request.setCharacterEncoding("utf-8");
    
    <script type="text/javascript">
 	function deleteProcess(mid, mname){
-		url = "member_check.jsp?mid=" + mid + "&mname=" +mname;
+		url = "member_check.jsp?mid="+mid+"&mname="+mname;
 		window.open(url, "DelProcess",
 				"width=500, height=300, scrollbars=yes top=200 left=600");
 	

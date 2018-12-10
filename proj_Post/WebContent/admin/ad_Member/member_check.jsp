@@ -1,6 +1,7 @@
 <%@page import="pack_Bean.Ad_QnABean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean id="mMgr" class="pack_JDBC.MemberMgr" scope="page"/>
 <%
 request.setCharacterEncoding("utf-8");
 
