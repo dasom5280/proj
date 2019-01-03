@@ -8,8 +8,10 @@ public class ProductBean {
 	private String explanation;
 	private String price;
 	private String inventory;
-	private String imgPath;
-	
+	private int sale;
+	private String filename;
+	private int filesize;
+
 	public int getProductNum() {
 		return productNum;
 	}
@@ -58,12 +60,28 @@ public class ProductBean {
 		this.inventory = inventory;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public int getSale() {
+		return sale;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setSale(int sale) {
+		this.sale = sale;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public int getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(int filesize) {
+		this.filesize = filesize;
 	}
 
 }
