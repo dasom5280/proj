@@ -4,12 +4,10 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <jsp:useBean id="pMgr" class="pack_JDBC.ProductMgr" scope="page" />
-<jsp:useBean id="upBean" class="pack_Bean.ProductBean" scope="page" />
-<jsp:setProperty property="*" name="upBean" />
 
 <%
-	boolean chk = pMgr.updateProduct(upBean);
-	String msg = "실패";
+	boolean chk = pMgr.updateProduct(request);
+	String msg = "실패" + request.getParameter("productNum");
 	if (chk) {
 		msg = "성공";
 	}

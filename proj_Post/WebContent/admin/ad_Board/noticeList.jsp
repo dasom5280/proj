@@ -96,25 +96,23 @@
 </head>
 <body>
 	<div id="wrap">
+	<div align="left">
 	<%
 				if (abean != null) {
 					
 					int level = abean.getLevel();
 						if (level==2) {
 			%>
-				<a href="../adminMain.jsp" title="adminMain">관리자페이지</a>
+				<a href="../adminMain.jsp" title="adminMain">관리자 메인</a>
 			<% 
 				} 
-			%>
-			
-			<%
 			}else {
 			%>
-			<a href="../../main/main.jsp" title="main">MAIN</a>
+			<a href="../../index.jsp" title="main">MAIN</a>
 			<%
 				}
 			%>	
-
+			</div>
 		<h1>공지사항</h1>
 		<table class="listTbl">
 			<tr>

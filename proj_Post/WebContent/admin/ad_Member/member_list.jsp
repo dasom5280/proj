@@ -1,3 +1,9 @@
+<!-- 실제 쓰이는 소스 아님 -->
+<!-- 실제 쓰이는 소스 아님 -->
+<!-- 실제 쓰이는 소스 아님 -->
+<!-- 실제 쓰이는 소스 아님 -->
+<!-- 실제 쓰이는 소스 아님 -->
+<!-- 연습용 소스임 -->
 <%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

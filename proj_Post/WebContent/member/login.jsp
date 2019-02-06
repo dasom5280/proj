@@ -28,7 +28,7 @@
 		<p>
 			<a href="logout.jsp" title="로그아웃">로그아웃</a>&nbsp;&nbsp;
 			<a href="passCheck.jsp" title="회원정보 수정">회원정보 수정</a>&nbsp;&nbsp;
-			<a href="../main.jsp" title="메인">메인페이지로</a>
+			<a href="../index.jsp" title="메인">MAIN</a>
 		</p>
 		<%
 			}

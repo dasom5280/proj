@@ -78,7 +78,7 @@ padding: 10px;
 </head>
 <body>
 	<div id="wrap">
-		<h1><a href="../../main/main.jsp">메인으로</a></h1>
+		<h1><a href="../../index.jsp">MAIN</a></h1>
 		<h1>Q&A</h1>
 		<table class="listTbl">
 			<tr>

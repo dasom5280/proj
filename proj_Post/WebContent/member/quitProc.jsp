@@ -25,7 +25,7 @@
 		boolean chkDel = mMgr.deleteMember(bean.getId());
 
 		if (chkDel) {
-			url = "../main/main.jsp";
+			url = "../index.jsp";
 			msg = "탈퇴가 완료되었습니다.";
 			session.invalidate();
 		} else {

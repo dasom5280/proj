@@ -1,7 +1,9 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
+	MemberBean abean = (MemberBean) session.getAttribute("adminBean");
 %>
 <!DOCTYPE html>
 <html>
@@ -44,8 +46,25 @@ $(document).ready(function(){
 </head>
 <body>
 	<div id="wrap">
+	<div align="left">
+		<%
+				if (abean != null) {
+					
+					int level = abean.getLevel();
+						if (level==2) {
+			%>
+				<a href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			<% 
+				} 
+			}else {
+			%>
+			<a href="../../index.jsp" title="main">MAIN</a>
+			<%
+				}
+			%>	
+	</div>
 	
-	<h1>공지사항</h1>
+	<h1>FAQ</h1>
 	
 		<div id="tabProduct" class="ec-base-tab">
 			<ul class="tabs">
@@ -252,7 +271,7 @@ $(document).ready(function(){
 
 	</div>
 	
-	<footer>
+	<footer style="text-align:center;">
 			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
 </body>

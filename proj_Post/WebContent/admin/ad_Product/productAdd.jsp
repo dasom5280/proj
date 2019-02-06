@@ -5,13 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Add</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
 
-		<h1><a href="productMain.jsp">상품관리로</a></h1>
-		<h1>상품추가추가</h1>
-		<form name="addFrm" method="post" action="productAddProc.jsp">
+		<h1><a href="productList.jsp">상품관리로</a></h1>
+		<h1>상품추가</h1>
+		<form name="addFrm" method="post" action="productAddProc.jsp" enctype="multipart/form-data">
 		<table>
 		
 		<tr>
@@ -33,6 +34,12 @@
 		</tr>
 		
 		<tr>
+		<td>상품사진</td>
+		<td>
+		<input type="file" name="filename" size="50" maxlength="50"></td>
+		</tr>
+		
+		<tr>
 		<td>설명</td>
 		<td>
 		<input type="text" name="explanation" value="" size="50">
@@ -50,6 +57,14 @@
 		<td>재고</td>
 		<td>
 		<input type="text" name="inventory" value="" size="10">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>세일</td>
+		<td>
+		세일진행<input id="sale" type="checkbox" name="sale" value="1">
+		&nbsp;&nbsp;<input id="percent" type="hidden" name="salePercent" value="">
 		</td>
 		</tr>
 		
@@ -75,6 +90,12 @@
 			frm.productType.focus();
 			return;
 		}
+		
+		if(frm.filename.value==""){
+			alert("상품사진을 넣어주세요");
+			frm.filename.focus();
+			return;
+		}
 		if(frm.explanation.value==""){
 			alert("설명을 입력해주세요");
 			frm.productName.focus();
@@ -94,5 +115,17 @@
 		frm.submit();
 	}
 	</script>
+<!-- 세일 진행 누르면 퍼센트가 나타나는 제이쿼리 구문 추가 -->
+	<script>
+      $(function() { 
+            $( "#sale" ).click(function( event ) { 
+            	if($('input:checkbox[name="sale"]').is(":checked")){
+            	$("#percent").replaceWith("<span id='percent'>퍼센트 <input type='text' name='salePercent' value='' size='2'> %</span>");
+            	} else { 
+            		$("#percent").replaceWith("<input id='percent' type='hidden' name='salePercent' value=''>");
+            	}            
+            }); 
+        });
+    </script>
 </body>
 </html>

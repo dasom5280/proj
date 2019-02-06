@@ -11,7 +11,7 @@
 <title>Logout</title>
 <script>
 	alert("로그아웃 되었습니다.");
-	location.href = "../main/main.jsp";
+	location.href = "../index.jsp";
 </script>
 <style>
 div#wrap {

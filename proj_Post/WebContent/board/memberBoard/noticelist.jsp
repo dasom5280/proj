@@ -98,7 +98,7 @@
 <body>
 	<div id="wrap">
 
-			<a href="../../main/main.jsp" title="main">MAIN</a>
+			<a href="../../index.jsp" title="main">MAIN</a>
 			
 			
 

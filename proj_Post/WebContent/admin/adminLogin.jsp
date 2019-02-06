@@ -1,10 +1,11 @@
+<%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("id");
+MemberBean bean = (MemberBean)session.getAttribute("adminBean");
 
-if(id!=null){
+if(bean!=null){
 	response.sendRedirect("adminMain.jsp");
 }
 %>    

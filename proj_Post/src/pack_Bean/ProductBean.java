@@ -11,6 +11,7 @@ public class ProductBean {
 	private int sale;
 	private String filename;
 	private int filesize;
+	private int salePercent;
 
 	public int getProductNum() {
 		return productNum;
@@ -82,6 +83,14 @@ public class ProductBean {
 
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
+	}
+
+	public int getSalePercent() {
+		return salePercent;
+	}
+
+	public void setSalePercent(int salePercent) {
+		this.salePercent = salePercent;
 	}
 
 }

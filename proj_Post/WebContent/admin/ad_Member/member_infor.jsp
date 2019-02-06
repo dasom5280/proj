@@ -36,6 +36,10 @@ request.setCharacterEncoding("utf-8");
 
 <body>
    <div id="wrap">
+   
+   <div align="left">
+   <a href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+   </div>
       <header>
       <h2>회원정보관리</h2>
    
@@ -60,9 +64,9 @@ request.setCharacterEncoding("utf-8");
    %>
   
   <tr>
-  <td>이름</td>
   <td>아이디</td>
   <td>비밀번호</td>
+  <td>이름</td>
   <td>이메일</td>
   <td>생일</td>
   <td>주소</td>
@@ -76,7 +80,7 @@ request.setCharacterEncoding("utf-8");
 	 String mid = mbean.getId();
 	 String mname = mbean.getName();
 	 String mpass = mbean.getPass();
-	 String memail = mbean.getPass();
+	 String memail = mbean.getEmail();
 	 String mbirthday = mbean.getBirthday();
 	 String mzipcode = mbean.getZipcode();
 	 String mphoneNum = mbean.getPhone1() + "-" + mbean.getPhone2() + "-" +mbean.getPhone3();
@@ -84,9 +88,9 @@ request.setCharacterEncoding("utf-8");
 %>
 
     <tr>
-     <td><%=mname %></td>
      <td><%=mid %></td>
      <td><%=mpass %></td>
+     <td><%=mname %></td>
      <td><%=memail %></td>
      <td><%=mbirthday %></td>
      <td><%=mzipcode %></td>

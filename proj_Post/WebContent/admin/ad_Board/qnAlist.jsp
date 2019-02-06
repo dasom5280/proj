@@ -79,7 +79,9 @@ padding: 10px;
 </head>
 <body>
 	<div id="wrap">
-
+		<div align="left">
+			<a href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+		</div>
 		<h1>상품문의관리</h1>
 		<table class="listTbl">
 			<tr>

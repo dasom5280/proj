@@ -10,7 +10,7 @@ session.invalidate();
 %>
 <script>
 	alert("로그아웃 하셨습니다.");
-	location.href="../main/main.jsp";
+	location.href="../index.jsp";
 </script>
 
 </head>

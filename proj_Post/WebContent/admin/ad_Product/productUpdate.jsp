@@ -16,6 +16,9 @@
 		String explanation = bean.getExplanation();
 		String price = bean.getPrice();
 		String inventory = bean.getInventory();
+		String filename = bean.getFilename();
+		int sale = bean.getSale();
+		int percent = bean.getSalePercent();
 	
  %>
 <!DOCTYPE html>
@@ -23,17 +26,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Update</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
 
 		<h1>
-			<a href="productMain.jsp">상품관리로</a>
+			<a href="productList.jsp">상품관리로</a>
 		</h1>
 		<h1>상품추가</h1>
-		<form name="updateFrm" method="post" action="productUpdateProc.jsp">
+		<form name="updateFrm" method="post" action="productUpdateProc.jsp" >
 			<table>
-
 				<tr>
 					<td>상품이름</td>
 					<td><input type="text" name="productName" value="<%= productName%>" size="10">
@@ -50,12 +53,14 @@
 						</select>
 					</td>
 				</tr>
-
+		
 				<tr>
 					<td>설명</td>
 					<td><input type="text" name="explanation" value="<%= explanation %>" size="50">
 					</td>
 				</tr>
+				
+				<!-- 사진 수정하는 법 나중에 공부해서 추가하기 -->
 
 				<tr>
 					<td>가격</td>
@@ -69,19 +74,27 @@
 					</td>
 				</tr>
 
+			<tr>
+			<td>세일</td>
+			<td>
+			세일진행
+			<input id="sale" type="checkbox" name="sale" value="1" <%if (sale==1) {%> checked="checked" <%} %>>
+			&nbsp;&nbsp;
+			<% if (sale==1) {%>
+			<span id='percent'>퍼센트 <input type='text' name='salePercent' value='<%=percent%>' size='2'> %</span>
+			<% } else { %>
+			<input id="percent" type="hidden" name="salePercent" value="<%=percent%>">
+			<%} %>
+			</td>
+			</tr>
 				<tr>
 					<td colspan="2"><input type="button" value="수정하기"
 						onclick="updateCheck()"></td>
 				</tr>
 			</table>
-			
-			<input type="hidden" name="productNum" value="<%=productNum %>">
+			<input type="hidden" name="productNum" value="<%=request.getParameter("productNum") %>">
 		</form>
-		<%
-	} else {
-		response.sendRedirect("productMain.jsp");
-	}
-		%>
+
 	</div>
 	<script type="text/javascript">
 		function updateCheck() {
@@ -112,9 +125,26 @@
 				frm.productName.focus();
 				return;
 			}
-
+			
 			frm.submit();
 		}
 	</script>
+	<!-- 세일 진행 누르면 퍼센트가 나타나는 제이쿼리 구문 추가 -->
+	<script>
+      $(function() { 
+            $( "#sale" ).click(function( event ) { 
+            	if($('input:checkbox[name="sale"]').is(":checked")){
+            	$("#percent").replaceWith("<span id='percent'>퍼센트 <input type='text' name='salePercent' value='<%=percent%>' size='2'> %</span>");
+            	} else { 
+            		$("#percent").replaceWith("<input id='percent' type='hidden' name='salePercent' value=''>");
+            	}            
+            }); 
+        });
+    </script>
+    <%
+	} else {
+		response.sendRedirect("productList.jsp");
+	}
+		%>
 </body>
 </html>

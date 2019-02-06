@@ -41,7 +41,7 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>프로젝트</title>
+<title>Admin Login</title>
 <script>
 	alert("<%=msg%>");
 	location.href= "<%=url%>";

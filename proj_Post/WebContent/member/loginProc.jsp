@@ -25,7 +25,7 @@ if (result) {
 	session.setAttribute("loginBean", bean);
 	
 	msg = id + " 님 안녕하세요~ ";
-	url = "../main/main.jsp";
+	url = "../index.jsp";
 	} else {
 		msg = "예외 발생";
 	}

@@ -5,6 +5,8 @@
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="pMgr" class="pack_JDBC.ProductMgr" scope="page" />
 
+<!-- <hr>의 의미 : 줄 -->
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	MemberBean abean = (MemberBean)session.getAttribute("adminBean");
@@ -68,12 +70,12 @@
 <head>
 <meta charset="UTF-8">
 <title>상품관리</title>
-<link rel="stylesheet" href="../../css/ad_Board.css">
+<link rel="stylesheet" href="../../css/ad_Board.css" type="text/css">
 </head>
 <body>
 	<div id="wrap">
 		<!-- 관리자 메인 링크 수정 필요 -->
-		<h1><a href="../adminMain.jsp">관리자 메인으로</a></h1>
+		<h1><a href="../adminMain.jsp">관리자 메인</a></h1>
 		<h1>상품관리</h1>
 		<table class="listTbl">
 			<tr>
@@ -95,17 +97,19 @@
 			%>
 			<table id="listInnerTbl">
 			<tr>
-				<th style="width: 15%;">상품번호</th>
-				<th style="width: 15%;">이름</th>
+				<th>상품번호</th>
+				<th>이름</th>
+				<th>사진</th>
 				<th>종류</th>
-				<th style="width: 25%;">설명</th>
 				<th>가격</th>
 				<th>재고</th>
+				<th>세일</th>
+				<th>퍼센트</th>
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 			<tr>
-				<td colspan="7"><hr></td>
+				<td colspan="9"><hr></td>
 			</tr>
 						
 						<%
@@ -115,23 +119,28 @@
 									int num = bean.getProductNum();
 									String productName = bean.getProductName();
 									String productType = bean.getProductType();
-									String explanation = bean.getExplanation();
 									String price = bean.getPrice();
 									String inventory = bean.getInventory();
+									String filename = bean.getFilename();
+									int sale = bean.getSale();
+									int percent = bean.getSalePercent();
 									
 						%>
 			<tr>
-				<td><%=bean.getProductNum()%></td>
-				<td><%=bean.getProductName()%></td>
-				<td><%=bean.getProductType()%></td>
-				<td><%=bean.getExplanation()%></td>
-				<td><%=bean.getPrice()%></td>
-				<td><%=bean.getInventory()%></td>
+				<td><%=num%></td>
+				<td><%=productName%></td>
+				<!-- 사진 섬네일로 바꿀만한 방법 생각해보기 -->
+				<td><img src="../img_Product/<%=filename %>" width="40" height="40" alt=""></td>
+				<td><%=productType%></td>
+				<td><%=price%></td>
+				<td><%=inventory%></td>
+				<td><%if(sale==1) out.println("O"); else out.println("X"); %></td>
+				<td><%=percent %> % </td>
 				<td>
-				<input type="button" value="상품 수정" onclick="location.href='productUpdate.jsp?productNum=<%=bean.getProductNum()%>'">
+				<input type="button" value="수정" onclick="location.href='productUpdate.jsp?productNum=<%=bean.getProductNum()%>'">
 				</td>
 				<td>
-				<input type="button" value="상품 삭제" onclick="location.href='productDelete.jsp?productNum=<%=bean.getProductNum()%>'">
+				<input type="button" value="삭제" onclick="location.href='productDelete.jsp?productNum=<%=bean.getProductNum()%>'">
 				</td>
 			</tr>
 						<% }   //for%>
@@ -171,6 +180,8 @@
 					   <%}%>&nbsp;
 					<%}%> <!-- 페이징 및 블럭 처리 End-->
 				</td>
+				</tr>
+				<tr>
 				<td>
 				<form>
 				<input type="button" value="상품 추가" onclick="location.href='productAdd.jsp'">
@@ -178,7 +189,6 @@
 				</td>
 					</tr>
 		</table>
-		<hr>
 		<form name="searchFrm" method="post" action="productList.jsp">
 			<table>
 				<tr>

@@ -8,7 +8,7 @@ MemberBean abean = (MemberBean) session.getAttribute("loginBean");
 String id = abean.getId();
 
 	if(abean==null){
-		response.sendRedirect("freeList");
+		response.sendRedirect("freeList.jsp");
 	}
 %>
 <!DOCTYPE html>

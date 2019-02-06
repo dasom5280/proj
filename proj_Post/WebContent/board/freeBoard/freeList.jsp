@@ -6,8 +6,13 @@
 <%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.freeBoardBean"%>
 <%
+
 	request.setCharacterEncoding("UTF-8");
-	MemberBean abean = (MemberBean) session.getAttribute("loginBean");
+	MemberBean lobean; 
+	lobean = (MemberBean) session.getAttribute("loginBean");
+	if(lobean==null){
+		lobean = (MemberBean) session.getAttribute("adminBean");
+	}
 	
 	
 	int totalRecord = 0; //전체레코드수
@@ -96,9 +101,17 @@
 </head>
 <body>
 	<div id="wrap">
-
-				<a href="../../main/main.jsp" title="main">MAIN</a>
-			
+		<div align="left">
+			<%
+				if (lobean.getLevel() == 2) {
+			%>
+			<a href="../../admin/adminMain.jsp" title="adminMain">관리자 메인</a>
+			<%
+				} else {
+			%>
+			<a href="../../index.jsp" title="main">MAIN</a>
+			<%} %>
+		</div>
 
 		<h1>자유게시판</h1>
 		<table class="listTbl">
@@ -216,7 +229,7 @@
 				<td>
 				
 				
-				<%if(abean != null){
+				<%if(lobean != null){
 					%>
 			
 			<a href="freePost.jsp" title="글쓰기">[글쓰기]</a>

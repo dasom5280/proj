@@ -72,17 +72,32 @@ public class ProductMgr {
 			}
 
 			sql = "insert into tblProduct " + " (productName, productType, explanation, price, inventory, "
-					+ "sale, filename, filesize) " + " values " + " (?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "sale, filename, filesize, salePercent) " + " values " + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			objPstmt = objConn.prepareStatement(sql);
 			objPstmt.setString(1, multi.getParameter("productName"));
 			objPstmt.setString(2, multi.getParameter("productType"));
 			objPstmt.setString(3, multi.getParameter("explanation"));
 			objPstmt.setString(4, multi.getParameter("price"));
 			objPstmt.setString(5, multi.getParameter("inventory"));
-			int sale = Integer.parseInt(multi.getParameter("sale"));
-			objPstmt.setInt(6, sale);
+			if (multi.getParameter("sale") != null) {
+				int sale = Integer.parseInt(multi.getParameter("sale"));
+				objPstmt.setInt(6, sale);
+				
+				int salePercent = Integer.parseInt(multi.getParameter("salePercent"));
+				objPstmt.setInt(9, salePercent);
+				
+				// 후에 소비자 페이지에서 가격 표시할때 이거 참고
+				//int price = Integer.parseInt(multi.getParameter("price"));
+				//double salePrice = price * (1 - ((double) salePercent / 100));
+				
+			} else {
+				objPstmt.setInt(6, 0);
+				objPstmt.setInt(9, 0);
+			}
 			objPstmt.setString(7, filename);
 			objPstmt.setInt(8, filesize);
+			
+			
 
 			if (objPstmt.executeUpdate() == 1) {
 				flag = true;
@@ -100,23 +115,32 @@ public class ProductMgr {
 ////////////////////상품추가 끝 ////////////////////
 
 ////////////////////상품수정 시작 ////////////////////
-	public boolean updateProduct(ProductBean bean) {
+	public boolean updateProduct(HttpServletRequest request) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "update tblProduct set productName=?, productType=?, explanation=?, price=?, inventory=? "
+			sql = "update tblProduct set productName=?, productType=?, explanation=?, price=?, inventory=?, sale=?, salePercent=?"
 					+ " where productNum=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getProductName());
-			pstmt.setString(2, bean.getProductType());
-			pstmt.setString(3, bean.getExplanation());
-			pstmt.setString(4, bean.getPrice());
-			pstmt.setString(5, bean.getInventory());
-
-			pstmt.setInt(6, bean.getProductNum());
+			
+			pstmt.setString(1, request.getParameter("productName"));
+			pstmt.setString(2, request.getParameter("productType"));
+			pstmt.setString(3, request.getParameter("explanation"));
+			pstmt.setString(4, request.getParameter("price"));
+			pstmt.setString(5, request.getParameter("inventory"));
+			
+			if(request.getParameter("sale")!=null) {
+			pstmt.setInt(6, 1);
+			pstmt.setInt(7, Integer.parseInt(request.getParameter("salePercent")));
+			} else {
+			pstmt.setInt(6, 0); 
+			pstmt.setInt(7, 0);
+			}
+			int a = Integer.parseInt(request.getParameter("productNum"));
+			pstmt.setInt(8, a);
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
@@ -139,7 +163,7 @@ public class ProductMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "select filename from tblProduct where num=?";
+			sql = "select filename from tblProduct where productNum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, productNum);
 			rs = pstmt.executeQuery();
@@ -152,6 +176,7 @@ public class ProductMgr {
 					}
 				}
 			}
+			
 			sql = "delete from tblProduct where productNum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, productNum);
@@ -159,7 +184,6 @@ public class ProductMgr {
 
 // foreign key 설정된 모든 자료를 지워야 함
 
-			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -194,6 +218,7 @@ public class ProductMgr {
 				bean.setPrice(objRs.getString("price"));
 				bean.setInventory(objRs.getString("inventory"));
 				bean.setSale(objRs.getInt("sale"));
+				bean.setSalePercent(objRs.getInt("salePercent"));
 				vlist.add(bean);
 			}
 
@@ -240,6 +265,9 @@ public class ProductMgr {
 				bean.setPrice(rs.getString("price"));
 				bean.setInventory(rs.getString("inventory"));
 				bean.setSale(rs.getInt("sale"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
+				bean.setSalePercent(rs.getInt("salePercent"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -304,6 +332,7 @@ public class ProductMgr {
 				bean.setSale(rs.getInt("sale"));
 				bean.setFilename(rs.getString("filename"));
 				bean.setFilesize(rs.getInt("filesize"));
+				bean.setSalePercent(rs.getInt("salePercent"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
