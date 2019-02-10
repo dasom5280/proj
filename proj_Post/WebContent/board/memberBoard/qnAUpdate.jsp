@@ -66,7 +66,7 @@ function check() {
 					<td><input size="50" type="text" name="subject" value="<%=subject%>"></td>
 				</tr>
 				<tr>
-					<td>상품이름</td>
+					<td class="itemSet">상품이름</td>
 					<td>
 						<%
 						ProductMgr pMgr = new ProductMgr();

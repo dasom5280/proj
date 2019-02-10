@@ -47,7 +47,7 @@
 				<tr>
 					<td><a href="#" title="장바구니"> 장바구니</a></td>
 				</tr>
-				<tr class="selected">
+				<tr id="selected">
 					<td><a href="#" title="구매내역"> 구매내역</a></td>
 				</tr>
 			</table>

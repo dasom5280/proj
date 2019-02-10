@@ -176,7 +176,7 @@ public class ProductMgr {
 					}
 				}
 			}
-			
+						
 			sql = "delete from tblProduct where productNum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, productNum);

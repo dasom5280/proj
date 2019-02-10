@@ -21,13 +21,12 @@ nav {
 
 nav ul {
 	list-style-type: none;
-	padding: 5px 0px;
 	margin: 0px;
 }
 
 nav ul li {
-	display: inline;
-	padding: 5px 10px;
+	display: inline-block;
+	padding: 3px;
 }
 
 nav ul li a:link, nav ul li a:visited {
@@ -36,7 +35,7 @@ nav ul li a:link, nav ul li a:visited {
 	font-weight: bold;
 }
 
-nav ul li.selected {
+#selected {
 	background-color: #c8b99c;
 }
 
@@ -59,6 +58,7 @@ div#main {
 	display: table-cell;
 	vertical-align: top;
 }
+
 
 
 footer {
@@ -86,13 +86,11 @@ table {
 a:link {
 	color: #b76666;
 	text-decoration: none;
-	border-bottom: thin dotted #b76666;
 }
 
 a:visited {
 	color: #675c47;
 	text-decoration: none;
-	border-bottom: thin dotted #675c47;
 }
 
 #tablecontainer {
@@ -110,8 +108,4 @@ a:visited {
 #wrap {
 	width: 800px;
 	margin: 0 auto;
-}
-
-header.top img#headerSlogan {
-	float: right;
 }

@@ -23,6 +23,7 @@
 		</script>
 	<%
 	}
+	String name = bean.getName();
 	String subject = bean.getSubject();
 	String content = bean.getContent();
 %>
@@ -35,7 +36,7 @@
 			<table id="replyInnerTbl">
 				<tr>
 					<td>성 명</td>
-					<td><input type="text" name="name" size="30" maxlength="20" readonly="readonly" value="관리자">
+					<td><input type="text" name="name" size="30" maxlength="20" readonly="readonly" value="<%=name%>">
 					</td>
 				</tr>
 				<tr>

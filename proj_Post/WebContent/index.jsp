@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
-<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
+<link rel="stylesheet" type="text/css" href="css/mainStyle.css">
 
 </head>
 <body>
@@ -20,20 +20,19 @@
 
 
 		<header class="top">
-			<img id="headerLogo" src="../images/headerLogo.png" alt="로고">
+			<img id="headerLogo" src="images/headerLogo.png" alt="로고">
 		</header>
 
 		<nav>
 			<ul>
-				<li><a href="../product/productList.jsp?productType=outer" title="Outer">Outer</a></li>
-				<li><a href="../product/productList.jsp?productType=top" title="Top">Top</a></li>
-				<li><a href="../product/productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
-				<li><a href="../product/productList.jsp?productType=sale" title="Sale">Sale</a></li>
+				<li><a href="product/productList.jsp?productType=outer" title="Outer">Outer</a></li>
+				<li><a href="product/productList.jsp?productType=top" title="Top">Top</a></li>
+				<li><a href="product/productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
 				&nbsp;<li>||</li>&nbsp;
-				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
-				<li><a href="../admin/ad_Board/faq.jsp" title="FAQ">FAQ</a></li>
-				<li><a href="../board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
-				<li><a href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
+				<li><a href="board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
+				<li><a href="admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
+				<li><a href="board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
+				<li><a href="board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
 				&nbsp;<li>||</li>&nbsp;
 			<%
 				if (bean != null) {
@@ -41,13 +40,13 @@
 						if (id != null) {
 			%>
 				<li><a href="#" title="Id">ID : <%= id %></a></li>
-				<li><a href="../memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
-				<li><a href="../member/logout.jsp" title="Login">Logout</a></li>
+				<li><a href="memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
+				<li><a href="member/logout.jsp" title="">Logout</a></li>
 			<% 
 				} 
 			}else {
 			%>
-			<li><a href="../member/login.jsp" title="Login">Login</a></li>
+			<li><a href="member/login.jsp" title="Login">Login</a></li>
 			<%
 				}
 			%>			

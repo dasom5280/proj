@@ -81,7 +81,7 @@
 					<td><a href="../member/passCheck.jsp" title="회원정보수정">
 							회원정보수정</a></td>
 				</tr>
-				<tr class="selected">
+				<tr id="selected">
 					<td><a href="#" title="로그인기록확인"> 로그인기록확인</a></td>
 				</tr>
 				<tr>

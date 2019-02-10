@@ -245,10 +245,7 @@ form table {
 }
 
 #updateInnerTbl td.itemSet {
-	background-color: #ccc;
-	font-weight: bold;
 	text-align: center;
-	color: brown;
 }
 
 #updateInnerTbl td.rangeCenter {

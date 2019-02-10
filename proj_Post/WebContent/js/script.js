@@ -99,6 +99,15 @@ function inputCheck() {
 	} else if (frm.address.value == "") {
 		alert("주소를 입력해주세요");
 		frm.address.focus();
+	} else if (frm.phone1.value == "") {
+		alert("전화번호를 입력해주세요");
+		frm.address.focus();
+	} else if (frm.phone2.value == "") {
+		alert("전화번호를 입력해주세요");
+		frm.address.focus();
+	} else if (frm.phone3.value == "" ) {
+		alert("전화번호를 입력해주세요");
+		frm.address.focus();
 	} else if (frm.idChkValue.value == "0") {
 		alert("아이디 중복확인을 해주세요.");
 		frm.idChkBtn.focus();
