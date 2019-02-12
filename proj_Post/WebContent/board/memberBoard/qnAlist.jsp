@@ -108,7 +108,7 @@ padding: 10px;
 							<th>날 짜</th>
 						</tr>
 						<tr>
-							<td colspan="5"><hr></td>
+							<td colspan="6"><hr></td>
 						</tr>
 						<%
 							 for (int i = 0;i<numPerPage; i++) {
@@ -141,7 +141,7 @@ padding: 10px;
 											out.println("&nbsp;&nbsp;");
 									}
 								%>	
-									<img src="../../images/replyImg.png" alt="답변">ㄴ
+									<img src="../../images/replyImg.png" alt="답변">
 								<%								
 								}
 								%>

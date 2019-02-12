@@ -1,7 +1,9 @@
+<%@page import="pack_Bean.ProductBean"%>
+<%@page import="java.util.Vector"%>
 <%@page import="pack_Bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<jsp:useBean id="pMgr" class="pack_JDBC.ProductMgr" scope="page"/>
 <%
 	request.setCharacterEncoding("UTF-8");
 	MemberBean bean = (MemberBean) session.getAttribute("loginBean");
@@ -68,65 +70,125 @@
 							<td colspan="5"><b>New Arrival</b></td>
 						</tr>
 						<tr>
-							<td><img src="#" alt="이미지1"></td>
-							<td><img src="#" alt="이미지2"></td>
-							<td><img src="#" alt="이미지3"></td>
-							<td><img src="#" alt="이미지4"></td>
-							<td><img src="#" alt="이미지5"></td>
+						<%
+						Vector<ProductBean> vlist = pMgr.getNewList();
+						int cnt = 0;
+						for (int i = 0; i < vlist.size(); i++) {
+							ProductBean pbean = vlist.get(i);
+							int proNum = pbean.getProductNum();
+							String proName = pbean.getProductName();
+							String proType = pbean.getProductType();
+							String price = pbean.getPrice();
+							String filename = pbean.getFilename();
+							int sale = pbean.getSale();
+							cnt ++;
+						%>
+						<td>
+						<table class="galleryImg1">
+										<tr>
+											<td class="galleryImg2">
+											<img src="admin/img_Product/<%=filename%>" width="120"
+												height="150" alt="">
+											</td>
+										</tr>
+										<tr>
+											<td>
+											<a href="javascript:location.href='product/productDetail.jsp?productNum=<%=proNum%>'">
+											<% 
+											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
+											%>
+											<%=proName %></a>
+											</td>
+										</tr>
+										<tr>
+										<td>
+												<%
+													if (sale == 1) {
+																int salePercent = pbean.getSalePercent();
+																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
+																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+															} else {
+																out.println(price);
+															}
+												%>
+										</td>
+										</tr>
+									</table>
+								</td>
+								
+								<%
+									if (cnt % 5 == 0) {
+												out.print("</tr>");
+											}
+										
+									}//for
+								%>
 						</tr>
-						<tr>
-							<td><img src="#" alt="이미지6"></td>
-							<td><img src="#" alt="이미지7"></td>
-							<td><img src="#" alt="이미지8"></td>
-							<td><img src="#" alt="이미지9"></td>
-							<td><img src="#" alt="이미지10"></td>
-						</tr>
-						<tr>
-							<td><br></td>
-						</tr>
-
+						</table>
+						
+						<br>
+						
+						<table>
 						<tr>
 							<td colspan="5"><b>Sale</b></td>
 						</tr>
 						<tr>
-							<td><img src="#" alt="이미지1"></td>
-							<td><img src="#" alt="이미지2"></td>
-							<td><img src="#" alt="이미지3"></td>
-							<td><img src="#" alt="이미지4"></td>
-							<td><img src="#" alt="이미지5"></td>
+						<%
+						Vector<ProductBean> slist = pMgr.getSaleList();
+						cnt = 0;
+						for (int i = 0; i < slist.size(); i++) {
+							ProductBean pbean = slist.get(i);
+							int proNum = pbean.getProductNum();
+							String proName = pbean.getProductName();
+							String proType = pbean.getProductType();
+							String price = pbean.getPrice();
+							String filename = pbean.getFilename();
+							int sale = pbean.getSale();
+							cnt ++;
+						%>
+						<td>
+						<table class="galleryImg1">
+										<tr>
+											<td class="galleryImg2">
+											<img src="admin/img_Product/<%=filename%>" width="120"
+												height="150" alt="">
+											</td>
+										</tr>
+										<tr>
+											<td>
+											<a href="javascript:location.href='product/productDetail.jsp?productNum=<%=proNum%>'">
+											<% 
+											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
+											%>
+											<%=proName %></a>
+											</td>
+										</tr>
+										<tr>
+										<td>
+												<%
+													if (sale == 1) {
+																int salePercent = pbean.getSalePercent();
+																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
+																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+															} else {
+																out.println(price);
+															}
+												%>
+										</td>
+										</tr>
+									</table>
+								</td>
+								
+								<%
+									if (cnt % 5 == 0) {
+												out.print("</tr>");
+											}
+										
+									}//for
+								%>
 						</tr>
-						<tr>
-							<td><img src="#" alt="이미지6"></td>
-							<td><img src="#" alt="이미지7"></td>
-							<td><img src="#" alt="이미지8"></td>
-							<td><img src="#" alt="이미지9"></td>
-							<td><img src="#" alt="이미지10"></td>
-						</tr>
-						<tr>
-							<td><br></td>
-						</tr>
+						</table>
 
-						<tr>
-							<td colspan="5"><b>Etc</b></td>
-						</tr>
-						<tr>
-							<td><img src="#" alt="이미지1"></td>
-							<td><img src="#" alt="이미지2"></td>
-							<td><img src="#" alt="이미지3"></td>
-							<td><img src="#" alt="이미지4"></td>
-							<td><img src="#" alt="이미지5"></td>
-						</tr>
-						<tr>
-							<td><img src="#" alt="이미지6"></td>
-							<td><img src="#" alt="이미지7"></td>
-							<td><img src="#" alt="이미지8"></td>
-							<td><img src="#" alt="이미지9"></td>
-							<td><img src="#" alt="이미지10"></td>
-						</tr>
-						<tr>
-							<td><br></td>
-						</tr>
-					</table>
 				</div>
 			</div>
 		</div>

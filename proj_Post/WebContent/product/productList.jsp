@@ -10,6 +10,46 @@
 		request.setCharacterEncoding("utf-8");
 		String mainProtype = request.getParameter("productType");
 		MemberBean bean = (MemberBean) session.getAttribute("loginBean");
+
+		int totalRecord = 0; //전체레코드수
+		int numPerPage = 20; // 페이지당 레코드 수 
+		int pagePerBlock = 10; //블럭당 페이지수 
+		
+		int totalPage = 0; //전체 페이지 수
+		int totalBlock = 0; //전체 블럭수 
+
+		int nowPage = 1; // 현재페이지
+		int nowBlock = 1; //현재블럭
+
+		int start = 0; //디비의 select 시작번호
+		int end = 20; //시작번호로 부터 가져올 select 갯수
+
+		int listSize = 0; //현재 읽어온 게시물의 수
+		
+		Vector<ProductBean> vlist = null;
+		
+		if (request.getParameter("nowPage") != null) {
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		}
+		
+		start = (nowPage * numPerPage) - numPerPage;
+		// 5페이지일 경우 nowPage : 5, numPerPage :  10
+		// (nowPage * numPerPage) - numPerPage; => (50) - 10 => 40
+		// start 가 40이라는 의미
+		end = start + numPerPage;  // end 는 50
+
+		ProductMgr pMgr = new ProductMgr();
+		
+		totalRecord = pMgr.getTotalCount(mainProtype);//매개변수 수정필요. 없어도 됨
+
+		totalPage = (int) Math.ceil((double)totalRecord / numPerPage);
+							//전체페이지수
+		nowBlock = (int) Math.ceil((double)nowPage / pagePerBlock);
+							//현재블럭 계산
+		totalBlock = (int) Math.ceil((double)totalPage / pagePerBlock);
+							//전체블럭계산
+		
+		
 %>
 
 <!DOCTYPE html>
@@ -17,18 +57,22 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
+
 <style type="text/css">
+
+table.galleryImg1 {
+	margin: 5px;
+	border: 1px solid gray;
+	text-align:center;
+}
+
 table.galleryImg1 tr td.galleryImg2 {
 	width: 120px; /*   48px에서 수정됨*/
 	height: 150px;
 }
-
-table.galleryImg1 {
-	margin: 10px;
-	border: 1px solid gray;
-}
 </style>
+
+<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
 </head>
 <body>
 <div id="wrap">
@@ -77,18 +121,22 @@ table.galleryImg1 {
 							<tr>
 								<!-- 수정 -->
 								<%
-									ProductMgr pMgr = new ProductMgr();
-									Vector<ProductBean> vlist = pMgr.getProductList();
+									
+								vlist = pMgr.getProductList(mainProtype, start, end);
+								
+								if(vlist.isEmpty()){
+									out.println("<td>입고된 상품이 없습니다.</td></tr>");
+								} else {
 									int cnt = 0;
 									for (int i = 0; i < vlist.size(); i++) {
-
 										ProductBean pbean = vlist.get(i);
 										int proNum = pbean.getProductNum();
 										String proName = pbean.getProductName();
 										String proType = pbean.getProductType();
-										if (mainProtype.equals(proType)) {
-											cnt++;
-											String filename = pbean.getFilename();
+										String price = pbean.getPrice();
+										String filename = pbean.getFilename();
+										int sale = pbean.getSale();
+										cnt ++;
 								%>
 
 								<td>
@@ -96,12 +144,34 @@ table.galleryImg1 {
 									<table class="galleryImg1">
 										<tr>
 											<td class="galleryImg2"><img
-												src="../admin/img_Product/<%=filename%>.jpg" width="48"
-												height="100" alt=""></td>
+												src="../admin/img_Product/<%=filename%>" width="120"
+												height="150" alt=""></td>
 										</tr>
+
 										<tr>
-											<td style="text-align: center;">
-											<a href="javascript:detailProc('<%=proNum%>')"><%=proName %></a></td>
+											<td>
+											<a href="javascript:detailProc('<%=proNum%>')">
+											<% 
+											if(proNum> pMgr.getTotalCount() - 10)//신상품 상위 10개만 도출 -전체상품에서 상위 10개
+												out.println("<span style='color: purple; font-size: 0.6em;'>new</span>");
+											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
+											%>
+											<%=proName %></a>
+											</td>
+										</tr>
+
+										<tr>
+										<td>
+												<%
+													if (sale == 1) {
+																int salePercent = pbean.getSalePercent();
+																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
+																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+															} else {
+																out.println(price);
+															}
+												%>
+										</td>
 										</tr>
 									</table>
 
@@ -111,10 +181,45 @@ table.galleryImg1 {
 									if (cnt % 5 == 0) {
 												out.print("</tr>");
 											}
-										}
-									} //for
+										
+									}//for
 								%>
 							
+							<tr style="text-align: right;">
+								<td colspan="10">
+					<!-- 페이징 및 블럭 처리 Start-->
+			 <%
+   				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
+   				  int pageEnd = ((pageStart + pagePerBlock ) < totalPage) ? 
+   						  				(pageStart + pagePerBlock): 
+   						  				totalPage+1; 
+   				  //하단 페이지 끝 번호
+   				  if(totalPage !=0){
+    			  	if (nowBlock > 1) {
+    			  	%>
+    			  	 <a href="javascript:block('<%=nowBlock- 1%>')">prev...</a>
+					<%}%>
+					&nbsp;
+					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
+					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
+					  <% if (pageStart==nowPage) { %>
+					  <span style="color : brown; font-weight:bold">[
+					  <%}%>
+                      <%=pageStart %>
+					  <% if (pageStart==nowPage) { %>]
+					  </span>
+					  <%}%>
+					   </a>
+					  
+					   <%} //for%>&nbsp;
+					   <%if (totalBlock > nowBlock ) { %> 
+					   <a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
+					   <%}%>&nbsp;
+					<%}%>
+					<!-- 페이징 및 블럭 처리 End-->
+				</td>
+				<% } %>
+				</tr>
 						</table>
 						<input type="hidden" name="productNum" value="">
 					</form>
@@ -130,6 +235,17 @@ function detailProc(num){
 	document.listFrm.productNum.value= num;
 	document.listFrm.action="productDetail.jsp";
 	document.listFrm.submit();
+}
+
+function pageing(page) {
+	location.href="productList.jsp?productType=<%=mainProtype%>&nowPage=" + page;
+}
+
+function block(value) {
+	nowValue =
+		<%=pagePerBlock%>
+			* (value - 1) + 1;
+			location.href="productList.jsp?productType=<%=mainProtype%>&nowPage=" + nowValue;
 }
 </script>
 </body>

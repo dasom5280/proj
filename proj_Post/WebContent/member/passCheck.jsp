@@ -34,7 +34,7 @@
 		</div>
 		<div id="aside">
 			<table>
-				<tr class="selected">
+				<tr id="selected">
 					<td>
 					<a href="../member/passCheck.jsp" title="회원정보수정">
 					회원정보수정</a></td>
@@ -46,12 +46,12 @@
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="장바구니">
+					<a href="../memberPage/basketPage.jsp" title="장바구니">
 					장바구니</a></td>
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="구매내역">
+					<a href="../memberPage/purchasePage.jsp" title="구매내역">
 					구매내역</a></td>
 				</tr>
 			</table>

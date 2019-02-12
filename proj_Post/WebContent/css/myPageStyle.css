@@ -51,7 +51,7 @@ a:link, a:visited {
 	font-weight: bold;
 }
 
-#aside table tr.selected {
+#aside table tr#selected {
 	background-color: #c8b99c;
 }
 

@@ -38,7 +38,7 @@ public class BasketMgr {
 			request.setCharacterEncoding("utf-8");
 
 			sql = "insert into tblBasket " + " (id, productName, price, productNum, "
-					+ " quantity, buy, buydate ) values (?, ?, ?, ?, ?, 0, now())";
+					+ " quantity, buy, buydate, productType ) values (?, ?, ?, ?, ?, 0, now(), ?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, request.getParameter("id"));
@@ -46,6 +46,7 @@ public class BasketMgr {
 			pstmt.setString(3, request.getParameter("price"));
 			pstmt.setInt(4, Integer.parseInt(request.getParameter("productNum")));
 			pstmt.setInt(5, Integer.parseInt(request.getParameter("quantity")));
+			pstmt.setString(6, request.getParameter("productType"));
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
@@ -109,6 +110,7 @@ public class BasketMgr {
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
+				bean.setProductType(rs.getString("productType"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +121,7 @@ public class BasketMgr {
 	}
 
 	/// 장바구니 목록 반환 시작 ///
-	public Vector<BasketBean> getBasketList(String id) {
+	public Vector<BasketBean> getBasketList(String id, int start, int end) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -128,13 +130,18 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket";
-
+				sql = "select * from tblBasket order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, start);
+				
 			} else {
 				sql = "select * from  tblBasket where id=? ";
+				sql +=" order by basketNum desc limit ?, ? ";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
 			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -147,6 +154,7 @@ public class BasketMgr {
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
+				bean.setProductType(rs.getString("productType"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -171,7 +179,7 @@ public class BasketMgr {
 				pstmt = conn.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblProduct where id=?";
+				sql = "select count(*) from tblBasket where id=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 
@@ -234,6 +242,7 @@ public class BasketMgr {
 		}
 		return flag;
 	}
+
 	/// 구매 반환 시작 ///
 	public BasketBean getPurchase(int basketNum) {
 		Connection conn = null;
@@ -256,6 +265,7 @@ public class BasketMgr {
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
+				bean.setProductType(rs.getString("productType"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,7 +276,7 @@ public class BasketMgr {
 	}
 
 	/// 구매 목록 반환 시작 ///
-	public Vector<BasketBean> getPurchasetList(String id) {
+	public Vector<BasketBean> getPurchasetList(String id, int start, int end) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -275,13 +285,17 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket where buy>0";
-
+				sql = "select * from tblBasket where buy>0 order by baksetNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
 			} else {
 				sql = "select * from  tblBasket where id=? and buy>0";
+				sql +=" order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
 			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -294,6 +308,7 @@ public class BasketMgr {
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
+				bean.setProductType(rs.getString("productType"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -334,8 +349,9 @@ public class BasketMgr {
 		}
 		return totalCount;
 	}
+
 	/// 구매 배송 처리 시작 /// 구매한 내역은 삭제하기보다 db에 남겨두는 게 좋을 것 같음.
-	public boolean deliveryPurchase(int basketNum) {
+	public boolean deliveryPurchase(int basketNum, int productNum, int quantity) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -344,8 +360,14 @@ public class BasketMgr {
 			conn = pool.getConnection();
 			sql = "update tblBasket set buy=2 where basketNum=?";
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setInt(1, basketNum);
+			pstmt.executeUpdate();
+
+			// 배송 처리하면 재고 변경도 같이 이뤄져야함
+			sql = "update tblProduct set inventory=inventory-? where productNum=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, productNum);
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;

@@ -10,6 +10,7 @@ public class BasketBean {
 	private int quantity;
 	private int buy;
 	private String buydate;
+	private String productType;
 
 	public String getId() {
 		return id;
@@ -73,6 +74,14 @@ public class BasketBean {
 
 	public void setBuydate(String buydate) {
 		this.buydate = buydate;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 
 }

@@ -85,10 +85,10 @@
 					<td><a href="#" title="로그인기록확인"> 로그인기록확인</a></td>
 				</tr>
 				<tr>
-					<td><a href="#" title="장바구니"> 장바구니</a></td>
+					<td><a href="basketPage.jsp" title="장바구니"> 장바구니</a></td>
 				</tr>
 				<tr>
-					<td><a href="#" title="구매내역"> 구매내역</a></td>
+					<td><a href="purchasePage.jsp" title="구매내역"> 구매내역</a></td>
 				</tr>
 			</table>
 		</div>

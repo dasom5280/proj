@@ -12,6 +12,9 @@
 	lobean = (MemberBean) session.getAttribute("loginBean");
 	if(lobean==null){
 		lobean = (MemberBean) session.getAttribute("adminBean");
+		
+		if(lobean==null)
+			lobean = null;
 	}
 	
 	
@@ -103,14 +106,12 @@
 	<div id="wrap">
 		<div align="left">
 			<%
-				if (lobean.getLevel() == 2) {
+				if (lobean!=null &&lobean.getLevel() == 2) {
 			%>
-			<a href="../../admin/adminMain.jsp" title="adminMain">관리자 메인</a>
-			<%
-				} else {
-			%>
+			<a href="../../admin/adminMain.jsp" title="adminMain">관리자 메인</a>&nbsp;&nbsp;
+			<% } else {%>
 			<a href="../../index.jsp" title="main">MAIN</a>
-			<%} %>
+			<% } %>
 		</div>
 
 		<h1>자유게시판</h1>
@@ -233,8 +234,7 @@
 					%>
 			
 			<a href="freePost.jsp" title="글쓰기">[글쓰기]</a>
-			<%}else{
-				}%>
+			<%}%>
 						
 				 
 				</td>

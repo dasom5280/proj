@@ -128,7 +128,7 @@
 
 		<div id="aside">
 			<table>
-				<tr class="selected">
+				<tr id="selected">
 					<td>
 					<a href="../member/passCheck.jsp" title="회원정보수정">
 					회원정보수정</a></td>

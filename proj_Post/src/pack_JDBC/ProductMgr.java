@@ -82,22 +82,20 @@ public class ProductMgr {
 			if (multi.getParameter("sale") != null) {
 				int sale = Integer.parseInt(multi.getParameter("sale"));
 				objPstmt.setInt(6, sale);
-				
+
 				int salePercent = Integer.parseInt(multi.getParameter("salePercent"));
 				objPstmt.setInt(9, salePercent);
-				
+
 				// 후에 소비자 페이지에서 가격 표시할때 이거 참고
-				//int price = Integer.parseInt(multi.getParameter("price"));
-				//double salePrice = price * (1 - ((double) salePercent / 100));
-				
+				// int price = Integer.parseInt(multi.getParameter("price"));
+				// double salePrice = price * (1 - ((double) salePercent / 100));
+
 			} else {
 				objPstmt.setInt(6, 0);
 				objPstmt.setInt(9, 0);
 			}
 			objPstmt.setString(7, filename);
 			objPstmt.setInt(8, filesize);
-			
-			
 
 			if (objPstmt.executeUpdate() == 1) {
 				flag = true;
@@ -125,19 +123,19 @@ public class ProductMgr {
 			sql = "update tblProduct set productName=?, productType=?, explanation=?, price=?, inventory=?, sale=?, salePercent=?"
 					+ " where productNum=?";
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setString(1, request.getParameter("productName"));
 			pstmt.setString(2, request.getParameter("productType"));
 			pstmt.setString(3, request.getParameter("explanation"));
 			pstmt.setString(4, request.getParameter("price"));
 			pstmt.setString(5, request.getParameter("inventory"));
-			
-			if(request.getParameter("sale")!=null) {
-			pstmt.setInt(6, 1);
-			pstmt.setInt(7, Integer.parseInt(request.getParameter("salePercent")));
+
+			if (request.getParameter("sale") != null) {
+				pstmt.setInt(6, 1);
+				pstmt.setInt(7, Integer.parseInt(request.getParameter("salePercent")));
 			} else {
-			pstmt.setInt(6, 0); 
-			pstmt.setInt(7, 0);
+				pstmt.setInt(6, 0);
+				pstmt.setInt(7, 0);
 			}
 			int a = Integer.parseInt(request.getParameter("productNum"));
 			pstmt.setInt(8, a);
@@ -176,7 +174,7 @@ public class ProductMgr {
 					}
 				}
 			}
-						
+
 			sql = "delete from tblProduct where productNum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, productNum);
@@ -218,6 +216,8 @@ public class ProductMgr {
 				bean.setPrice(objRs.getString("price"));
 				bean.setInventory(objRs.getString("inventory"));
 				bean.setSale(objRs.getInt("sale"));
+				bean.setFilename(objRs.getString("filename"));
+				bean.setFilesize(objRs.getInt("filesize"));
 				bean.setSalePercent(objRs.getInt("salePercent"));
 				vlist.add(bean);
 			}
@@ -241,7 +241,7 @@ public class ProductMgr {
 		Vector<ProductBean> vlist = new Vector<>();
 		try {
 			con = pool.getConnection();
-			if (keyWord.equals("null") || keyWord.equals("")) {
+			if (keyField.equals("null") || keyWord.equals("")) {
 				sql = "select * from tblProduct order by productNum desc limit ?, ?";
 
 				pstmt = con.prepareStatement(sql);
@@ -278,8 +278,46 @@ public class ProductMgr {
 		return vlist;
 	}
 
+	public Vector<ProductBean> getProductList(String proType, int start, int end) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ProductBean> vlist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from tblProduct where productType=? order by productNum desc limit ?, ?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, proType);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setProductNum(rs.getInt("productNum"));
+				bean.setProductName(rs.getString("productName"));
+				bean.setProductType(rs.getString("productType"));
+				bean.setExplanation(rs.getString("explanation"));
+				bean.setPrice(rs.getString("price"));
+				bean.setInventory(rs.getString("inventory"));
+				bean.setSale(rs.getInt("sale"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
+				bean.setSalePercent(rs.getInt("salePercent"));
+				vlist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+
 	// 총 게시물수
-	public int getTotalCount(String keyField, String keyWord) {
+	public int getTotalCount(String proType) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -287,16 +325,10 @@ public class ProductMgr {
 		int totalCount = 0;
 		try {
 			con = pool.getConnection();
-			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblProduct";
-				pstmt = con.prepareStatement(sql);
-			} else {
+			sql = "select count(*) from tblProduct where productType=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, proType);
 
-				sql = "select count(*) from  tblProduct where " + keyField + " like ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + keyWord + "%");
-
-			}
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalCount = rs.getInt(1);
@@ -305,6 +337,29 @@ public class ProductMgr {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount;
+	}
+
+	public int getTotalCount() {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) from tblProduct";
+			stmt = con.createStatement();
+
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, stmt, rs);
 		}
 		return totalCount;
 	}
@@ -342,6 +397,74 @@ public class ProductMgr {
 		return bean;
 	}
 ////////////////////상품 정보 반환 끝 ////////////////////
+
+///////세일 상품 목록 반환 시작///////
+	public Vector<ProductBean> getSaleList() {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ProductBean> vlist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from tblProduct where sale=1 order by productNum desc limit 0, 10";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setProductNum(rs.getInt("productNum"));
+				bean.setProductName(rs.getString("productName"));
+				bean.setProductType(rs.getString("productType"));
+				bean.setExplanation(rs.getString("explanation"));
+				bean.setPrice(rs.getString("price"));
+				bean.setInventory(rs.getString("inventory"));
+				bean.setSale(rs.getInt("sale"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
+				bean.setSalePercent(rs.getInt("salePercent"));
+				vlist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, stmt, rs);
+		}
+		return vlist;
+	}
+	
+///////신규 상품 목록 반환 시작///////
+	public Vector<ProductBean> getNewList() {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ProductBean> vlist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from tblProduct order by productNum desc limit 0, 10";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setProductNum(rs.getInt("productNum"));
+				bean.setProductName(rs.getString("productName"));
+				bean.setProductType(rs.getString("productType"));
+				bean.setExplanation(rs.getString("explanation"));
+				bean.setPrice(rs.getString("price"));
+				bean.setInventory(rs.getString("inventory"));
+				bean.setSale(rs.getInt("sale"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
+				bean.setSalePercent(rs.getInt("salePercent"));
+				vlist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, stmt, rs);
+		}
+		return vlist;
+	}
 
 /////상품 이미지 다운로드//////
 
