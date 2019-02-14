@@ -6,7 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import com.mysql.cj.protocol.Resultset;
 
 import pack_Bean.BasketBean;
 import pack_Bean.ProductBean;
@@ -130,14 +133,14 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket order by basketNum desc limit ?, ?";
+				sql = "select * from tblBasket where buy=0 order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, start);
-				
+
 			} else {
-				sql = "select * from  tblBasket where id=? ";
-				sql +=" order by basketNum desc limit ?, ? ";
+				sql = "select * from  tblBasket where id=? and buy=0 ";
+				sql += " order by basketNum desc limit ?, ? ";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.setInt(2, start);
@@ -220,17 +223,49 @@ public class BasketMgr {
 	}
 
 	/// 구매 시작 ///
-	public boolean purchaseBasket(int basketNum) {
+	public boolean purchaseBasket(HttpServletRequest req, int basNum) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			conn = pool.getConnection();
-			sql = "update tblBasket set buy=1 where basketNum=?";
-			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, basketNum);
+			req.setCharacterEncoding("utf-8");
+			String id = req.getParameter("id");
+			String address = req.getParameter("address");
+			String zipcode = req.getParameter("zipcode");
+			int payment = Integer.parseInt(req.getParameter("payment"));
+
+			if (req.getParameter("usedPoints") != null || !req.getParameter("usedPoints").equals("0")) {
+				sql = "update tblMember set points=? where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(req.getParameter("points")));
+				pstmt.setString(2, id);
+				pstmt.executeUpdate();
+				
+				
+				sql = "update tblBasket set price=? where basketNum=?";
+				pstmt = conn.prepareStatement(sql);
+				//장바구니에서 가격 보내주는 경우는 장바구니에 각각 있는 가격(세일 포함) - 적립금을 총 수량으로 나눈 값
+				//적립금 써서 계산한 경우.. 아 적립금을 수량으로 나눠서 각각 빼주면!! 세일된 가격 적립금 가격까지 포함돼서 구매목록으로 매출액 파악이 가능
+				int usedPoint = (int) (Double.parseDouble(req.getParameter("usedPoints")) 
+						/ Double.parseDouble(req.getParameter("quantity")));
+				int price = Integer.parseInt(getBasket(basNum).getPrice()) - usedPoint;
+				pstmt.setString(1, Integer.toString(price)) ;
+				pstmt.setInt(2, basNum);
+				pstmt.executeUpdate();
+
+			}
+
+			sql = "update tblBasket set buy=1, paddress=?, pzipcode=?, payment=?, buydate=now() where basketNum=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, address);
+			pstmt.setString(2, zipcode);
+			pstmt.setInt(3, payment);
+			pstmt.setInt(4, basNum);
+			pstmt.executeUpdate();
 
 			if (pstmt.executeUpdate() == 1) {
 				flag = true;
@@ -238,10 +273,55 @@ public class BasketMgr {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			pool.freeConnection(conn, pstmt);
+			pool.freeConnection(conn, pstmt, rs);
 		}
 		return flag;
 	}
+
+	/// 바로구매 시작///
+	public boolean directPurchase(HttpServletRequest req) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+
+		try {
+			conn = pool.getConnection();
+			req.setCharacterEncoding("utf-8");
+
+			sql = "insert into tblBasket " + " (id, productType, productNum, productName, "
+					+ " price, quantity, buy, buydate, paddress, pzipcode, payment) values (?, ?, ?, ?, ?, ?, 1, now(), ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, req.getParameter("id"));
+			pstmt.setString(2, req.getParameter("productType"));
+			pstmt.setInt(3, Integer.parseInt(req.getParameter("productNum")));
+			pstmt.setString(4, req.getParameter("productName"));
+			pstmt.setString(5, req.getParameter("price"));
+			pstmt.setInt(6, Integer.parseInt(req.getParameter("quantity")));
+			pstmt.setString(7, req.getParameter("address"));
+			pstmt.setString(8, req.getParameter("zipcode"));
+			pstmt.setInt(9, Integer.parseInt(req.getParameter("payment")));
+			pstmt.executeUpdate();
+
+			sql = "update tblMember set points=? where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(req.getParameter("points")));
+			pstmt.setString(2, req.getParameter("id"));
+			
+			if (pstmt.executeUpdate() == 1) {
+				flag = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(conn, pstmt);
+		}
+
+		return flag;
+	}
+	/// 바로구매 끝 ///
 
 	/// 구매 반환 시작 ///
 	public BasketBean getPurchase(int basketNum) {
@@ -266,6 +346,9 @@ public class BasketMgr {
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
 				bean.setProductType(rs.getString("productType"));
+				bean.setPaddress(rs.getString("paddress"));
+				bean.setPzipcode(rs.getString("pzipcode"));
+				bean.setPayment(rs.getString("payment"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -285,13 +368,13 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket where buy>0 order by baksetNum desc limit ?, ?";
+				sql = "select * from tblBasket where buy=1 order by baksetNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else {
-				sql = "select * from  tblBasket where id=? and buy>0";
-				sql +=" order by basketNum desc limit ?, ?";
+				sql = "select * from  tblBasket where id=? and buy=1";
+				sql += " order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.setInt(2, start);
@@ -309,6 +392,9 @@ public class BasketMgr {
 				bean.setBuy(rs.getInt("buy"));
 				bean.setBuydate(rs.getString("buydate"));
 				bean.setProductType(rs.getString("productType"));
+				bean.setPaddress(rs.getString("paddress"));
+				bean.setPzipcode(rs.getString("pzipcode"));
+				bean.setPayment(rs.getString("payment"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {
@@ -329,11 +415,11 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select count(*) from tblBasket where buy>0";
+				sql = "select count(*) from tblBasket where buy=1";
 				pstmt = conn.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblProduct where id=? and buy>0";
+				sql = "select count(*) from  tblProduct where id=? and buy=1";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 
@@ -378,5 +464,83 @@ public class BasketMgr {
 			pool.freeConnection(conn, pstmt);
 		}
 		return flag;
+	}
+
+	/// 배송 목록 반환 시작 ///
+	public Vector<BasketBean> getDeliverytList(String id, int start, int end) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<BasketBean> vlist = new Vector<>();
+		try {
+			conn = pool.getConnection();
+			if (id.equals("admin")) {
+				sql = "select * from tblBasket where buy=2 order by baksetNum desc limit ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
+			} else {
+				sql = "select * from  tblBasket where id=? and buy=2";
+				sql += " order by basketNum desc limit ?, ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+			}
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BasketBean bean = new BasketBean();
+				bean.setId(rs.getString("id"));
+				bean.setProductName(rs.getString("productName"));
+				bean.setPrice(rs.getString("price"));
+				bean.setProductNum(rs.getInt("productNum"));
+				bean.setBasketNum(rs.getInt("basketNum"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setBuy(rs.getInt("buy"));
+				bean.setBuydate(rs.getString("buydate"));
+				bean.setProductType(rs.getString("productType"));
+				bean.setPaddress(rs.getString("paddress"));
+				bean.setPzipcode(rs.getString("pzipcode"));
+				bean.setPayment(rs.getString("payment"));
+				vlist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(conn, pstmt, rs);
+		}
+		return vlist;
+	}
+
+	/// 구매 목록 총 개수 반환 시작
+	public int getTotalDelivery(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			conn = pool.getConnection();
+			if (id.equals("admin")) {
+				sql = "select count(*) from tblBasket where buy=2";
+				pstmt = conn.prepareStatement(sql);
+			} else {
+
+				sql = "select count(*) from  tblProduct where id=? and buy=2";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(conn, pstmt, rs);
+		}
+		return totalCount;
 	}
 }

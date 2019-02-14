@@ -20,17 +20,7 @@
 			if (bean != null) {
 			String id = bean.getId();
 			if (id != null) {
-		%>
-		<h1><%=id%>
-			님 환영합니다.
-		</h1>
-		<p>제한된 기능을 사용 할 수 있습니다.</p>
-		<p>
-			<a href="logout.jsp" title="로그아웃">로그아웃</a>&nbsp;&nbsp;
-			<a href="passCheck.jsp" title="회원정보 수정">회원정보 수정</a>&nbsp;&nbsp;
-			<a href="../index.jsp" title="메인">MAIN</a>
-		</p>
-		<%
+				response.sendRedirect("../index.jsp");
 			}
 
 			} else {

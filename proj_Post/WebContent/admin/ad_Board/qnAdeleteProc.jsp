@@ -21,7 +21,7 @@
 	} else{
 	String nums = request.getParameter("nums");
 
-	StringTokenizer st = new StringTokenizer(nums, "a");
+	StringTokenizer st = new StringTokenizer(nums, "/");
 	while (st.hasMoreTokens()) {
 		int num = Integer.parseInt(st.nextToken());
 		qMgr.deleteQnA(num, sbean.getLevel());

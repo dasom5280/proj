@@ -14,6 +14,7 @@ public class MemberBean {
 	private String phone2;
 	private String phone3;
 	private int level;
+	private int points;
 
 	public String getId() {
 		return id;
@@ -109,6 +110,14 @@ public class MemberBean {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 }

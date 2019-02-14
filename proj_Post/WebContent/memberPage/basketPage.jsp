@@ -1,7 +1,5 @@
-<!-- 장바구니 수정, 장바구니 삭제(자바스크립트 이용 여러개 삭제) 구현만 하면 끝 -->
+<!--  소비자 배송 목록, 구매 목록은 수정 불가능하고 삭제도 우선 막고.. 열람만 가능하게 하자 -->
 <!--  관리자 장바구니 목록 열람, 삭제 까지만 확인하면 됨 -->
-<!--  구매누르면 계산 합 + 결제 수단 하고 결제 진행하고 buy값 변경하도록만 -->
-<!--  구매 목록은 수정 불가능하고 삭제도 우선 막고.. 열람만 가능하게 하자 -->
 <!--  관리자는 구매 목록 열람, 배송처리만 하도록 하고 -->
 <!--  배송된 것들만 따로 보도록 열람만 하도록 하는 페이지 만들기 -->
 <%@page import="pack_JDBC.BasketMgr"%>
@@ -124,8 +122,11 @@
 									String buyDate = basbean.getBuydate();
 						%>
 								<tr>
+									<!--  삭제처리 체크박스 -->
 									<td>
-									<input type="checkbox" name="chkBox" id="chk">
+											<input type="checkbox" name="chks" value="<%= basNum %>">
+											<input type="hidden" name="basNums" value="">
+									</td>
 									<td><%= proType %></td>
 									<td><a
 										href="../product/productDetail.jsp?productNum=<%=proNum%>"><%=proName%></a>
@@ -183,11 +184,11 @@
 				<td style="text-align: right;">		
 				<!-- 각종 이동 버튼 -->
 				<!-- 사용자 이동 버튼 출력  -->
-				<input type="button" value="목록 처음으로" onclick="baslist()">
+				<input type="button" value="목록 처음으로" onclick="javascript:baslist()">
 				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="장바구니 삭제" onclick="">
+				<input type="button" value="장바구니 삭제" onclick="javascript:deleteProc()">
 				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="선택항목 구매" onclick="">
+				<input type="button" value="선택항목 구매" onclick="javascript:purchaseProc()">
 				</td>
 				</tr>
 				
@@ -223,7 +224,7 @@
 	
 	<script type="text/javascript">
 	
-	function flist() {
+	function baslist() {
 		location.href = "basketPage.jsp";
 	}
 	
@@ -238,6 +239,91 @@
 	* (value - 1) + 1;
 	location.href="basketPage.jsp?nowPage=" + nowValue;
 	}
+	
+	function deleteProc(){
+		
+		conf = confirm("선택항목을 정말로 삭제하시겠습니까?");
+		
+		if(conf){
+		var chk = document.getElementsByName("chks"); // 체크박스객체를 담는다
+		var len = chk.length;    //체크박스의 전체 개수
+		var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+		var checkCnt = 0;        //체크된 체크박스의 개수
+		var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+		var rowNum = '';             //체크된 체크박스의 모든 value 값을 담는다
+		var cnt = 0;                 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){
+		checkCnt++;        //체크된 체크박스의 개수
+		checkLast = i;     //체크된 체크박스의 인덱스
+		}
+		} 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){  //체크가 되어있는 값 구분
+		checkRow = chk[i].value;
+		            	
+		if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+		rowNum += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+		if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+		rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{
+		rowNum += checkRow+"/";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+		}
+							
+		}
+		cnt++;
+		checkRow = '';    //checkRow초기화.
+		}
+		}
+		location.href="basDeleteProc.jsp?nums=" + rowNum;
+		}
+}
+
+	function purchaseProc(){
+		
+		conf = confirm("선택항목을 구매하시겠습니까?");
+		
+		if(conf){
+		var chk = document.getElementsByName("chks"); // 체크박스객체를 담는다
+		var len = chk.length;    //체크박스의 전체 개수
+		var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+		var checkCnt = 0;        //체크된 체크박스의 개수
+		var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+		var rowNum = '';             //체크된 체크박스의 모든 value 값을 담는다
+		var cnt = 0;                 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){
+		checkCnt++;        //체크된 체크박스의 개수
+		checkLast = i;     //체크된 체크박스의 인덱스
+		}
+		} 
+
+		for(var i=0; i<len; i++){
+		if(chk[i].checked == true){  //체크가 되어있는 값 구분
+		checkRow = chk[i].value;
+		            	
+		if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+		rowNum += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+		if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+		rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+		}else{
+		rowNum += checkRow+"/";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+		}
+							
+		}
+		cnt++;
+		checkRow = '';    //checkRow초기화.
+		}
+		}
+		location.href="../product/purchasePage.jsp?id=<%=id%>&nums=" + rowNum;
+		}
+}
+
 	</script>
 </body>
 </html>

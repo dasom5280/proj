@@ -215,7 +215,7 @@ padding: 10px;
 				<!-- 각종 이동 버튼 -->
 				<!-- 관리자/사용자 이동 버튼 출력 다르게 구현 필요 -->
 				<input type="button" value="목록처음으로" onclick="flist()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="답변완료목록" onclick="location.href='qnAreplyList.jsp'">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="답변대기목록" onclick="location.href='qnAreplyList.jsp'">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="삭제하기" onclick="deleteProcess()">
 				
 				</td>
@@ -293,7 +293,7 @@ padding: 10px;
 			if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
 			rowNum += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
 			}else{
-			rowNum += checkRow+"a";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+			rowNum += checkRow+"/";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
 			}
 								
 			}

@@ -78,7 +78,7 @@ padding: 10px;
 <body>
 	<div id="wrap">
 
-		<h1>상품문의관리-답변완료목록</h1>
+		<h1>상품문의관리-답변대기목록</h1>
 		<table class="listTbl">
 			<tr>
 				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
@@ -161,7 +161,7 @@ padding: 10px;
 							<td><%=ip%></td>
 							<td><%=productName%></td>
 							<td><%=regdate%></td>
-							<td><% if (answer.equals("2")||answer.equals("3")){out.print("완료"); }%></td>
+							<td><% if (answer.equals("1")){out.print("대기"); }%></td>
 							
 							<!--  삭제처리 체크박스 -->
 							<td><form name="delFrm">

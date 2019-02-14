@@ -300,6 +300,7 @@ public class Ad_QnaMgr {
 		}
 	}
 
+	// 답변 대기 목록을 보여주는 게 좋을 것 같음
 	public Vector<Ad_QnABean> getReplyList(String keyField, String keyWord, int start, int end) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -309,7 +310,7 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from tblQnA where answer>1 order by ref desc, pos limit ?, ?";
+				sql = "select * from tblQnA where answer=1 order by ref desc, pos limit ?, ?";
 
 				//////////// 페이징연습용 쿼리 시작 ////////////
 				// sql = "select * from tblPost order by num desc limit 40, 50";
@@ -318,7 +319,7 @@ public class Ad_QnaMgr {
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else {
-				sql = "select * from  tblQnA where " + keyField + " like ? and answer>1 ";
+				sql = "select * from  tblQnA where " + keyField + " like ? and answer=1 ";
 				sql += " order by ref desc, pos limit ? , ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
@@ -357,11 +358,11 @@ public class Ad_QnaMgr {
 		try {
 			con = pool.getConnection();
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(*) from tblQnA where answer>1 ";
+				sql = "select count(*) from tblQnA where answer=1 ";
 				pstmt = con.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblQnA where " + keyField + " like ? and answer>1";
+				sql = "select count(*) from  tblQnA where " + keyField + " like ? and answer=1";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
 

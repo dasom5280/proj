@@ -54,7 +54,7 @@
 	// start 가 40이라는 의미
 	end = start + numPerPage;  // end 는 50
 
-	totalRecord = pMgr.getTotalCount(keyField, keyWord);
+	totalRecord = pMgr.getTotalCount();
 	
 	totalPage = (int) Math.ceil((double)totalRecord / numPerPage);
 						//전체페이지수

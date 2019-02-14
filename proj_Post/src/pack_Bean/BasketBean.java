@@ -11,6 +11,10 @@ public class BasketBean {
 	private int buy;
 	private String buydate;
 	private String productType;
+	private String paddress;
+	private String pzipcode;
+	private String payment;
+	
 
 	public String getId() {
 		return id;
@@ -82,6 +86,30 @@ public class BasketBean {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+
+	public String getPaddress() {
+		return paddress;
+	}
+
+	public void setPaddress(String paddress) {
+		this.paddress = paddress;
+	}
+
+	public String getPzipcode() {
+		return pzipcode;
+	}
+
+	public void setPzipcode(String pzipcode) {
+		this.pzipcode = pzipcode;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 
 }

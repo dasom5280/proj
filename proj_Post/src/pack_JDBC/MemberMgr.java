@@ -108,8 +108,8 @@ public class MemberMgr {
 
 			objConn = pool.getConnection();
 			sql = "insert into tblMember " + "(id, pass, name, gender, email, "
-					+ "birthday, zipcode, address, phoneNum, level) " + " values " + "(?, ?, ?, ?, ?, "
-					+ "?, ?, ?, ?, ?)";
+					+ "birthday, zipcode, address, phoneNum, level, points) " + " values " + "(?, ?, ?, ?, ?, "
+					+ "?, ?, ?, ?, ?, 0)";
 			objPstmt = objConn.prepareStatement(sql);
 			objPstmt.setString(1, bean.getId());
 			objPstmt.setString(2, bean.getPass());
@@ -334,6 +334,7 @@ public class MemberMgr {
 				bean.setPhone3(phoneNum.substring(9, 13));
 
 				bean.setLevel(rs.getInt(10));
+				bean.setPoints(rs.getInt(11));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -380,6 +381,7 @@ public class MemberMgr {
 				bean.setPhone3(phoneNum.substring(9, 13));
 
 				bean.setLevel(rs.getInt(10));
+				bean.setPoints(rs.getInt(11));
 				vlist.add(bean);
 			}
 
