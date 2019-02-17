@@ -63,8 +63,8 @@
 				<%
 					if (id != null) {
 				%>
-				<li><a href="#" title="Id">ID : <%=id%></a></li>
-				<li><a href="../memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
+				<li><a href="../member/passCheck.jsp" title="MyPage">ID : <%= id %></a></li>
+				<li><a href="../memberPage/basketPage.jsp" title="MyCart">MyCart</a></li>
 				<li><a href="../member/logout.jsp" title="">Logout</a></li>
 				<%
 					} else {

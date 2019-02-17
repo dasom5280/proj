@@ -34,22 +34,22 @@
 			<table>
 				<tr class="selected">
 					<td>
-					<a href="../member/passCheck.jsp" title="회원정보수정">
+					<a href="passCheck.jsp" title="회원정보수정">
 					회원정보수정</a></td>
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="로그인기록확인">
+					<a href="../memberPage/accessPage.jsp" title="로그인기록확인">
 					로그인기록확인</a></td>
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="장바구니">
+					<a href="../memberPage/basketPage.jsp" title="장바구니">
 					장바구니</a></td>
 				</tr>
 				<tr>
 					<td>
-					<a href="#" title="구매내역">
+					<a href="../memberPage/myPurchasePage.jsp" title="구매내역">
 					구매내역</a></td>
 				</tr>
 			</table>

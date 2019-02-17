@@ -30,7 +30,7 @@ header.top h2 {
 
 div#aside {
 	width: 150px;
-	height: 500px;
+	height: 550px;
 	background-color: #efe5d0;
 	margin: 0 10px;
 }
@@ -58,7 +58,7 @@ a:link, a:visited {
 div#main {
 	float: right;
 	width: 590px;
-	height: 470px;
+	height: 520px;
 	background: #efe5d0 url(images/background.gif) top left;
 	font-size: 105%;
 	padding: 15px;
@@ -66,7 +66,7 @@ div#main {
 }
 
 footer {
-	clear: right;
+	clear: both;
 	background-color: #675c47;
 	color: #efe5d0;
 	text-align: center;
@@ -85,17 +85,8 @@ div#passCheckMain, div#quitMemberMain {
 
 /* accessPage.jsp*/
 div#accessPageMain table {
-	width: 70%;
+	width: 100%;
 	border-collapse: collapse;
-}
-
-div#accessPageMain td {
-	width: 50%;
-	border: 1px solid gray;
-	padding: 10px;
-}
-
-div#accessPageMain tr:first-child td{
-	text-align: center;
+	text-algin: center;
 }
 

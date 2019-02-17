@@ -99,8 +99,8 @@ table#innerTbl {
 			<%
 						if (mid != null) {
 			%>
-				<li><a href="#" title="Id">ID : <%= mid %></a></li>
-				<li><a href="../memberPage/myPage.jsp" title="Mypage">Mypage</a></li>
+				<li><a href="../member/passCheck.jsp" title="MyPage">ID : <%= mid %></a></li>
+				<li><a href="../memberPage/basketPage.jsp" title="MyCart">MyCart</a></li>
 				<li><a href="../member/logout.jsp" title="">Logout</a></li>
 			<% 
 						} else {
@@ -228,7 +228,7 @@ table#innerTbl {
 			<input type="hidden" name="id" value="<%=mid %>">
 			<input type="hidden" name="nums" value="<%=nums %>">
 			<input type="hidden" name="quantity" value="<%=quantity %>">
-			<input type="hidden" name="price" value="<%= price %>">
+			<input type="hidden" name="price" value="<%= (int) (price / (double) quantity)%>">
 			<input type="hidden" name="points" value="<%=points %>">
 			<input type="hidden" name="usedPoints" value="<%=usedPoints %>">
 			<input type="hidden" name="payment" value="<%=payment %>">

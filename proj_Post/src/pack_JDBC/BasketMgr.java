@@ -136,7 +136,7 @@ public class BasketMgr {
 				sql = "select * from tblBasket where buy=0 order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
-				pstmt.setInt(2, start);
+				pstmt.setInt(2, end);
 
 			} else {
 				sql = "select * from  tblBasket where id=? and buy=0 ";
@@ -178,11 +178,11 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select count(*) from tblBasket";
+				sql = "select count(*) from tblBasket where buy=0";
 				pstmt = conn.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from tblBasket where id=?";
+				sql = "select count(*) from tblBasket where id=? and buy=0";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 
@@ -368,7 +368,7 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket where buy=1 order by baksetNum desc limit ?, ?";
+				sql = "select * from tblBasket where buy=1 order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
@@ -419,7 +419,7 @@ public class BasketMgr {
 				pstmt = conn.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblProduct where id=? and buy=1";
+				sql = "select count(*) from  tblBasket where id=? and buy=1";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 
@@ -437,7 +437,7 @@ public class BasketMgr {
 	}
 
 	/// 구매 배송 처리 시작 /// 구매한 내역은 삭제하기보다 db에 남겨두는 게 좋을 것 같음.
-	public boolean deliveryPurchase(int basketNum, int productNum, int quantity) {
+	public boolean deliveryPurchase(int basketNum) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -448,7 +448,9 @@ public class BasketMgr {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, basketNum);
 			pstmt.executeUpdate();
-
+			
+			int productNum = getBasket(basketNum).getProductNum();
+			int quantity = getBasket(basketNum).getQuantity();
 			// 배송 처리하면 재고 변경도 같이 이뤄져야함
 			sql = "update tblProduct set inventory=inventory-? where productNum=? ";
 			pstmt = conn.prepareStatement(sql);
@@ -476,7 +478,7 @@ public class BasketMgr {
 		try {
 			conn = pool.getConnection();
 			if (id.equals("admin")) {
-				sql = "select * from tblBasket where buy=2 order by baksetNum desc limit ?, ?";
+				sql = "select * from tblBasket where buy=2 order by basketNum desc limit ?, ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
@@ -527,7 +529,7 @@ public class BasketMgr {
 				pstmt = conn.prepareStatement(sql);
 			} else {
 
-				sql = "select count(*) from  tblProduct where id=? and buy=2";
+				sql = "select count(*) from  tblBasket where id=? and buy=2";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 

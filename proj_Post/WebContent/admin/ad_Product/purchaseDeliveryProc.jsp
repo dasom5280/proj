@@ -7,15 +7,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Purchase</title>
 
 <%
 request.setCharacterEncoding("utf-8");
 
-MemberBean mbean = (MemberBean) session.getAttribute("loginBean");
+MemberBean mbean = (MemberBean) session.getAttribute("adminBean");
 
 if(mbean == null)
-	response.sendRedirect("../member/login.jsp");
+	response.sendRedirect("../../index.jsp");
 
 else {
 	String nums = request.getParameter("nums");
@@ -23,16 +23,17 @@ else {
 	BasketMgr basMgr = new BasketMgr();
 	while(st.hasMoreTokens()){
 		int basNum = Integer.parseInt(st.nextToken());
-		basMgr.deleteBasket(basNum);
+		basMgr.deliveryPurchase(basNum);
 	}
 }
 %>
 
 <script type="text/javascript">
-	alert("삭제 완료");
-	location.href = "basketList.jsp";
+	chk = confirm("배송처리 완료.\n배송페이지로 이동하겠습니까?");
+	if(chk){
+		location.href = "deliveryList.jsp";
+	}
 </script>
-
 </head>
 <body>
 	<div id="wrap">

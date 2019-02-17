@@ -48,7 +48,7 @@
 <title>Purchase</title>
 <script type="text/javascript">
 alert("<%=msg %>");
-location.href="../memberPage/myPage.jsp";
+location.href="../memberPage/myPurchasePage.jsp";
 </script>
 </head>
 <body>

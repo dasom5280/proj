@@ -73,8 +73,9 @@ text-decoration: none;
    <ul>
   
     <li><a href="ad_Product/productList.jsp" title="상품관리">상품관리</a></li>
-   <li><a href="" title="장바구니내역">장바구니내역</a></li>
-    <li><a href="" title="주문내역">주문내역</a></li>
+   <li><a href="ad_Product/basketList.jsp" title="장바구니관리">장바구니관리</a></li>
+    <li><a href="ad_Product/purchaseList.jsp" title="주문내역관리">주문내역관리</a></li>
+    <li><a href="ad_Product/deliveryList.jsp" title="배송내역관리">배송내역관리</a></li>
    </ul>
    
    </div>

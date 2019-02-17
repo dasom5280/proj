@@ -79,6 +79,7 @@
 
 		<div id="main">
 		<div id="basketPageMain">
+		<h3><%=id%>님의 장바구니</h3>
 		<table>
 					<tr>
 						<td colspan="7">
@@ -92,19 +93,16 @@
 			%>
 							<table id="inner">
 								<tr>
-									<th colspan="7"><%=id%>님의 장바구니</th>
-								</tr>
-								<tr>
 									<th colspan="7" style="text-align: right">총 개수 : <%= totalRecord %> 개</th>
 								</tr>
 								<tr>
-									<th>선택</th>
-									<th>상품종류</th>
-									<th>상품이름</th>
-									<th>가격</th>
-									<th>수량</th>
-									<th>등록날짜</th>
-									<th>수정</th>
+									<td>선택</td>
+									<td>상품종류</td>
+									<td>상품이름</td>
+									<td>가격</td>
+									<td>수량</td>
+									<td>등록날짜</td>
+									<td>수정</td>
 								</tr>
 								<tr>
 									<td colspan="7"><hr></td>
@@ -211,7 +209,7 @@
 					<td><a href="#" title="장바구니"> 장바구니</a></td>
 				</tr>
 				<tr>
-					<td><a href="purchasePage.jsp" title="구매내역"> 구매내역</a></td>
+					<td><a href="myPurchasePage.jsp" title="구매내역"> 구매내역</a></td>
 				</tr>
 			</table>
 		</div>

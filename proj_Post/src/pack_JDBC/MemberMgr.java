@@ -188,7 +188,7 @@ public class MemberMgr {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-			
+
 			sql = "delete from tblQnA where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -270,7 +270,7 @@ public class MemberMgr {
 ////////////////////로그인 기록 정보 추가 끝 ////////////////////
 
 ////////////////////로그인 기록 정보 반환 ////////////////////
-	public Vector<AccessRecordBean> getARecord(String id) {
+	public Vector<AccessRecordBean> getARecord(String id, int start, int end) {
 
 		Connection objConn = null;
 		PreparedStatement objPstmt = null;
@@ -281,9 +281,11 @@ public class MemberMgr {
 		try {
 
 			objConn = pool.getConnection();
-			sql = "select * from accessRecord where id=?";
+			sql = "select * from accessRecord where id=? order by loginTime desc limit ?, ?";
 			objPstmt = objConn.prepareStatement(sql);
 			objPstmt.setString(1, id);
+			objPstmt.setInt(2, start);
+			objPstmt.setInt(3, end);
 
 			objRs = objPstmt.executeQuery();
 
@@ -347,10 +349,10 @@ public class MemberMgr {
 ////////////////////회원 정보 반환 끝 ////////////////////
 
 ////////////////////회원 목록 반환 ////////////////////
-	public Vector<MemberBean> getMemberList() {
+	public Vector<MemberBean> getMemberList(int start, int end) {
 
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		Vector<MemberBean> vlist = new Vector<>();
@@ -358,13 +360,15 @@ public class MemberMgr {
 		try {
 
 			con = pool.getConnection();
-			sql = "select * from tblMember";
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
+			sql = "select * from tblMember order by id asc limit ?, ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				if(rs.getString(1).equals("admin"))
-				continue;
+				if (rs.getString(1).equals("admin"))
+					continue;
 				MemberBean bean = new MemberBean();
 				bean.setId(rs.getString(1));
 				bean.setPass(rs.getString(2));
@@ -388,11 +392,65 @@ public class MemberMgr {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			pool.freeConnection(con, stmt, rs);
+			pool.freeConnection(con, pstmt, rs);
 		}
 		return vlist;
 	}
 
 ////////////////////회원 목록 반환 끝 ////////////////////
+
+	/// 회원 총 숫자 반환 시작
+	public int getTotalMember() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			conn = pool.getConnection();
+			sql = "select count(*) from tblMember";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(conn, pstmt, rs);
+		}
+		return totalCount;
+	}
+
+	/// 총 접속 횟수 반환 시작
+	public int getTotalAccess(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			conn = pool.getConnection();
+			if (id.equals("admin")) {
+				sql = "select count(*) from accessrecord";
+				pstmt = conn.prepareStatement(sql);
+			} else {
+
+				sql = "select count(*) from accessrecord where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(conn, pstmt, rs);
+		}
+		return totalCount;
+	}
 
 }

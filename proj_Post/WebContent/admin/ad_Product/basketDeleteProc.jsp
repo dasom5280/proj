@@ -7,15 +7,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Basket</title>
 
 <%
 request.setCharacterEncoding("utf-8");
 
-MemberBean mbean = (MemberBean) session.getAttribute("loginBean");
+MemberBean mbean = (MemberBean) session.getAttribute("adminBean");
 
 if(mbean == null)
-	response.sendRedirect("../member/login.jsp");
+	response.sendRedirect("../../index.jsp");
 
 else {
 	String nums = request.getParameter("nums");
@@ -30,7 +30,7 @@ else {
 
 <script type="text/javascript">
 	alert("삭제 완료");
-	location.href = "basketList.jsp";
+	location.href = "basketPage.jsp";
 </script>
 
 </head>
