@@ -14,60 +14,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="css/mainStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 
 </head>
 <body>
-	<div id="wrap">
-
-
-		<header class="top">
-			<img id="headerLogo" src="images/headerLogo.png" alt="로고">
-		</header>
-
+<div id="wrap">
+<div class="container-fluid">
+		<div class="row">
+			<div class="col" style="text-align: center;">
+			<header>
+			<h1>SHOP NAME</h1>
+			</header>
+			</div>
+		</div>
+		
 		<nav>
-			<ul>
-				<li><a href="product/productList.jsp?productType=outer" title="Outer">Outer</a></li>
-				<li><a href="product/productList.jsp?productType=top" title="Top">Top</a></li>
-				<li><a href="product/productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
-				&nbsp;<li>||</li>&nbsp;
-				<li><a href="board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
-				<li><a href="admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
-				<li><a href="board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
-				<li><a href="board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
-				&nbsp;<li>||</li>&nbsp;
+			<ul class="nav nav-pills nav-fill flex-column flex-sm-row">
+				<li class="nav-item"><a  class="nav-link" href="product/productList.jsp?productType=outer" title="Outer">OUTER</a></li>
+				<li class="nav-item"><a class="nav-link" href="product/productList.jsp?productType=top" title="Top">TOP</a></li>
+				<li class="nav-item"><a class="nav-link" href="product/productList.jsp?productType=bottom" title="Bottom">BOTTOM</a></li>
+				<li class="nav-item"><a class="nav-link" href="board/memberBoard/noticelist.jsp" title="Notice">NOTICE</a></li>
+				<li class="nav-item"><a class="nav-link" href="admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
+				<li class="nav-item"><a class="nav-link" href="board/freeBoard/freeList.jsp" title="freeBoard">FREEBOARD</a></li>
+				<li class="nav-item"><a class="nav-link" href="board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
 			<%
 				if (bean != null) {
 					String id = bean.getId();
 						if (id != null) {
 			%>
-				<li><a href="member/passCheck.jsp" title="MyPage">ID : <%= id %></a></li>
-				<li><a href="memberPage/basketPage.jsp" title="MyCart">MyCart</a></li>
-				<li><a href="member/logout.jsp" title="">Logout</a></li>
+				<li class="nav-item"><a class="nav-link" href="member/passCheck.jsp" title="MyPage">ID : <%= id %></a></li>
+				<li class="nav-item"><a class="nav-link" href="memberPage/basketPage.jsp" title="MyCart">MYCART</a></li>
+				<li class="nav-item"><a class="nav-link" href="member/logout.jsp" title="">LOGOUT</a></li>
 			<% 
 				} 
 			}else {
 			%>
-			<li><a href="member/login.jsp" title="Login">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="member/login.jsp" title="Login">LOGIN</a></li>
 			<%
 				}
 			%>			
 			</ul>
 		</nav>
 
-		<div id="tablecontainer">
-			<div class="tablerow">
-
+			<div class="row">
+				<div class="col">
 				<div id="adv">
 					<p>광고이미지 출력</p>
 				</div>
+				</div>
 			</div>
 
-			<div class="tablerow">
+			<div class="row">
+				<div class="col">
 				<div id="main">
-					<table>
+					<div class="table-responsive">
+					<h4>New Arrival</h4>
+					<table class="table table-borderless">
 						<tr>
-							<td colspan="5"><b>New Arrival</b></td>
+							<td colspan="5" class="subtitle"><hr></td>
 						</tr>
 						<tr>
 						<%
@@ -84,7 +94,7 @@
 							cnt ++;
 						%>
 						<td>
-						<table class="galleryImg1">
+						<table class="table">
 										<tr>
 											<td class="galleryImg2">
 											<img src="admin/img_Product/<%=filename%>" width="120"
@@ -95,7 +105,7 @@
 											<td>
 											<a href="javascript:location.href='product/productDetail.jsp?productNum=<%=proNum%>'">
 											<% 
-											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
+											if (sale==1) out.println("<span class='badge badge-danger'>sale</span>&nbsp;"); 
 											%>
 											<%=proName %></a>
 											</td>
@@ -106,7 +116,7 @@
 													if (sale == 1) {
 																int salePercent = pbean.getSalePercent();
 																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
-																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+																out.println("<span style='font-size: 0.5em; color:#a8a8a8;'><s>"+price + "</s>→</span>" + "<span style='color:#606060;'>"+ (int) saledprice + "</span>");
 															} else {
 																out.println(price);
 															}
@@ -125,12 +135,13 @@
 								%>
 						</tr>
 						</table>
-						
+						</div>
 						<br>
-						
-						<table>
+						<div class="table-responsive">
+						<h4>Sale</h4>
+						<table class="table table-borderless">
 						<tr>
-							<td colspan="5"><b>Sale</b></td>
+							<td colspan="5" class="subtitle"><hr></td>
 						</tr>
 						<tr>
 						<%
@@ -147,7 +158,7 @@
 							cnt ++;
 						%>
 						<td>
-						<table class="galleryImg1">
+						<table class="table">
 										<tr>
 											<td class="galleryImg2">
 											<img src="admin/img_Product/<%=filename%>" width="120"
@@ -157,9 +168,7 @@
 										<tr>
 											<td>
 											<a href="javascript:location.href='product/productDetail.jsp?productNum=<%=proNum%>'">
-											<% 
-											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
-											%>
+											
 											<%=proName %></a>
 											</td>
 										</tr>
@@ -169,7 +178,7 @@
 													if (sale == 1) {
 																int salePercent = pbean.getSalePercent();
 																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
-																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+																out.println("<span style='font-size: 0.5em; color:#a8a8a8;'><s>"+price + "</s>→</span>" + "<span style='color:#606060;'>"+ (int) saledprice + "</span>");
 															} else {
 																out.println(price);
 															}
@@ -188,14 +197,18 @@
 								%>
 						</tr>
 						</table>
-
+						</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-
+		<div class="row">
+		<div class="col">
 		<footer>
 			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
+		</div>
+		</div>
+	</div>
 	</div>
 </body>
 </html>

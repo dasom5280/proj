@@ -9,7 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ Board</title>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 <link rel="stylesheet" href="../../css/ad_Board.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
@@ -38,14 +44,11 @@ $(document).ready(function(){
 	})
 	</script>
 <style>
-	div #wrap{
-					margin : 0 auto;
-					width : 640px;
-					}
 </style>
 </head>
 <body>
 	<div id="wrap">
+	<div id="notice">
 	<div align="left">
 		<%
 				if (abean != null) {
@@ -268,7 +271,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-
+		</div>
 	</div>
 	
 	<footer style="text-align:center;">

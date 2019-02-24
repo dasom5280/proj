@@ -57,66 +57,62 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-
-<style type="text/css">
-
-table.galleryImg1 {
-	margin: 5px;
-	border: 1px solid gray;
-	text-align:center;
-}
-
-table.galleryImg1 tr td.galleryImg2 {
-	width: 120px; /*   48px에서 수정됨*/
-	height: 150px;
-}
-</style>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 </head>
 <body>
 <div id="wrap">
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col" style="text-align: center;">
+			<header>
+			<h1 onclick="javascript:location.href='../index.jsp'">SHOP NAME</h1>
+			</header>
+			</div>
+		</div>
 
-<header class="top">
-	<img id="headerLogo" src="../images/headerLogo.png" alt="로고">
-</header>
-
-<nav>
-			<ul>
-				<li <%if(mainProtype.equals("outer")) {%> id="selected" <%} %>><a href="productList.jsp?productType=outer" title="Outer">Outer</a></li>
-				<li <%if(mainProtype.equals("top")) {%> id="selected" <%} %>><a href="productList.jsp?productType=top" title="Top">Top</a></li>
-				<li <%if(mainProtype.equals("bottom")) {%> id="selected" <%} %>><a href="productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
-				&nbsp;<li>||</li>&nbsp;
-				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
-				<li><a href="../admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
-				<li><a href="../board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
-				<li><a href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
-				&nbsp;<li>||</li>&nbsp;
+		<nav>
+			<ul class="nav nav-pills nav-fill flex-column flex-sm-row">
+				<li class="nav-item"<%if(mainProtype.equals("outer")) {%> id="selected" <%} %>><a class="nav-link" href="productList.jsp?productType=outer" title="Outer">OUTER</a></li>
+				<li class="nav-item"<%if(mainProtype.equals("top")) {%> id="selected" <%} %>><a class="nav-link" href="productList.jsp?productType=top" title="Top">TOP</a></li>
+				<li class="nav-item"<%if(mainProtype.equals("bottom")) {%> id="selected" <%} %>><a class="nav-link" href="productList.jsp?productType=bottom" title="Bottom">BOTTOM</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/memberBoard/noticelist.jsp" title="Notice">NOTICE</a></li>
+				<li class="nav-item"><a class="nav-link" href="../admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/freeBoard/freeList.jsp" title="freeBoard">FREEBOARD</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
 			<%
 				if (bean != null) {
 					String id = bean.getId();
 						if (id != null) {
 			%>
-				<li><a href="../member/passCheck.jsp" title="MyPage">ID : <%= id %></a></li>
-				<li><a href="../memberPage/basketPage.jsp" title="MyCart">MyCart</a></li>
-				<li><a href="../member/logout.jsp" title="">Logout</a></li>
+				<li class="nav-item"><a class="nav-link" href="../member/passCheck.jsp" title="MyPage">ID : <%= id %></a></li>
+				<li class="nav-item"><a class="nav-link" href="../memberPage/basketPage.jsp" title="MyCart">MYCART</a></li>
+				<li class="nav-item"><a class="nav-link" href="../member/logout.jsp" title="">LOGOUT</a></li>
 			<% 
 				} 
 			}else {
 			%>
-			<li><a href="../member/login.jsp" title="Login">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="../member/login.jsp" title="Login">LOGIN</a></li>
 			<%
 				}
 			%>			
 			</ul>
 		</nav>
 
-		<div id="tablecontainer">
-
-			<div class="tablerow">
+		
+			<div class="row">
+				<div class="col">
 				<div id="main">
+					
+					<div class="table-responsive">
 					<form name="listFrm" method="post">
-						<table>
+						<table class="table table-borderless">
 
 							<tr>
 								<!-- 수정 -->
@@ -141,7 +137,7 @@ table.galleryImg1 tr td.galleryImg2 {
 
 								<td>
 
-									<table class="galleryImg1">
+									<table class="table">
 										<tr>
 											<td class="galleryImg2"><img
 												src="../admin/img_Product/<%=filename%>" width="120"
@@ -153,8 +149,8 @@ table.galleryImg1 tr td.galleryImg2 {
 											<a href="javascript:detailProc('<%=proNum%>')">
 											<% 
 											if(proNum> pMgr.getTotalCount() - 10)//신상품 상위 10개만 도출 -전체상품에서 상위 10개
-												out.println("<span style='color: purple; font-size: 0.6em;'>new</span>");
-											if (sale==1) out.println("<span style='color: red; font-size: small;'>sale!&nbsp;</span>"); 
+												out.println("<span class='badge badge-warning'>new</span>");
+											if (sale==1) out.println("<span class='badge badge-danger'>sale!</span>&nbsp;"); 
 											%>
 											<%=proName %></a>
 											</td>
@@ -166,7 +162,7 @@ table.galleryImg1 tr td.galleryImg2 {
 													if (sale == 1) {
 																int salePercent = pbean.getSalePercent();
 																double saledprice = Double.parseDouble(price) * (1 - (double) salePercent / 100);
-																out.println("<span style='font-size: 0.5em;'><s>"+price + "</s>→</span>" + "<span style='color:red;'>"+ (int) saledprice + "</span>");
+																out.println("<span style='font-size: 0.5em; color:#a8a8a8;'><s>"+price + "</s>→</span>" + "<span style='color:#606060;'>"+ (int) saledprice + "</span>");
 															} else {
 																out.println(price);
 															}
@@ -185,8 +181,8 @@ table.galleryImg1 tr td.galleryImg2 {
 									}//for
 								%>
 							
-							<tr style="text-align: right;">
-								<td colspan="10">
+							<tr style="text-align: center;">
+								<td colspan="5">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -203,7 +199,7 @@ table.galleryImg1 tr td.galleryImg2 {
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -223,12 +219,20 @@ table.galleryImg1 tr td.galleryImg2 {
 						</table>
 						<input type="hidden" name="productNum" value="">
 					</form>
+					</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		
+		
+		<div class="row">
+		<div class="col">
 		<footer>
 			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
+		</div>
+		</div>
+</div>
 </div>
 <script type="text/javascript">
 function detailProc(num){

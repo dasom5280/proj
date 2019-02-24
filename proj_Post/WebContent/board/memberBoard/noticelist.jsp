@@ -62,9 +62,20 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>list</title>
+<title>SHOPNAME</title>
+<style type="text/css">
+#main {
+color : #606060;
+}
+</style>
+<link rel="stylesheet" href="../../css/boardStyle.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-<link rel="stylesheet" href="../../css/ad_Board.css">
+
 <script src=../../js/script.js></script>
 <script>
 	function pageing(page) {
@@ -97,31 +108,39 @@
 </head>
 <body>
 	<div id="wrap">
-
-			<a href="../../index.jsp" title="main">MAIN</a>
-			
-			
-
-		<h1>공지사항</h1>
-		<table class="listTbl">
-			<tr>
-				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
-						<%=nowPage%>/<%=totalPage%>Pages</span> )
-				</td>
-			</tr>
-		</table>
-		<table class="listTbl">
-			<tr>
-				<td colspan="2">
+		
+		<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+			<a id="left" style="color: black; font-weight: 100; font-size: 1.1em;"href="../../index.jsp" title="main">MAIN</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">공지사항</h1>
+			</header>
+			</div>
+		</div>
+			<div class="row">
+				<div class="col">
+				<div id="main">
+				<div class="table-responsive">
+				<table class="table table-borderless">
+				<tr>
+				<td>
+				<table class="table table-borderd">
+				<tr>
+				<td colspan="5" style="text-align: right; color: #606060;">전체 글 : <%=totalRecord%> 개(
+						<%=nowPage%>/<%=totalPage%>Pages)</td>
+				</tr>
+			<tr id="title">
 					<%
 				  vlist = bMgr.getBoardList(keyField, keyWord, start, end);
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("등록된 게시물이 없습니다.");
+					out.println("<td colspan='5'>등록된 게시물이 없습니다.</td></tr>");
 				  } else {
 			%>
-					<table id="listInnerTbl">
-						<tr>
 							<th>번 호</th>
 							<th>제 목</th>
 							<th>이 름</th>
@@ -170,7 +189,7 @@
 								list=>read 로 링크할 때 해당 글번호임을 알려주는
 								열쇠가 된다.(키값)
 								 -->
-								 <a href="javascript:read('<%=num%>')" title="">
+								 <a id="subtitle" href="javascript:read('<%=num%>')" title="">
 								 <%=subject%>
 								 </a>
 							</td>
@@ -178,13 +197,18 @@
 							<td><%=regdate%></td>
 							<td><%=count%></td>
 						</tr>
-						<% }   //for%>
+						<% }   //for
+							 }//if %>
 					</table> 
-					<% }//if %>
 				</td>
 			</tr>
 			<tr>
-				<td>
+			<td>
+			<hr>
+			</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="text-align: center;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -201,7 +225,7 @@
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -212,22 +236,29 @@
 					   <%} //for%>&nbsp;
 					   <%if (totalBlock > nowBlock ) { %> 
 					   <a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
-					   <%}%>&nbsp;
-					<%}%> <!-- 페이징 및 블럭 처리 End-->
+					   <% }%>&nbsp;
+					<% }%> <!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td>
 				 
 				</td>
 			</tr>
 		</table>
-		<hr>
+	</div>
+	</div>
+	</div>
+	</div>
+		
+		<div class="row">
+		<div class="col" align="center">
 		<form name="searchFrm" method="post" action="list.jsp">
-			<table>
+			<table class="table-borderless">
 				<tr>
 					<td> <!--
 					 	keyWord = "";
 						keyField = ""; -->
-					<select name="keyField" size="1">	
+					<div class="input-group input-group-sm mb-3">
+					<select class="custom-select" name="keyField" size="1">	
 									
 							<option value="-">검색항목선택</option> 						
 							<option value="name" 
@@ -237,9 +268,12 @@
 							<option value="content" 
 							<% if(keyField.equals("content")){%>selected<%}%>>내 용</option>
 					</select> 
-					<input type="text" size="16" name="keyWord" value="<%=keyWord%>"> 
-					<input type="button" value="찾기" onClick="javascript:check()"> 
+					<input type="text" class="form-control" size="16" name="keyWord" value="<%=keyWord%>"> 
+					<div class="input-group-append">
+					<input class="btn btn-outline-secondary" id="button-addon2" type="button" value="찾기" onClick="javascript:check()"> 
 					<input type="hidden" name="nowPage" value="1">
+					</div>
+					</div>
 					</td>
 				</tr>
 			</table>
@@ -254,7 +288,9 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 			
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-
+		</div>
+		</div>
+	</div>
 	</div>
 </body>
 </html>
