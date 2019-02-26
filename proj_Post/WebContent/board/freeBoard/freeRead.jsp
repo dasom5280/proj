@@ -7,9 +7,6 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-
-	MemberBean memberbean = (MemberBean) session.getAttribute("loginBean");
-	// => post 또는 get방식으로 데이터 수신이 있음 
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	String nowPage = request.getParameter("nowPage");
@@ -27,91 +24,110 @@
 	String content = bean.getContent();
 	String ip = bean.getIp();
 	int count = bean.getCount();
-
+	
+	MemberBean memberbean = null; 
+	memberbean = (MemberBean) session.getAttribute("loginBean");
+	if(memberbean==null){
+		memberbean = (MemberBean) session.getAttribute("adminBean");
+		
+		if(memberbean==null)
+			memberbean = null;
+	}
 	// bean으로 반환된 데이터를 세션으로 설정함(ID 및 로그인과 무관함) -> 설정하지 않는 것이 좋을거 같아요
 %>
 <!DOCTYPE html>
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>freeBoard read</title>
-<link rel="stylesheet" href="../css/ad_freeBoard.css">
-<script>
-	function list() {
-		document.listFrm.action = "freeList.jsp";
-		document.listFrm.submit();
-	}
-</script>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/boardStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
 	<div id="wrap">
+		<div class="container-fluid">
+				<div class="row">
+					<div class="col">
+					<header>
+					<div style="text-align:left;">
+						<%
+						if (memberbean!=null &&memberbean.getLevel() == 2) {
+					%>
+					<a href="../../admin/adminMain.jsp" title="adminMain" id="aleft">관리자 메인</a>&nbsp;&nbsp;
+					<% } else {%>
+					<a href="../../index.jsp" title="main" id="left">MAIN</a>
+					<% } %>
+				</div>
+					<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">자유게시판</h1>
+					</header>
+					</div>
+				</div>
 
-		<h1>글읽기</h1>
-
-		<table class="readTbl">
-			<tr>
-				<td colspan="2">
-					<table id="readInnerTbl">
+			<div class="row">
+				<div class="col">
+				<div id="main" style="text-align:left;">
+				<div class="table-responsive" style="background-color: white;">
+			<table class="table" >
 						<tr>
-							<td class="itemSet">이 름</td>
-							<td><%=name%></td>
-							<td class="itemSet">등록날짜</td>
-							<td><%=regdate%></td>
-						</tr>
-						<tr>
-							<td class="itemSet">제 목</td>
+							<td class="fc">제 목</td>
 							<td colspan="3" class="rangeLeft"><%=subject%></td>
+							<td class="fc">조회수</td>
+							<td><%=count %></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="rangeLeft rangeTop"><pre><%=content%></pre>
+							<td class="fc">아이디</td>
+							<td><%=name%></td>
+							<td class="fc">등록날짜</td>
+							<td><%=regdate%></td>				
+							<td class="fc">아이피</td>
+							<td><%=ip%></td>
+						</tr>
+						<tr>
+							<td colspan="6" id="ct"><pre><%=content%></pre>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">IP : <%=ip%> / 조회수 <%=count%>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-
+						<td colspan="6" style="text-align: center; padding: 3%;">
+						<a class="btn btn-secondary" href="javascript:list()" title="">목록</a>
 			<%
+				if(memberbean!=null){
 				int level = memberbean.getLevel();
-				if (level == 2) {
-			%>
-			<tr>
-				<td align="center" colspan="2">
-					<hr> [ <a href="freeList.jsp" title="">리스트</a> | <a
-					href="freeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
-					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a> | <a
-					href="freeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> | <a
-					href="freePost.jsp">글쓰기</a> ] <br>
-				</td>
-				<%
-					} else {
+				if (level ==1) {
+						if(memberbean.getId().equals(name)) {
 				%>
-			
-			<tr>
-				<td align="center" colspan="2">
-					<hr> [ <a href="freeList.jsp" title="">리스트</a> | <a
-					href="freeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | <a
-					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a>| <a
-					href="freePost.jsp">글쓰기</a> ] <br>
-				</td>
-
+					<a class="btn btn-secondary"
+					href="freeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a>
+					<a class="btn btn-secondary"
+					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a>
+					<a class="btn btn-secondary"
+					href="freeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a>
+				<%
+					} else {%>
+					<a class="btn btn-secondary"
+					href="freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a>
+				<% 
+				}
+				} else {
+					%>
+					<a class="btn btn-secondary"
+					href="../../admin/ad_Board/freeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a>
+					<a class="btn btn-secondary"
+					href="../../admin/ad_Board/freeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a>
 				<%
 					}
+				}
 				%>
-
+			</td>
 			</tr>
-
-
-
-
-
-
 		</table>
-
-
+		</div>
+		</div>
+		</div>
+		</div>
 
 		<form name="listFrm" method="post">
 			<input type="hidden" name="num" value="<%=num%>"> <input
@@ -125,7 +141,13 @@
 				}
 			%>
 		</form>
-
 	</div>
+	</div>
+	<script>
+	function list() {
+		document.listFrm.action = "freeList.jsp";
+		document.listFrm.submit();
+	}
+</script>
 </body>
 </html>

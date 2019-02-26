@@ -69,34 +69,81 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>상품관리</title>
-<link rel="stylesheet" href="../../css/ad_Board.css" type="text/css">
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<style>
+#wrap{
+width: 70%;
+margin: 0 auto;
+padding: 3%;
+font-size: 0.9em;
+}
+
+a:link, a#aleft:link {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+}
+
+a:hover, a#aleft:hover {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+a:visited, a#aleft:visited {
+	text-decoration: none;
+	font-size: 1.1em;
+	color: #2d2d2d;
+}
+
+table{
+text-align:center;
+}
+</style>
+
 </head>
 <body>
 	<div id="wrap">
-		<!-- 관리자 메인 링크 수정 필요 -->
-		<h1><a href="../adminMain.jsp">관리자 메인</a></h1>
-		<h1>상품관리</h1>
-		<table class="listTbl">
-			<tr>
-				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
-						<%=nowPage%>/<%=totalPage%>Pages</span> )
-				</td>
-			</tr>
-		</table>
-		<table class="listTbl">
-			<tr>
+		<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">상품 관리</h1>
+			</header>
+			</div>
+		</div>
+		
+			<div class="row">
+			<div class="col">
+			<div id="main">
+			<div class="table-responsive">
+			<table class="table table-borderless">
+				<tr>
 				<td colspan="2">
+				<table class="table table-borderd">
+				<tr>
+				<td colspan="9" style="text-align: right; color: #606060;">총 상품 : <%=totalRecord%> 개
+				</td>
+				</tr>
+				<tr id="title">
 					<%
 				  vlist = pMgr.getProductList(keyField, keyWord, start, end);
 					
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("등록된 상품이 없습니다.");
+					out.println("<td>등록된 상품이 없습니다.</td></tr></table>");
 				  } else {
 			%>
-			<table id="listInnerTbl">
-			<tr>
 				<th>상품번호</th>
 				<th>이름</th>
 				<th>사진</th>
@@ -137,10 +184,10 @@
 				<td><%if(sale==1) out.println("O"); else out.println("X"); %></td>
 				<td><%=percent %> % </td>
 				<td>
-				<input type="button" value="수정" onclick="location.href='productUpdate.jsp?productNum=<%=bean.getProductNum()%>'">
+				<input class="btn btn-light btn-block" type="button" value="수정" onclick="location.href='productUpdate.jsp?productNum=<%=bean.getProductNum()%>'">
 				</td>
 				<td>
-				<input type="button" value="삭제" onclick="location.href='productDelete.jsp?productNum=<%=bean.getProductNum()%>'">
+				<input class="btn btn-light btn-block" type="button" value="삭제" onclick="location.href='productDelete.jsp?productNum=<%=bean.getProductNum()%>'">
 				</td>
 			</tr>
 						<% }   //for%>
@@ -149,7 +196,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+			<td colspan="9">
+			<hr>
+			</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
 			<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -166,7 +218,7 @@
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -182,20 +234,28 @@
 				</td>
 				</tr>
 				<tr>
-				<td>
+				<td style="text-align: right;">
 				<form>
-				<input type="button" value="상품 추가" onclick="location.href='productAdd.jsp'">
+				<input class="btn btn-secondary" type="button" value="상품 추가" onclick="location.href='productAdd.jsp'">
 				</form>
 				</td>
-					</tr>
+				</tr>
 		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col" align="center">
 		<form name="searchFrm" method="post" action="productList.jsp">
-			<table>
+			<table class="table-borderless">
 				<tr>
 					<td> <!--
 					 	keyWord = "";
 						keyField = ""; -->
-					<select name="keyField" size="1">	
+					<div class="input-group input-group-sm mb-3">
+					<select class="custom-select" name="keyField" size="1">	
 									
 							<option value="productName" 
 							<% if(keyField.equals("productName")){%>selected="selected"<%}%> >상품이름</option>						
@@ -205,9 +265,12 @@
 							<% if(keyField.equals("explanation")){%>selected="selected"<%}%>>설 명</option>
 	
 					</select> 
-					<input type="text" size="16" name="keyWord" value="<%=keyWord%>"> 
-					<input type="button" value="찾기" onClick="javascript:check()"> 
+					<input class="form-control" type="text" size="16" name="keyWord" value="<%=keyWord%>"> 
+					<div class="input-group-append">
+					<input class="btn btn-outline-secondary" type="button" value="찾기" onClick="javascript:check()"> 
 					<input type="hidden" name="nowPage" value="1">
+					</div>
+					</div>
 					</td>
 				</tr>
 			</table>
@@ -222,6 +285,9 @@
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
 	</div>
+	</div>
+</div>
+</div>
 
 	<!-- 자바스크립트 구문 -->
 	<script type="text/javascript">
@@ -257,9 +323,5 @@
 	<%
 	}
 	%>
-</body>
-</html>
-	
-	</div>
 </body>
 </html>

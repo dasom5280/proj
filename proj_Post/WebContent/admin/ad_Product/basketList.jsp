@@ -54,36 +54,80 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Basket</title>
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<style>
+#wrap{
+width: 70%;
+margin: 0 auto;
+padding: 3%;
+font-size: 0.9em;
+}
+
+a:link, a#aleft:link {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+}
+
+a:hover, a#aleft:hover {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+a:visited, a#aleft:visited {
+	text-decoration: none;
+	font-size: 1.1em;
+	color: #2d2d2d;
+}
+table{
+text-align:center;
+}
+</style>
+
 </head>
 <body>
 	<div id="wrap">
-		<div align="left">
-			<a href="../adminMain.jsp" title="adminMain">관리자 메인</a>
-		</div>
+		<div class="container-fluid">
 		
-		<header>
-      <h2>장바구니 관리</h2>
-      </header>
-      <div id="main">
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">장바구니 관리</h1>
+			</header>
+			</div>
+		</div>
       	
-   		<table>
+   			<div class="row">
+			<div class="col">
+			<div id="main">
+			<div class="table-responsive">
+			<table class="table table-borderless">
 				<tr>
-					<td colspan="8">
+				<td colspan="2">
+				<table class="table table-borderd">
+				<tr>
+				<td colspan="8" style="text-align: right; color: #606060;">총 상품 : <%=totalRecord%> 개
+				</td>
+				</tr>
+				<tr id="title">
 					<%
 				  vlist = basMgr.getBasketList(aid, start, end);
 					
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("등록된 장바구니가 없습니다.");
+					out.println("<td>등록된 장바구니가 없습니다.</td></tr></table>");
 				  } else {
 					%>
-					<table id="inner">
-							<tr>	
-								<td style="text-align: left"><a href="productList.jsp" title="">상품관리</a></td>
-								<th colspan="7" style="text-align: right">총 개수 : <%= totalRecord %> 개</th>
-								</tr>
-							<tr>
 								<td>선택</td>
 								<td>번호</td>
 								<td>아이디</td>
@@ -139,7 +183,7 @@
 		</td>
 	</tr>
       	<tr>
-					<td>
+					<td style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -156,7 +200,7 @@
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -170,19 +214,21 @@
 					   <%}%>&nbsp;
 					<%}%>
 					<!-- 페이징 및 블럭 처리 End-->
-				</td>
-				
-					<td style="text-align: right;">		
+				&nbsp;	
 				<!-- 각종 이동 버튼 -->
 				<!-- 사용자 이동 버튼 출력  -->
-				<input type="button" value="목록 처음으로" onclick="javascript:list()">
-				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="장바구니 삭제" onclick="javascript:deleteProc()">
+				<div class="btn-group" role="group" aria-label="Basic example">
+				<input class="btn btn-secondary" type="button" value="목록처음으로" onclick="javascript:list()">
+				<input class="btn btn-secondary" type="button" value="장바구니 삭제" onclick="javascript:deleteProc()">
+				</div>
 				</td>
 				</tr>
-				
 			</table>
 			</div>
+			</div>
+			</div>
+			</div>
+	</div>
 	</div>
 	
 		<script type="text/javascript">

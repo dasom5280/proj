@@ -63,48 +63,12 @@
 <head>
 <meta charset="UTF-8">
 <title>SHOPNAME</title>
-<style type="text/css">
-#main {
-color : #606060;
-}
-</style>
 <link rel="stylesheet" href="../../css/boardStyle.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="../../css/bootstrap.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
-
-<script src=../../js/script.js></script>
-<script>
-	function pageing(page) {
-		document.readFrm.nowPage.value = page;
-		document.readFrm.submit();
-	}
-
-	function block(value) {
-		document.readFrm.nowPage.value =
-<%=pagePerBlock%>
-	* (value - 1) + 1;
-		document.readFrm.submit();
-	}
-
-	function read(num) {
-		document.readFrm.num.value = num;
-		document.readFrm.action = "read.jsp";
-		document.readFrm.submit();
-	}
-
-	function check() {
-		if (document.searchFrm.keyWord.value == "") {
-			alert("검색어를 입력하세요.");
-			document.searchFrm.keyWord.focus();
-			return;
-		}
-		document.searchFrm.submit();
-	}
-</script>
 </head>
 <body>
 	<div id="wrap">
@@ -115,7 +79,7 @@ color : #606060;
 			<div class="col">
 			<header>
 			<div style="text-align:left;">
-			<a id="left" style="color: black; font-weight: 100; font-size: 1.1em;"href="../../index.jsp" title="main">MAIN</a>
+			<a id="left" href="../../index.jsp" title="main">MAIN</a>
 			</div>
 			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">공지사항</h1>
 			</header>
@@ -208,7 +172,7 @@ color : #606060;
 			</td>
 			</tr>
 			<tr>
-				<td colspan="5" style="text-align: center;">
+				<td colspan="5" style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -238,9 +202,6 @@ color : #606060;
 					   <a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
 					   <% }%>&nbsp;
 					<% }%> <!-- 페이징 및 블럭 처리 End-->
-				</td>
-				<td>
-				 
 				</td>
 			</tr>
 		</table>
@@ -292,5 +253,36 @@ color : #606060;
 		</div>
 	</div>
 	</div>
+	
+
+<script src=../../js/script.js></script>
+<script>
+	function pageing(page) {
+		document.readFrm.nowPage.value = page;
+		document.readFrm.submit();
+	}
+
+	function block(value) {
+		document.readFrm.nowPage.value =
+<%=pagePerBlock%>
+	* (value - 1) + 1;
+		document.readFrm.submit();
+	}
+
+	function read(num) {
+		document.readFrm.num.value = num;
+		document.readFrm.action = "read.jsp";
+		document.readFrm.submit();
+	}
+
+	function check() {
+		if (document.searchFrm.keyWord.value == "") {
+			alert("검색어를 입력하세요.");
+			document.searchFrm.keyWord.focus();
+			return;
+		}
+		document.searchFrm.submit();
+	}
+</script>
 </body>
 </html>

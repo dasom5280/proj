@@ -4,35 +4,57 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회원 탈퇴</title>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
 <link rel="stylesheet" href="../css/myPageStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 </head>
 <body>
 	<div id="wrap">
-		<header class="top">
-			<a href="../index.jsp" title="로고"><img id="headerLogo" src="images/headerLogo.gif" alt="로고"></a><br>
-			<br>
-			<h2>
-				<b>마이페이지</b>
-			</h2>
-		</header>
+		<div class="container-fluid">
 		
+		<div class="row">
+		<div class="col">
+		<header>
+			<div style="text-align:left;">
+			<a id="left" style="color: black; font-weight: 100; font-size: 1.1em;" href="../index.jsp" title="main">MAIN</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">MyPage</h1>
+			</header>
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col"> 	
 		<div id="main">
 		<div id="quitMemberMain">
-		<h3>회원 탈퇴</h3>
+		<h4>회원 탈퇴</h4>
+		<br>
 		<p>정말로 탈퇴하시겠습니까?</p>
 		<form name="quitFrm" method="post" action="quitProc.jsp">
-			비밀번호 입력&nbsp;&nbsp;
-			<input type="password" name="pass">&nbsp;&nbsp;
-			<input type="button" name="quitBtn" value="확인"
+			
+			<div class="input-group mb-3 input-group-sm" style="width: 65%;">
+			 <div class="input-group-prepend">
+    		<span class="input-group-text" id="">비밀번호 입력</span>
+  			</div>
+			<input class="form-control" type="password" name="pass">
+			<div class="input-group-append">
+			<input class="btn btn-secondary btn-sm" type="button" name="quitBtn" value="확인"
 				onclick="passCheck()">
+			</div>
+			</div>
 		</form>
 		</div>
 		</div>
 		
 		<div id="aside">
-			<table>
-				<tr class="selected">
+				<div class="table-responsive">
+				<table class="table table-borderless">
+				<tr id="selected">
 					<td>
 					<a href="passCheck.jsp" title="회원정보수정">
 					회원정보수정</a></td>
@@ -54,13 +76,15 @@
 				</tr>
 			</table>
 		</div>
+		</div>
 
 		<footer>
 		&copy; 2018, 쇼핑몰이름
 		<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
-
-		
+		</div>
+		</div>
+	</div>
 	</div>
 
 	<script>

@@ -34,89 +34,81 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>Board read</title>
-<link rel="stylesheet" href="../../css/ad_Board.css">
-<script>
-	function list() {
-		document.listFrm.action = "noticeList.jsp";
-		document.listFrm.submit();
-	}
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/boardStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-</script>
 </head>
 <body>
 	<div id="wrap">
-
-		<h1>글읽기</h1>
-
-		<table class="readTbl">
-			<tr>
-				<td colspan="2">
-					<table id="readInnerTbl">
+		<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">공지사항</h1>
+			</header>
+			</div>
+		</div>
+		
+		<div class="row">
+				<div class="col">
+				<div id="main" style="text-align:left;">
+				<div class="table-responsive" style="background-color: white;">
+			<table class="table" >
 						<tr>
-							<td class="itemSet">이 름</td>
-							<td><%=name%></td>
-							<td class="itemSet">등록날짜</td>
-							<td><%=regdate%></td>
-						</tr>
-						<tr>
-							<td class="itemSet">제 목</td>
+							<td class="fc">제 목</td>
 							<td colspan="3" class="rangeLeft"><%=subject%></td>
+							<td class="fc">조회수</td>
+							<td><%=count %></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="rangeLeft rangeTop"><pre><%=content%></pre>
+							<td class="fc">아이디</td>
+							<td><%=name%></td>
+							<td class="fc">등록날짜</td>
+							<td><%=regdate%></td>				
+							<td class="fc">아이피</td>
+							<td><%=ip%></td>
+						</tr>
+						<tr>
+							<td colspan="6" id="ct"><pre><%=content%></pre>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4">IP : <%=ip%> / 조회수 <%=count%>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			
-
+						
+						<td colspan="6" style="text-align: center; padding: 3%;">
+						<a class="btn btn-secondary" href="javascript:list()" title="">목록</a>
 			<%
 				if (memberbean != null) {
 				
 					int level = memberbean.getLevel();
 						if (level==2) {
 			%>
-				<tr>
-				<td align="center" colspan="2">
-					<hr> [ <a href="noticeList.jsp" title="">리스트</a> | <a
-					href="noticeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> | 
-					<a href="noticeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a> | 
-					<a href="noticeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> | 
-					<a href="noticePost.jsp">글쓰기</a> ] <br>
-				</td>
-			</tr>
+				<a class="btn btn-secondary"
+				href="noticeUpdate.jsp?nowPage=<%=nowPage%>&num=<%=num%>">수 정</a> 
+				<a class="btn btn-secondary"
+				href="noticeReply.jsp?nowPage=<%=nowPage%>&num=<%=num%>">답 변</a> 
+				<a class="btn btn-secondary"
+				href="noticeDelete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> 
+				
 			<% 
 				} 
+			}
 			%>
-			
-			<%
-			}else {
-			%>
-			<tr>
-			<td align="center" colspan="2">
-		
-			[<a href="noticeList.jsp" title="">리스트</a>]
 			</td>
-			</tr>
-			<%
-				}
-			%>
-
-			
-
-			
-			
+			</tr>	
 		</table>
-
-		<form name="downFrm" action="download.jsp" method="post">
-			<input type="hidden" name="filename">
-		</form>
+		</div>
+		</div>
+		</div>
+		</div>
 
 		<form name="listFrm" method="post">
 			<input type="hidden" name="num" value="<%=num%>"> <input
@@ -130,7 +122,14 @@
 				}
 			%>
 		</form>
-
 	</div>
+	</div>
+	<script>
+	function list() {
+		document.listFrm.action = "noticeList.jsp";
+		document.listFrm.submit();
+	}
+
+</script>
 </body>
 </html>

@@ -62,25 +62,38 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>로그인 기록 정보</title>
-
-<link type="text/css" rel="stylesheet" href="../css/myPageStyle.css">
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="../css/myPageStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 </head>
 <body>
 	<div id="wrap">
-		<header class="top">
-			<a href="../index.jsp" title="로고"><img id="headerLogo"
-				src="../images/headerLogo.gif" alt="로고"></a><br> <br>
-			<h2>
-				<b>마이페이지</b>
-			</h2>
-		</header>
-
+		<div class="container-fluid">
+		
+		<div class="row">
+		<div class="col">
+		<header>
+			<div style="text-align:left;">
+			<a id="left" style="color: black; font-weight: 100; font-size: 1.1em;" href="../index.jsp" title="main">MAIN</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">MyPage</h1>
+			</header>
+		</div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="col"> 	
 		<div id="main">
 			<div id="accessPageMain">
-			<h3>로그인 정보</h3>
-				<table>
+				<div class="table-responsive">
+			<h4 >로그인 정보</h4>
+			<table class="table table-borderless">
 					<tr>
 						<td colspan="2"><%
 				  vlist = mMgr.getARecord(id, start, end);
@@ -90,7 +103,7 @@
 					out.println("접속기록이 없습니다.");
 				  } else {
 			%>
-							<table id="inner">
+							<table class="table" id="inner" style="text-align: center;">
 								<tr>
 									<th colspan="2" style="text-align: right">총 개수 : <%= totalRecord %> 개</th>
 								</tr>
@@ -127,8 +140,8 @@
 					</td>
 					</tr>
 					<tr>
-					<td style="text-align: right;">
-					<input type="button" value="목록 처음으로" onclick="javascript:alist()">
+					<td style="text-align: left;">
+					<input class="btn btn-secondary btn-sm" type="button" value="목록 처음으로" onclick="javascript:alist()">
 					</td>
 					<td style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
@@ -147,7 +160,7 @@
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold;">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -163,12 +176,18 @@
 					<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				</tr>
-				
-			</table>
+			</table>	
+		<form name="listFrm" method="post">
+			<input type="hidden" name="reload" value="true"> 
+			<input type="hidden" name="nowPage" value="1">
+		</form>
 			</div>
 		</div>
+		</div>
+		
 		<div id="aside">
-			<table>
+				<div class="table-responsive">
+				<table class="table table-borderless">
 				<tr>
 					<td><a href="../member/passCheck.jsp" title="회원정보수정">
 							회원정보수정</a></td>
@@ -184,11 +203,14 @@
 				</tr>
 			</table>
 		</div>
+		</div>
 
 		<footer>
 			&copy; 2018, 쇼핑몰이름 <br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
-
+		</div>
+		</div>
+	</div>
 	</div>
 	<script type="text/javascript">
 	function alist() {

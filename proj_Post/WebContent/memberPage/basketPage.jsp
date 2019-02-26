@@ -62,27 +62,39 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>My page</title>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
 <link rel="stylesheet" href="../css/myPageStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
 	<div id="wrap">
-		<header class="top">
+		<div class="container-fluid">
+		
+		<div class="row">
+		<div class="col">
+		<header>
+			<div style="text-align:left;">
+			<a id="left" style="color: black; font-weight: 100; font-size: 1.1em;" href="../index.jsp" title="main">MAIN</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">MyPage</h1>
+			</header>
+		</div>
+		</div>
 
-			<a href="../index.jsp" title="로고"><img id="headerLogo"
-				src="../images/headerLogo.gif" alt="로고"></a><br> <br>
-			<h2>
-				<b>마이페이지</b>
-			</h2>
-
-		</header>
-
+		
+		<div class="row">
+		<div class="col"> 	
 		<div id="main">
-		<div id="basketPageMain">
-		<h3><%=id%>님의 장바구니</h3>
-		<table>
+		<div id="basketPageMain">	
+			<div class="table-responsive">
+			<h4 ><%=id%>님의 장바구니</h4>
+			<table class="table table-borderless">
 					<tr>
-						<td colspan="7">
+						<td colspan="6">
 							<%
 				  vlist = basMgr.getBasketList(id, start, end);
 					
@@ -91,21 +103,20 @@
 					out.println("장바구니가 비어있습니다.");
 				  } else {
 			%>
-							<table id="inner">
+							<table class="table" id="inner" style="font-size: 0.8em; text-align:center;">
 								<tr>
-									<th colspan="7" style="text-align: right">총 개수 : <%= totalRecord %> 개</th>
+									<th colspan="6" style="text-align: right">총 개수 : <%= totalRecord %> 개</th>
 								</tr>
-								<tr>
+								<tr >
 									<td>선택</td>
-									<td>상품종류</td>
-									<td>상품이름</td>
+									<td>종류</td>
+									<td>이름</td>
 									<td>가격</td>
 									<td>수량</td>
-									<td>등록날짜</td>
-									<td>수정</td>
+									<td>날짜</td>
 								</tr>
 								<tr>
-									<td colspan="7"><hr></td>
+									<td colspan="6"><hr></td>
 								</tr>
 								<%
 							 for (int i = 0;i<numPerPage; i++) {
@@ -132,8 +143,6 @@
 									<td><%=price%></td>
 									<td><%=quantity%></td>
 									<td><%=buyDate%></td>
-									<td>
-									<input type="button" name="basUpdate" value="수정" onclick="location.href='basketUpdate.jsp?id=<%=id %>&basketNum=<%=basNum%>'">
 								</tr>
 								<%
 									} // for
@@ -144,9 +153,20 @@
  %>
 						</td>
 					</tr>
-					
 					<tr>
-					<td>
+					<td colspan="6">
+					<hr>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="5" style="text-align: left;">		
+					<!-- 각종 이동 버튼 -->
+					<!-- 사용자 이동 버튼 출력  -->
+					<input class="btn btn-secondary btn-sm" type="button" value="목록 처음으로" onclick="javascript:baslist()">
+					<input  class="btn btn-secondary btn-sm" type="button" value="장바구니 삭제" onclick="javascript:deleteProc()">
+					<input  class="btn btn-secondary btn-sm"type="button" value="선택항목 구매" onclick="javascript:purchaseProc()">
+					</td>
+					<td style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -163,7 +183,7 @@
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -178,26 +198,20 @@
 					<%}%>
 					<!-- 페이징 및 블럭 처리 End-->
 				</td>
-				
-				<td style="text-align: right;">		
-				<!-- 각종 이동 버튼 -->
-				<!-- 사용자 이동 버튼 출력  -->
-				<input type="button" value="목록 처음으로" onclick="javascript:baslist()">
-				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="장바구니 삭제" onclick="javascript:deleteProc()">
-				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="선택항목 구매" onclick="javascript:purchaseProc()">
-				</td>
 				</tr>
 				
 			</table>
-
+			<form name="listFrm" method="post">
+			<input type="hidden" name="reload" value="true"> 
+			<input type="hidden" name="nowPage" value="1">
+		</form>
+		</div>
 		</div>
 	</div>
 
 		<div id="aside">
-			<table>
-
+				<div class="table-responsive">
+				<table class="table table-borderless">
 				<tr>
 					<td><a href="../member/passCheck.jsp" title="회원정보수정">
 							회원정보수정</a></td>
@@ -213,11 +227,14 @@
 				</tr>
 			</table>
 		</div>
+		</div>
 
 		<footer>
 			&copy; 2018, 쇼핑몰이름 <br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
-
+		</div>
+		</div>
+	</div>
 	</div>
 	
 	<script type="text/javascript">

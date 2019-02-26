@@ -67,58 +67,68 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Purchase</title>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 <style type="text/css">
 table#innerTbl {
-	width:180%;
+	width: 200%;
+	text-align: center;
+}
+.fc {
 	text-align: center;
 }
 </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
-	<header class="top">
-			<img id="headerLogo" src="images/headerLogo.png" alt="로고">
-		</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col" style="text-align: center;">
+			<header>
+			<h1>SHOP NAME</h1>
+			</header>
+			</div>
+		</div>
 
 		<nav>
-			<ul>
-				<li><a href="productList.jsp?productType=outer" title="Outer">Outer</a></li>
-				<li><a href="productList.jsp?productType=top" title="Top">Top</a></li>
-				<li><a href="productList.jsp?productType=bottom" title="Bottom">Bottom</a></li>
-				&nbsp;<li>||</li>&nbsp;
-				<li><a href="../board/memberBoard/noticelist.jsp" title="Notice">Notice</a></li>
-				<li><a href="../admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
-				<li><a href="../board/freeBoard/freeList.jsp" title="freeBoard">FreeBoard</a></li>
-				<li><a href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
-				&nbsp;<li>||</li>&nbsp;
+				<ul class="nav nav-pills nav-fill flex-column flex-sm-row">
+				<li class="nav-item"><a  class="nav-link" href="productList.jsp?productType=outer" title="Outer">OUTER</a></li>
+				<li class="nav-item"><a class="nav-link" href="productList.jsp?productType=top" title="Top">TOP</a></li>
+				<li class="nav-item"><a class="nav-link" href="productList.jsp?productType=bottom" title="Bottom">BOTTOM</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/memberBoard/noticelist.jsp" title="Notice">NOTICE</a></li>
+				<li class="nav-item"><a class="nav-link" href="../admin/ad_Board/noticeFAQ.jsp" title="FAQ">FAQ</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/freeBoard/freeList.jsp" title="freeBoard">FREEBOARD</a></li>
+				<li class="nav-item"><a class="nav-link" href="../board/memberBoard/qnAlist.jsp" title="QnA">Q&A</a></li>
 			<%
 						if (mid != null) {
 			%>
-				<li><a href="../member/passCheck.jsp" title="MyPage">ID : <%= mid %></a></li>
-				<li><a href="../memberPage/basketPage.jsp" title="MyCart">MyCart</a></li>
-				<li><a href="../member/logout.jsp" title="">Logout</a></li>
-			<% 
+				<li class="nav-item"><a class="nav-link" href="../member/passCheck.jsp" title="MyPage">ID : <%= mid %></a></li>
+				<li class="nav-item"><a class="nav-link" href="memberPage/basketPage.jsp" title="MyCart">MYCART</a></li>
+				<li class="nav-item"><a class="nav-link" href="member/logout.jsp" title="">LOGOUT</a></li>
+		<% 
 						} else {
 			%>
-			<li><a href="../member/login.jsp" title="Login">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="../member/login.jsp" title="Login">LOGIN</a></li>
 			<%
 				}
 			%>			
 			</ul>
 		</nav>
-	<div id="tablecontainer">
-		<div class="tablerow">
+		
+		<div class="row">
+			<div class="col">
 			<div id="main" >
 			
 				<h4 style="text-align:center;"><%=mid %>님의 구매상품</h4>
 				<form name="purFrm" method="post">
-				
-				<table>
+				<div class="table-responsive">
+				<table class="table table-borderless table-condensed" style="text-align: left; width: 70%; margin: 0 auto;">
 				<tr>
 				<td colspan="4">
 				<hr>
@@ -126,7 +136,7 @@ table#innerTbl {
 				</tr>
 				<tr>
 				<td>
-				<table id="innerTbl">
+				<table id="innerTbl" class="table">
 				
 				<tr>
 				<td>상품종류</td>
@@ -180,11 +190,11 @@ table#innerTbl {
 				</tr>
 				
 				<tr>
-				<td>총 가격</td>
+				<td class="fc">총 가격</td>
 				<td><%=price %></td>
 				</tr>
 				<tr>
-				<td>지불가격</td>
+				<td class="fc">지불가격</td>
 				<% 
 				points -= usedPoints;
 				price -= usedPoints; %>
@@ -200,16 +210,16 @@ table#innerTbl {
 				</td>
 				</tr>
 				<tr>
-					<td>우편번호</td>
-					<td><input type="text" name="zipcode" size="7" readonly="readonly" value="<%=zipcode%>"></td>
+					<td class="fc">우편번호</td>
+					<td><input type="text" name="zipcode" size="10" readonly="readonly" value="<%=zipcode%>"></td>
 				</tr>
 
 				<tr>
-					<td>주소</td>
+					<td class="fc">주소</td>
 					<td><input type="text" name="address" size="40" readonly="readonly" value="<%=address %>"></td>
 				</tr>
 				<tr>
-					<td>지불 수단</td>
+					<td class="fc">지불 수단</td>
 					<td>
 					<% if(payment.equals("1")) out.println("신용카드"); 
 					else if(payment.equals("2")) out.println("계좌이체");
@@ -220,7 +230,7 @@ table#innerTbl {
 				</tr>
 				<tr>
 				<td colspan="4" style="text-align: center;">
-				<input type="button" value="구매" onclick="javascript:purProc()">
+				<input class="btn btn-secondary" type="button" value="구매" onclick="javascript:purProc()">
 				</td>
 				</tr>
 				
@@ -232,16 +242,22 @@ table#innerTbl {
 			<input type="hidden" name="points" value="<%=points %>">
 			<input type="hidden" name="usedPoints" value="<%=usedPoints %>">
 			<input type="hidden" name="payment" value="<%=payment %>">
+			</div>
 		</form>
 		</div>
 	</div>
 </div>
 		
+		<div class="row">
+		<div class="col">
 		<footer>
 			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
 		</footer>
+		</div>
+		</div>
+	</div>
 	</div>			
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 	function purProc(){
 		document.purFrm.method="get";

@@ -2,91 +2,70 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
 
 body {
-  	font-size : 16px;   
+  	font-size : 1em;   
   	font-family : "Nanum Gothic", Verdana, sans-serif;
-  	margin  :  20px;
-  	margin-top : 20px;
 }
 
 #wrap {
-	width: 800px;
+	width: 70%;
 	margin: 0 auto;
 }
 
-header.top {
-	background-color: #675c47;
-	margin: 10px;
-	height: 108px;
+header {
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
-header.top #headerLogo {
-	float: left;
-}
-
-header.top h2 {
-	clear: both;
-	text-align: center;
-}
-
-div#aside {
-	width: 150px;
-	height: 550px;
-	background-color: #efe5d0;
-	margin: 0 10px;
-}
-
-div#aside table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-div#aside table tr td {
-	width: 100%;
-	padding: 10px;
-}
-
-a:link, a:visited {
-	color: #954b4b;
-	text-decoration: none;
+h4{
 	font-weight: bold;
 }
 
-#aside table tr#selected {
-	background-color: #c8b99c;
+header h2 {
+	text-align: center;
 }
 
-div#main {
+
+a:hover {
+	text-decoration: none;
+	color: #ff919e;
+}
+
+#left, a:link, a:visited {
+	color:#606060;
+	font-weight: bold;
+}
+
+
+#aside table tr#selected {
+	background-color: #ffd9e0;
+}
+
+div#aside{
+	background-color:#f7f7f7;
+	color: #606060;
+	margin-top: 3%;
+	width: 30%;
+	height: 120%;
+	margin-bottom: 3%;
+	vertical-align: top;
+}
+
+div#main{
 	float: right;
-	width: 590px;
-	height: 520px;
-	background: #efe5d0 url(images/background.gif) top left;
-	font-size: 105%;
-	padding: 15px;
-	margin: 0 10px;
+	background-color: #f7f7f7;
+	color: #606060;
+	padding: 3%;
+	width: 68%;
+	height: 120%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	vertical-align: top;
 }
 
 footer {
 	clear: both;
-	background-color: #675c47;
-	color: #efe5d0;
+	color: #2d2d2d;
 	text-align: center;
-	padding: 15px;
-	margin: 10px;
-	font-size: 90%;
-	background-color: #675c47;
+	padding: 2%;
+	font-size: 0.9em;
 }
-
-/* passCheck.jsp, quitMember.jsp*/
-div#passCheckMain, div#quitMemberMain {
-	margin: 10px;
-	margin-top: 100px;
-	text-align: center;
-}
-
-/* accessPage.jsp*/
-div#accessPageMain table {
-	width: 100%;
-	border-collapse: collapse;
-	text-algin: center;
-}
-

@@ -13,8 +13,8 @@ header {
 }
 div#main {
 	color: #606060;
-	text-align: center;
 	padding-bottom: 5%;
+	text-align:center;
 	padding-top: 5%;
 	vertical-align: top;
 }
@@ -33,20 +33,32 @@ div#main {
 	color:black;
 }
 
-a#left:link {
+a#left:link, a#aleft:link {
 	text-decoration: none;
 	color: #2d2d2d;
+	font-size: 1.1em;
 }
 
-a#left:hover {
+a#left:hover, a#aleft:hover {
 	text-decoration: none;
 	color: #2d2d2d;
+	font-size: 1.1em;
 	font-weight: bold;
 }
 
-a#left:visited {
+a#left:visited, a#aleft:visited {
 	text-decoration: none;
+	font-size: 1.1em;
 	color: #2d2d2d;
+}
+
+.fc {
+background: #f7f7f7;
+text-align: center;
+}
+
+.rangeLeft{
+	text-align:left;
 }
 
 footer {
@@ -57,6 +69,13 @@ footer {
 }
 
 #wrap {
-	width: 60%;
+	width: 70%;
 	margin: 3% auto;
+}
+
+td#ct {
+background: #f7f7f7;
+padding: 5%;
+font-size: 1.3em;
+font-family: "Nanum Gothic", Verdana, sans-serif;
 }

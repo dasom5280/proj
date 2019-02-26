@@ -23,32 +23,46 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<style type="text/css">
+body {
+	background-color: #f7f7f7; 	
+}
+table {
+	font-size : 0.8em;
+	text-align: center;
+	font-size: 0.8em;
+}
+a {
+color: black;
+}
+a:hover {
+	text-decoration: none;
+	color: #ff919e;
+}
+</style>
 </head>
 <body>
 	<div id="wrap">
 	<div id="purchaseList">
-		<table>
+	<div class="table-responsive">
+			<table class="table table-condensed">	
 				<tr>
-					<td colspan="5">
+					
 						<%
 				  vlist = basMgr.getDeliverytList(id, start, totalRecord);
 					
 				  int listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("배송 중인 상품이 없습니다.");
+					out.println("<td colspan='5'>배송 중인 상품이 없습니다.");
 				  } else {
 			%>
-					<table id="inner">
-								<tr>
-									<td>상품종류</td>
-									<td>상품이름</td>
+									<td>종류</td>
+									<td>이름</td>
 									<td>수량</td>
-									<td>등록날짜</td>
+									<td>날짜</td>
 									<td>상태</td>
-								</tr>
-								<tr>
-									<td colspan="5"><hr></td>
 								</tr>
 								<%
 							 for (int i = 0;i<listSize; i++) {
@@ -72,9 +86,6 @@
 								</tr>
 								<%
 									} // for
-								%>
-							</table> 
-							<%
  							} // if
 							 %>
 					</td>
@@ -85,6 +96,7 @@
 				out.println("<p>페이지를 표시할 수 없습니다.</p>"); 
 				}%>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

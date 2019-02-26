@@ -13,11 +13,22 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Admin Main</title>
-
-
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <style type="text/css">
+body {
+color : #606060;
+}
 
+#wrap{
+padding: 3%;
+width: 60%;
+margin: 0 auto;
+}
 a:visited {
 color : black;
 text-decoration: none;
@@ -32,9 +43,6 @@ color : black;
 text-decoration: none;
 }
 </style>
-<link rel="stylesheet" href="style.css">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="../../js/ad_member.js"></script>
 
 </head>
 
@@ -45,15 +53,14 @@ text-decoration: none;
   
   <header>
   <div align="right">
-  	<a href="">관리자정보</a>
-   	&nbsp;&nbsp;<a href="adminLogout.jsp"> 로그아웃 </a>
+  <a href="adminLogout.jsp"> 로그아웃 </a>
   </div>
   
   <div align="center">
    <h1 id="title"><a href="adminMain.jsp"> 쇼핑몰이름 </a></h1>
   </div>
   </header>
-
+	<br><br>
  
  <div id="main" align="">
   <h3 title="회원관리">회원관리</h3>
@@ -79,7 +86,7 @@ text-decoration: none;
    </ul>
    
    </div>
-   
+   <br><br>
   <footer style="text-align: center">
    &copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
   </footer>
@@ -91,6 +98,8 @@ text-decoration: none;
 	response.sendRedirect("../index.jsp");
 }
 	%>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="../../js/ad_member.js"></script>
 
 </body>
 
