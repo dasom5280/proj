@@ -274,6 +274,15 @@
 		</form>
 	</div>
 	</div>
+	
+	<div class="row">
+		<div class="col">
+		<footer>
+			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+		</footer>
+		</div>
+	</div>
+	
 </div>
 </div>
 	<!-- 자바스크립트 구문 -->

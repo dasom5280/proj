@@ -50,7 +50,21 @@
 			<div class="col">
 			<header>
 			<div style="text-align:left;">
+				<%
+				if (memberbean != null && session.getAttribute("loginBean")==null) {
+					
+					int level = memberbean.getLevel();
+						if (level==2) {
+			%>
 				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			<% 
+				} 
+			}else {
+			%>
+			<a id="left" href="../../index.jsp" title="main">MAIN</a>
+			<%
+				}
+			%>	
 			</div>
 			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">공지사항</h1>
 			</header>
@@ -125,8 +139,18 @@
 	</div>
 	<script>
 	function list() {
+		<%if (memberbean != null && session.getAttribute("loginBean")==null) {
+			
+			int level = memberbean.getLevel();
+				if (level==2) {
+			%>
 		document.listFrm.action = "noticeList.jsp";
 		document.listFrm.submit();
+		<% } 
+		} else { %>
+			document.listFrm.action = "../../board/memberBoard/noticelist.jsp";
+			document.listFrm.submit();
+		<% } %>
 	}
 
 </script>

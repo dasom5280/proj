@@ -1,10 +1,39 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
 
-#notice {
+body {
+  	font-family : "Nanum Gothic";
+}
+
+#wrap {
 	width: 60%;
+	font-size : 1.4em;   
 	margin: 3% auto;
 	
-}					
+}
+header h1 {
+	text-align: center;
+	color: #2d2d2d;
+	font-weight: bold;
+}			
+
+a:link {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #2d2d2d;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+a:visited {
+	text-decoration: none;
+	font-size: 1.1em;
+	color: #2d2d2d;
+}
 .faq {
 	text-align: center;
 	margin: 10% 0;
@@ -48,21 +77,22 @@
 	line-height: 2%;
 	word-break: break-all;
 	text-align: center;
-	font-family: "Nanum Gothic", Verdana, sans-serif;
 }
 
 .ec-base-tab li {
 	display: inline-block;
 	text-align: center;
+	font-family: "Nanum Gothic";
 	color: #606060;
+	font-weight: bold;
 	border: 0;
-	width: 137px;
-	height: 37px;
+	width: 20%;
+	height: 10%;
 	background: #f8f8f8;
 	line-height: 2.8em;
 	border-radius: 0.7em;
-	color: #000;
 	margin-right: 2%;
+	vertical-align: top;
 }
 
 .ec-base-tab .tabs .current {

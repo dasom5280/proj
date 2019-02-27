@@ -5,7 +5,7 @@ body {
 }
 
 #wrap {
-	font-size : 1.4em;   
+	font-size : 1.2em;   
 	width: 60%;
 	margin: 0 auto;
 }
@@ -13,6 +13,9 @@ body {
 header {
 	margin-top: 5%;
 	margin-bottom: 5%;
+}
+
+header h1 {
 	font-weight: bold;
 	color: #2d2d2d;
 }
@@ -25,7 +28,7 @@ nav ul li a:link, nav ul li a:visited {
 	color: #606060;
 	border-bottom: none;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 #selected {

@@ -57,7 +57,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
@@ -150,7 +150,7 @@
 											<% 
 											if(proNum> pMgr.getTotalCount() - 10)//신상품 상위 10개만 도출 -전체상품에서 상위 10개
 												out.println("<span class='badge badge-warning'>new</span>");
-											if (sale==1) out.println("<span class='badge badge-danger'>sale!</span>&nbsp;"); 
+											if (sale==1) out.println("<span class='badge badge-danger'>sale!</span>"); 
 											%>
 											<%=proName %></a>
 											</td>

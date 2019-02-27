@@ -3,12 +3,9 @@
 
 <%@page import="java.util.Vector"%>
 <jsp:useBean id="bMgr" class="pack_JDBC.BoardMgr" />
-<%@page import="pack_Bean.MemberBean"%>
 <%@page import="pack_Bean.BoardBean"%>
-<jsp:setProperty name="bean" property="*" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	MemberBean bean = (MemberBean) session.getAttribute("adminBean");
 	
 
 	int totalRecord = 0; //전체레코드수
@@ -202,6 +199,8 @@
 					   <a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
 					   <% }%>&nbsp;
 					<% }%> <!-- 페이징 및 블럭 처리 End-->
+					&nbsp;
+					<input class="btn btn-secondary" type="button" value="목록처음으로" onclick="javascript:nlist()">
 				</td>
 			</tr>
 		</table>
@@ -251,12 +250,23 @@
 		</form>
 		</div>
 		</div>
+		
+		<div class="row">
+		<div class="col">
+		<footer>
+			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+		</footer>
+		</div>
+		
+	</div>
 	</div>
 	</div>
 	
-
-<script src=../../js/script.js></script>
 <script>
+	function nlist() {
+		document.listFrm.action = "noticelist.jsp";
+		document.listFrm.submit();
+	}
 	function pageing(page) {
 		document.readFrm.nowPage.value = page;
 		document.readFrm.submit();
@@ -271,7 +281,7 @@
 
 	function read(num) {
 		document.readFrm.num.value = num;
-		document.readFrm.action = "read.jsp";
+		document.readFrm.action = "../../admin/ad_Board/noticeRead.jsp";
 		document.readFrm.submit();
 	}
 

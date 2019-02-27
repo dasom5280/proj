@@ -10,39 +10,12 @@
 <head>
 <meta charset="UTF-8">
 <title>SHOPNAME</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/faqStyle.css" />
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
-<link rel="stylesheet" href="../../css/ad_Board.css" />
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-$(document).ready(function(){
-	   
-	  $('ul.tabs li').click(function(){
-	    var tab_id = $(this).attr('data-tab');
-	 
-	    $('ul.tabs li').removeClass('current');
-	    $('.tab-content').removeClass('current');
-	 
-	    $(this).addClass('current');
-	    $("#"+tab_id).addClass('current');
-	  })
-	 
-	})
-
-	$(function(){
-		$("#accordian dt").click(function(){
-			$("#accordian dl dd").slideUp();
-			if(!$(this).next().is(":visible"))
-			{
-				$(this).next().slideDown();
-			}
-		})
-	})
-	</script>
 <style>
 </style>
 </head>
@@ -51,7 +24,7 @@ $(document).ready(function(){
 	<div id="notice">
 	<div align="left">
 		<%
-				if (abean != null) {
+				if (abean != null && session.getAttribute("loginBean")==null) {
 					
 					int level = abean.getLevel();
 						if (level==2) {
@@ -66,8 +39,10 @@ $(document).ready(function(){
 				}
 			%>	
 	</div>
-	
+	<header>
 	<h1>FAQ</h1>
+	<br><br>
+	</header>
 	
 		<div id="tabProduct" class="ec-base-tab">
 			<ul class="tabs">
@@ -272,10 +247,37 @@ $(document).ready(function(){
 			</div>
 		</div>
 		</div>
-	</div>
-	
+		
 	<footer style="text-align:center;">
 			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
-		</footer>
+	</footer>
+	</div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document).ready(function(){
+	   
+	  $('ul.tabs li').click(function(){
+	    var tab_id = $(this).attr('data-tab');
+	 
+	    $('ul.tabs li').removeClass('current');
+	    $('.tab-content').removeClass('current');
+	 
+	    $(this).addClass('current');
+	    $("#"+tab_id).addClass('current');
+	  })
+	 
+	})
+
+	$(function(){
+		$("#accordian dt").click(function(){
+			$("#accordian dl dd").slideUp();
+			if(!$(this).next().is(":visible"))
+			{
+				$(this).next().slideDown();
+			}
+		})
+	})
+	</script>
+
 </body>
 </html>

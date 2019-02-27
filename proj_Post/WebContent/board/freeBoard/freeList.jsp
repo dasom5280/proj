@@ -219,7 +219,7 @@
 					&nbsp;	
 					<!-- 각종 이동 버튼 -->
 					<!-- 사용자 이동 버튼 출력  -->
-						<div class="btn-group btn-sm" role="group" aria-label="Basic example">
+					<div class="btn-group btn-sm" role="group" aria-label="Basic example">
 					<input class="btn btn-secondary" type="button" value="목록처음으로" onclick="flist()">
 					<%if(lobean != null){
 						%>
@@ -275,6 +275,15 @@
 		</form>
 		</div>
 		</div>
+		
+		<div class="row">
+		<div class="col">
+		<footer>
+			&copy; 2018, 쇼핑몰이름<br>이 사이트의 모든 상표와 등록된 상표는 해당 소유자의 자산입니다.
+		</footer>
+		</div>
+		</div>
+		
 	</div>
 	</div>
 	<script src=../js/script.js></script>

@@ -24,6 +24,12 @@
 <head>
 <meta charset="UTF-8">
 <title>SHOPNAME</title>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <style type="text/css">
 .detail {
 text-align: left;
@@ -35,17 +41,10 @@ margin: 0 auto;
 
 td {
 color: #606060;
-font-size: 1.2em;
+font-size: 1.1em;
 font-weight: 140;
 }
 </style>
-<link rel="stylesheet" href="../css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
-<link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-<link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
 </head>
 
 <body>
@@ -139,13 +138,7 @@ font-weight: 140;
 									onclick="javascript:purchaseProc('<%=id%>')"></td>
 							</tr>
 							<tr>
-								<td><br></td>
-							</tr>
-							<tr>
 								<td colspan="3"><hr></td>
-							</tr>
-							<tr>
-								<td><br></td>
 							</tr>
 							<tr>
 								<td colspan="3"><%=pbean.getExplanation()%></td>
