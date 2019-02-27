@@ -55,7 +55,7 @@ public class MemberMgr {
 	}
 //////////////////// ID 중복확인 끝 ////////////////////	
 
-////////////////////우편번호 검색 시작 ////////////////////
+////////////////////구 우편번호 검색 시작 코드 현재 사용X ////////////////////
 	public Vector<ZipcodeBean> zipcodeRead(String area3) {
 
 		Connection objConn = null;
