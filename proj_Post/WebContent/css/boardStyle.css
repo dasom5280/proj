@@ -3,8 +3,12 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
 
 body {
-  	font-size : 1em;   
   	font-family : "Nanum Gothic", Verdana, sans-serif;
+}
+#wrap {
+  	font-size : 1.4em;   
+	width: 60%;
+	margin: 3% auto;
 }
 
 header {
@@ -66,11 +70,6 @@ footer {
 	text-align: center;
 	padding: 2%;
 	font-size: 0.9em;
-}
-
-#wrap {
-	width: 70%;
-	margin: 3% auto;
 }
 
 td#ct {

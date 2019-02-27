@@ -56,41 +56,11 @@
 <meta charset="UTF-8">
 <title>ADMIN</title>
 <link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/prolistStyle.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<style>
-#wrap{
-width: 70%;
-margin: 0 auto;
-padding: 3%;
-font-size: 0.9em;
-}
-
-a:link, a#aleft:link {
-	text-decoration: none;
-	color: #2d2d2d;
-	font-size: 1.1em;
-}
-
-a:hover, a#aleft:hover {
-	text-decoration: none;
-	color: #2d2d2d;
-	font-size: 1.1em;
-	font-weight: bold;
-}
-
-a:visited, a#aleft:visited {
-	text-decoration: none;
-	font-size: 1.1em;
-	color: #2d2d2d;
-}
-table{
-text-align:center;
-}
-</style>
-
 </head>
 <body>
 	<div id="wrap">

@@ -75,11 +75,6 @@
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<style type="text/css">
-body{
-font-size: 0.9em;
-}
-</style>
 </head>
 <body>
 	<div id="wrap">
@@ -114,7 +109,7 @@ font-size: 0.9em;
 					
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("등록된 게시물이 없습니다.");
+					out.println("<td>등록된 게시물이 없습니다.</td></tr></table>");
 				  } else {
 			%>
 							<th>번 호</th>
@@ -193,12 +188,12 @@ font-size: 0.9em;
 				</td>
 			</tr>	
 			<tr>
-			<td>
+			<td colspan="8">
 			<hr>
 			</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td colspan="8" style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호

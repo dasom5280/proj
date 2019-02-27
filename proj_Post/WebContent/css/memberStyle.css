@@ -2,11 +2,14 @@
 
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
 
-body {
-  	font-size : 1em;   
+body {  	
   	font-family : "Nanum Gothic", Verdana, sans-serif;
 }
-
+#wrap {
+	font-size : 1.4em;   
+	width: 35%;
+	margin: 3% auto;
+}
 header {
 	margin-top: 5%;
 	margin-bottom: 5%;
@@ -23,7 +26,3 @@ div#main {
 	margin: 0 auto;
 }
 
-#wrap {
-	width: 40%;
-	margin: 3% auto;
-}

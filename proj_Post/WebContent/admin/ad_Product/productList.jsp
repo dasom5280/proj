@@ -4,9 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:useBean id="pMgr" class="pack_JDBC.ProductMgr" scope="page" />
-
-<!-- <hr>의 의미 : 줄 -->
-
 <%
 	request.setCharacterEncoding("UTF-8");
 	MemberBean abean = (MemberBean)session.getAttribute("adminBean");
@@ -71,42 +68,11 @@
 <meta charset="UTF-8">
 <title>ADMIN</title>
 <link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/prolistStyle.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<style>
-#wrap{
-width: 70%;
-margin: 0 auto;
-padding: 3%;
-font-size: 0.9em;
-}
-
-a:link, a#aleft:link {
-	text-decoration: none;
-	color: #2d2d2d;
-	font-size: 1.1em;
-}
-
-a:hover, a#aleft:hover {
-	text-decoration: none;
-	color: #2d2d2d;
-	font-size: 1.1em;
-	font-weight: bold;
-}
-
-a:visited, a#aleft:visited {
-	text-decoration: none;
-	font-size: 1.1em;
-	color: #2d2d2d;
-}
-
-table{
-text-align:center;
-}
-</style>
-
 </head>
 <body>
 	<div id="wrap">
@@ -132,7 +98,7 @@ text-align:center;
 				<td colspan="2">
 				<table class="table table-borderd">
 				<tr>
-				<td colspan="9" style="text-align: right; color: #606060;">총 상품 : <%=totalRecord%> 개
+				<td colspan="10" style="text-align: right; color: #606060;">총 상품 : <%=totalRecord%> 개
 				</td>
 				</tr>
 				<tr id="title">
@@ -156,7 +122,7 @@ text-align:center;
 				<th>삭제</th>
 			</tr>
 			<tr>
-				<td colspan="9"><hr></td>
+				<td colspan="10"><hr></td>
 			</tr>
 						
 						<%
@@ -196,7 +162,7 @@ text-align:center;
 				</td>
 			</tr>
 			<tr>
-			<td colspan="9">
+			<td colspan="10">
 			<hr>
 			</td>
 			</tr>

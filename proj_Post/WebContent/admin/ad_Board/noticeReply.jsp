@@ -50,13 +50,13 @@
 				<tr>
 						<td class="fc">제 목</td>
 						<td>
-							<input type="text" name="subject" size="83%"
+							<input type="text" name="subject" size="98%"
 		 					 maxlength="50">
 						</td>
 				</tr>
 				<tr>
 					<td class="fc">아이디</td>
-					<td><input type="text" name="name" size="30" maxlength="20" readonly="readonly" value="관리자">
+					<td><input type="text" name="name" size="25%" maxlength="20" readonly="readonly" value="관리자">
 					</td>
 				</tr>
 				<tr>
@@ -64,7 +64,7 @@
 					<td> 
 					[원본글내용입니다]<br><br>
 					<%=content%><br><br>
-					<textarea 	name="content" cols="85%" rows="10%"></textarea>
+					<textarea 	name="content" cols="100%" rows="15%"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -75,9 +75,9 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center;">
-						<input type="submit" value="답변등록"> 
-						<input type="reset" value="다시쓰기"> 
-						<input type="button" value="뒤로" onclick="history.back()">
+						<input  class="btn btn-secondary"  type="submit" value="답변등록"> 
+						<input  class="btn btn-secondary"  type="reset" value="다시쓰기"> 
+						<input  class="btn btn-secondary"  type="button" value="뒤로" onclick="history.back()">
 					</td>
 				</tr>
 			</table>

@@ -36,59 +36,66 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>JSP Board</title>
-
-<link rel="stylesheet" href="../../css/style.css">
-
-<style>
-table{
-border-collapse: collapse;
-}
-
-td {
-padding: 10px;
-border: 1px solid gray;
-}
-</style>
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="../../css/boardStyle.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
-	<div class="wrap" id="readWrap">
-		<table class="readTable">
+	<div id="wrap" >
+	<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">Q&A관리</h1>
+			</header>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div id="main" style="text-align:left;">
+				<div class="table-responsive" style="background-color: white;">
+			<table class="table" >
 			<tr>
-				<td colspan="4">글읽기</td>
-			</tr>
+					<td class="fc">제 목</td>
+					<td colspan="5"><%=subject%></td>
+				</tr>
 				<tr>
-			<td>상품이름</td>
-			<td colspan="3"><%=productName%></td>
-			</tr>
-			<tr>
-				<td>아이디</td>
-				<td><% if(level==2){out.println("관리자");} else {out.println(id);}%></td>
-				<td>등록날짜</td>
-				<td><%=regdate%></td>
-			</tr>
-			<tr>
-			<td>아이피</td>
-			<td colspan="3"><%=ip%></td>
-			</tr>
-
-			<tr>
-				<td>제 목</td>
-				<td colspan="3"><%=subject%></td>
-			</tr>
-			
-			<tr>
-				<td colspan="4"><pre><%=content%></pre></td>
-			</tr>
-			<tr>
-				<td colspan="4"><a href="javascript:list()" title="">상품문의 메인</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-
-				<!-- 관리자는 답변 뜨고 사용자는 수정, 삭제 뜨도록 -->
-				<a href="javascript:replyProcess()">답 변</a>
-				</td>
-			</tr>
+					<td class="fc">상품이름</td>
+					<td colspan="5"><%=productName%></td>
+				</tr>
+				<tr>
+					<td class="fc">아이디</td>
+					<td><%= id%></td>
+					<td class="fc">등록날짜</td>
+					<td><%=regdate%></td>
+					<td class="fc">아이피</td>
+					<td><%=ip%></td>
+				</tr>
+				<tr>
+					<td colspan="6" id="ct"><pre><%=content%></pre></td>
+				</tr>
+				<tr>
+					<td colspan="6" style="text-align: center; padding: 3%;">
+					<a class="btn btn-secondary" href="javascript:list()" title="">목록</a>
+	
+					<!-- 관리자는 답변 뜨고 사용자는 수정, 삭제 뜨도록 -->
+					<a class="btn btn-secondary" href="javascript:replyProcess()">답 변</a>
+					</td>
+				</tr>
 		</table>
-
+		</div>
+		</div>
+		</div>
+		</div>
+		
 		<form name="qnaFrm" method="post">
 				<input type="hidden" name="num" value="<%=num%>">
 				<input type="hidden" name="nowPage" value="<%=nowPage %>">
@@ -109,6 +116,7 @@ border: 1px solid gray;
 		<%
 	}
 		%>
+	</div>
 	</div>
 	<script>
 		function list() {

@@ -65,40 +65,52 @@
 <html lang="KO">
 <head>
 <meta charset="UTF-8">
-<title>상품관리</title>
-<style type="text/css">
-table tr td, table tr th{
-padding: 10px;
-}
-</style>
-<link rel="stylesheet" href="../css/style.css">
-<script src=js/script.js></script>
-
+<title>ADMIN</title>
+<link rel="stylesheet" href="../../css/boardStyle.css">
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
 	<div id="wrap">
-
-		<h1>상품문의관리-답변대기목록</h1>
-		<table class="listTbl">
-			<tr>
-				<td>전체 글 : <%=totalRecord%> 개(<span style="color : brown">
-						<%=nowPage%>/<%=totalPage%>Pages</span> )
-				</td>
-			</tr>
-		</table>
-		<table class="listTbl">
-			<tr>
+	<div class="container-fluid">
+		
+		<div class="row">
+			<div class="col">
+			<header>
+			<div style="text-align:left;">
+				<a id="aleft" href="../adminMain.jsp" title="adminMain">관리자 메인</a>
+			</div>
+			<h1 style="text-align:center; font-weight: bold; color: #2d2d2d;">Q&A관리</h1>
+			<br>
+			<h3 style="text-align:center; color: #2d2d2d;">답변대기목록</h3>
+			</header>
+			</div>
+		</div>
+	
+		<div class="row">
+				<div class="col">
+				<div id="main">
+				<div class="table-responsive">
+				<table class="table table-borderless">
+				<tr>
 				<td colspan="2">
-					<%
+				<table class="table table-borderd">
+				<tr>
+				<td colspan="8" style="text-align: right; color: #606060;">전체 글 : <%=totalRecord%> 개(
+						<%=nowPage%>/<%=totalPage%>Pages)</td>
+				</tr>
+				<tr id="title">
+				<%
 				  vlist = qMgr.getReplyList(keyField, keyWord, start, end);
 					
 				  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 				  if (vlist.isEmpty()) {
-					out.println("등록된 게시물이 없습니다.");
+					out.println("<td>등록된 게시물이 없습니다.</td></tr></table>");
 				  } else {
 			%>
-					<table id="listInnerTbl">
-						<tr>
 							<th>번 호</th>
 							<th>제목</th>
 							<th>아이디</th>
@@ -109,7 +121,7 @@ padding: 10px;
 							<th>삭제처리</th>
 						</tr>
 						<tr>
-							<td colspan="5"><hr></td>
+							<td colspan="8"><hr></td>
 						</tr>
 						<%
 							 for (int i = 0;i<numPerPage; i++) {
@@ -144,7 +156,7 @@ padding: 10px;
 											out.println("&nbsp;&nbsp;");
 									}
 								%>	
-									ㄴ
+									<img src="../../images/replyImg.png" alt="답변">		
 								<%								
 								}
 								%>
@@ -153,7 +165,7 @@ padding: 10px;
 								list=>read 로 링크할 때 해당 글번호임을 알려주는
 								열쇠가 된다.(키값)
 								 -->
-								 <a href="javascript:read('<%=num%>')" title="">
+								 <a id="subtitle" href="javascript:read('<%=num%>')" title="">
 								 <%=subject%>
 								 </a>
 							</td>
@@ -175,7 +187,12 @@ padding: 10px;
 				</td>
 			</tr>
 			<tr>
-				<td>
+			<td colspan="8">
+			<hr>
+			</td>
+			</tr>
+			<tr>
+				<td colspan="8" style="text-align: right;">
 					<!-- 페이징 및 블럭 처리 Start-->
 			 <%
    				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
@@ -192,7 +209,7 @@ padding: 10px;
 					 <% for ( ; pageStart < pageEnd; pageStart++){ %>
 					  <a href="javascript:pageing('<%=pageStart %>')" title=""> 
 					  <% if (pageStart==nowPage) { %>
-					  <span style="color : brown; font-weight:bold">[
+					  <span style="color : #ff919e; font-weight:bold">[
 					  <%}%>
                       <%=pageStart %>
 					  <% if (pageStart==nowPage) { %>]
@@ -205,25 +222,31 @@ padding: 10px;
 					   <a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
 					   <%}%>&nbsp;
 					<%}%> <!-- 페이징 및 블럭 처리 End-->
-				</td>
-				<td>
-				
+				&nbsp;
 				<!-- 각종 이동 버튼 -->
-				<input type="button" value="목록처음으로" onclick="flist()">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="상품문의메인" onclick="location.href='qnAlist.jsp'">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="삭제하기" onclick="deleteProcess()">
-				
+				<div class="btn-group" role="group" aria-label="Basic example">
+				<input class="btn btn-secondary" type="button" value="Q&A관리" onclick="location.href='qnAlist.jsp'">
+				<input class="btn btn-secondary" type="button" value="목록처음으로" onclick="flist()">
+				<input class="btn btn-secondary"  type="button" value="삭제하기" onclick="deleteProcess()">
+				</div>
 				</td>
 			</tr>
 		</table>
-		<hr>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col" align="center">	
 		<form name="searchFrm" method="post" action="qnAlist.jsp">
-			<table>
+			<table class="table-borderless">
 				<tr>
 					<td> <!--
 					 	keyWord = "";
 						keyField = ""; -->
-					<select name="keyField" size="1">	
+					<div class="input-group input-group-sm mb-3">
+					<select class="custom-select" name="keyField" size="1">	
 									
 							<option value="productName" 
 							<% if(keyField.equals("productName")){%>selected="selected"<%}%> >상품이름</option>						
@@ -234,9 +257,12 @@ padding: 10px;
 							<option value="content" 
 							<% if(keyField.equals("content")){%>selected="selected"<%}%>>내 용</option>
 				</select> 
-					<input type="text" size="16" name="keyWord" value="<%=keyWord%>"> 
-					<input type="button" value="찾기" onClick="javascript:check()"> 
+					<input type="text" class="form-control" size="16" name="keyWord" value="<%=keyWord%>"> 
+					<div class="input-group-append">
+					<input class="btn btn-outline-secondary"  type="button" value="찾기" onClick="javascript:check()"> 
 					<input type="hidden" name="nowPage" value="1">
+					</div>
+					</div>
 					</td>
 				</tr>
 			</table>
@@ -252,6 +278,9 @@ padding: 10px;
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
 	</div>
+	</div>
+</div>
+</div>
 	
 	<!-- 자바스크립트 구문 -->
 	<script type="text/javascript">

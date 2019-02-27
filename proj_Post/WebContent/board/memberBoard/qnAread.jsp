@@ -33,23 +33,12 @@
 <head>
 <meta charset="UTF-8">
 <title>SHOPNAME</title>
-<style type="text/css">
-
-
-a.bt {
-color: #606060;
-font-size: 1.2em;
-font-weight: bold;
-}
-
-</style>
 <link rel="stylesheet" href="../../css/bootstrap.css">
 <link rel="stylesheet" href="../../css/boardStyle.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
 </head>
 <body>
 	<div id="wrap">

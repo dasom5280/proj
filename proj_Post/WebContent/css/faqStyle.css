@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic");
+
+#notice {
+	width: 60%;
+	margin: 3% auto;
+	
+}					
+.faq {
+	text-align: center;
+	margin: 10% 0;
+	width: 100%
+}
+
+#faq02 {
+	display: none
+}
+
+#faq03 {
+	display: none
+}
+
+#faq04 {
+	display: none
+}
+
+.tabs li {
+	cursor: pointer
+}
+
+.tab-content {
+	display: none;
+}
+
+.tab-content.current {
+	display: inherit;
+}
+
+
+/*항목*/
+.ec-base-tab:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.ec-base-tab ul {
+	font-size: 0.9em;
+	line-height: 2%;
+	word-break: break-all;
+	text-align: center;
+	font-family: "Nanum Gothic", Verdana, sans-serif;
+}
+
+.ec-base-tab li {
+	display: inline-block;
+	text-align: center;
+	color: #606060;
+	border: 0;
+	width: 137px;
+	height: 37px;
+	background: #f8f8f8;
+	line-height: 2.8em;
+	border-radius: 0.7em;
+	color: #000;
+	margin-right: 2%;
+}
+
+.ec-base-tab .tabs .current {
+	background: #fce9ea
+}
+
+.ec-base-tab a {
+	display: flex;
+	flex-basis: 100%;
+	justify-content: center;
+	flex-wrap: nowrap;
+	align-items: center;
+	padding: 5px 10px;
+}
+
+.ec-base-tab li:first-child {
+	border-left: 0;
+}
+
+.ec-base-tab li.selected a {
+	border-left: 0;
+	font-weight: bold;
+	color: #fffffd;
+	background: #4a5164;
+}
+
+.ec-base-tab:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.faqlist {
+	border-top: 1px solid #BCBCBC;
+	color: #666666;
+	font-size: 0.9em;
+	line-height: 180%;
+}
+
+.faqlist dl {
+	margin: 0;
+	padding: 0;
+}
+
+.faqlist dt {
+	border-bottom: 1px solid #DADADA;
+	background: url(/web/upload/q.gif) no-repeat 25px center;
+	padding: 5px 0 5px 50px;
+	cursor: pointer;
+	margin: 0;
+	text-align: left
+}
+
+.faqlist dd {
+	border-bottom: 1px solid #DADADA;
+	background: url(/web/upload/a.gif) no-repeat 25px 25px #F3F4F6;
+	padding: 25px 0 25px 50px;
+	margin: 0;
+	text-align: left
+}
+
+#accordian dl dd {
+	display: none;
+}
+
+#accordian dt.active dd {
+	display: block;
+}
+
